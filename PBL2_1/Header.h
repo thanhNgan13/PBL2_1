@@ -9,13 +9,13 @@
 #pragma warning(disable : 4996)
 
 using namespace std;
-int checkAd = 1;
-int checkUS = 1;
-int checkEx = 1;
-int checkSb = 1;
-int checkCl = 1;
+static int checkAd = 1;
+static int checkUS = 1;
+static int checkEx = 1;
+static int checkSb = 1;
+static int checkCl = 1;
 
-wstring subStr(wstring s) {
+inline wstring subStr(wstring s) {
 	int index1 = 0;
 	int index2 = 0;
 	for (int i = 0; i < s.length(); i++) {
@@ -30,7 +30,7 @@ wstring subStr(wstring s) {
 	return reslut;
 }
 
-int hashCode(wstring s) {
+inline int hashCode(wstring s) {
 	int sum = 0;
 	int i = 0;
 	while (s[i] != NULL)
@@ -40,7 +40,7 @@ int hashCode(wstring s) {
 	}
 	return (int)fabs(sum % 2000);
 }
-wstring Upper(wstring s) {
+inline wstring Upper(wstring s) {
 	if (s[0] != L' ') {
 		s[0] = towupper(s[0]);
 		for (int i = 1; i < s.length(); i++) {
@@ -50,19 +50,19 @@ wstring Upper(wstring s) {
 	}
 	return s;
 }
-wchar_t* convertCharArrayToLPCWSTR(const char* charArray)
+inline wchar_t* convertCharArrayToLPCWSTR(const char* charArray)
 {
 	wchar_t* wString = new wchar_t[4096];
 	MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
 	return wString;
 }
-void textcolor(int x)
+inline void textcolor(int x)
 {
 	HANDLE mau;
 	mau = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(mau, x);
 }
-void gotoxy(short x, short y)
+inline void gotoxy(short x, short y)
 {
 	static HANDLE h = NULL;
 	if (!h)
@@ -70,17 +70,17 @@ void gotoxy(short x, short y)
 	COORD c = { x,y };
 	SetConsoleCursorPosition(h, c);
 }
-void wirteChar(int x, int y, const wchar_t* z) {
+inline void wirteChar(int x, int y, const wchar_t* z)  {
 	gotoxy(x, y);
 	wcout << z;
 }
-void writeString(int x, int y, const wchar_t s[], int mau)
+inline void writeString(int x, int y, const wchar_t s[], int mau)
 {
 	gotoxy(x, y);
 	textcolor(mau);
 	wcout << s;
 }
-int catchEvents()
+inline int catchEvents()
 {
 	int c = getch();
 	if (c == 8) //phim Backspace
@@ -115,7 +115,7 @@ int catchEvents()
 	}
 }
 
-void bangmenu(int x, int y, int m, int n, int mau)
+inline void bangmenu(int x, int y, int m, int n, int mau)
 {
 	int i, j;
 	textcolor(mau);
@@ -138,7 +138,7 @@ void bangmenu(int x, int y, int m, int n, int mau)
 				wirteChar(i, j, L"─");
 		}
 }
-void tbmenu(int x, int y)
+inline void tbmenu(int x, int y)
 {
 	int i, j;
 	for (i = x; i <= x + 90; i++)
@@ -165,7 +165,7 @@ void tbmenu(int x, int y)
 		}
 }
 
-void setFontSize(int FontSize)
+inline void setFontSize(int FontSize)
 {
 	CONSOLE_FONT_INFOEX info = { 0 };
 	info.cbSize = sizeof(info);
@@ -175,7 +175,7 @@ void setFontSize(int FontSize)
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
 }
 
-void menuDisplaySt(int x, int y, int sl)
+inline void menuDisplaySt(int x, int y, int sl)
 {
 	int i, j;
 	textcolor(2);
@@ -219,7 +219,7 @@ void menuDisplaySt(int x, int y, int sl)
 		writeString(x + 77, y + 1, L"Điểm", 11);
 	}
 }
-void menuDisplay(int x, int y, int sl)
+inline void menuDisplay(int x, int y, int sl)
 {
 	int i, j;
 	textcolor(2);

@@ -127,14 +127,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="informationClass.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Questions.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Students.cpp" />
+    <ClCompile Include="Subjects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
+    <ClInclude Include="informationClass.h" />
     <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Node.h" />
+    <ClInclude Include="Questions.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="Students.h" />
+    <ClInclude Include="Subjects.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="listClass.txt" />
+    <Text Include="listSubject.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
