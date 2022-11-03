@@ -1,0 +1,86 @@
+12
+A01
+1
+Ca la gi ?
+Sat
+Dong
+Kem
+Canxi
+D
+2
+Fe la gi ?
+Sat
+Dong
+Kem
+Canxi
+A
+3
+Cu la gi ?
+Sat
+Dong
+Kem
+Canxi
+B
+4
+Zn la gi ?
+Sat
+Dong
+Kem
+Canxi
+C
+5
+Hg la gi ?
+Sat
+Dong
+Kem
+Thuy ngan
+D
+6
+Li la gi ?
+Sat
+Dong
+Liti
+Canxi
+C
+7
+H la gi ?
+Sat
+Hidro
+Kem
+Canxi
+B
+8
+Kim loai nao sao day khong tac dung duoc voi dd H2SO4 dac nguoi la gi ?
+Na
+Zn
+Pb
+Cu
+D
+9
+CnH2n la cong thuc cua?
+Ankan
+Anken
+Ankadien
+Ankin
+B
+10
+CnH2n-2 la cong thuc cua?
+Ankan
+Anken
+Ankadien
+Ankin
+D
+11
+CnH2n+2 la cong thuc cua?
+Ankan
+Anken
+Ankadien
+Ankin
+A
+12
+Saccarozo co cong thuc hoa hoc la?
+C12H22O11
+C6H12O6
+C2H4
+C3H6
+A
