@@ -1,4 +1,4 @@
-4
+6
 Hóa
 A02
 Mĩ Thuật
@@ -7,3 +7,7 @@ Toán
 A00
 Lịch Sử
 L456
+Van
+L111
+Đia Lý
+L506

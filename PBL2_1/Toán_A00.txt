@@ -1,16 +1,79 @@
-2
+11
 A00
-914
-5 * 5 Bằng Mấy?
-10
-15
-25
-30
-C
-47
-2^2 Bằng Mấy
 4
+2 + 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+C
+5
+3 + 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+D
+6
+2 * 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+D
+7
+10 + 3 Bang Bao Nhieu ?
+3
+4
+13
+6
+C
 8
-16
-32
+8 * 6 Bang Bao Nhieu ?
+3
+4
+48
+6
+C
+9
+15 : 5 Bang Bao Nhieu ?
+3
+4
+5
+6
 A
+10
+10 - 5 Bang Bao Nhieu ?
+3
+4
+5
+6
+C
+11
+6 - 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+A
+12
+2 + 2 Bang Bao Nhieu ?
+3
+4
+5
+6
+B
+13
+5 * 5 Bang May
+5
+10
+5
+25
+D
+15
+2 Giai Thua Bang May
+1
+2
+3
+4
+B

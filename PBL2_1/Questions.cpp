@@ -2,9 +2,7 @@
 #include "Header.h"
 #include <iostream>
 
-
 using namespace std;
-
 
 void Questions::setId(int id) {
 	this->id = id;
@@ -96,13 +94,20 @@ wistream& operator>>(wistream& in, Questions& x) {
 }
 
 wostream& operator<<(wostream& out, const Questions& x) {
+	//gotoxy(50, 1);
 	wcout << L"Id: " << x.id << endl;
 	wcout << L"Nội dung câu hỏi: ";
+	//gotoxy(50, 3);
 	wcout << x.contentQuestions << endl;
+	//gotoxy(50, 4);
 	wcout << L"Các đáp án: " << endl;
+	//gotoxy(50, 5);
 	wcout << L"A. " << x.A << endl;
+	//gotoxy(50, 6);
 	wcout << L"B. " << x.B << endl;
+	//gotoxy(50, 7);
 	wcout << L"C. " << x.C << endl;
-	wcout << L"D. " << x.D << endl;
+	//gotoxy(50, 8);
+	wcout << L"D. " << x.D << endl;;
 	return out;
 }

@@ -1,6 +1,15 @@
 ﻿#pragma once
 #include <iostream>
+#include "Header.h"
 using namespace std;
+inline void gotoxy1(short x, short y)
+{
+	static HANDLE h = NULL;
+	if (!h)
+		h = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD c = { x,y };
+	SetConsoleCursorPosition(h, c);
+}
 
 template <typename T>
 class Node
@@ -26,10 +35,9 @@ inline Node<T>::Node(T val)
 template<typename T>
 class LinkedList
 {
-private:
+public:
 	Node<T>* head;
 	int size;
-public:
 	const static int SORT_ASC = 0;
 	const static int SORT_DESC = 1;
 	LinkedList();
@@ -79,6 +87,9 @@ inline void LinkedList<T>::Delete(T value)
 {
 	Node<T>* current = head;
 	Node<T>* prev = nullptr;
+	if (current == nullptr) {
+		wcerr << L"Danh sách rỗng không thể xóa!" << endl;
+	}
 	if (current != nullptr && current->data == value) {
 		head = current->next;
 		delete current;
@@ -102,6 +113,9 @@ template<typename T>
 inline void LinkedList<T>::Delete()
 {
 	Node<T>* current = head;
+	if (head == nullptr) {
+		return;
+	}
 	do {
 		Node<T>* temp = current;
 		current = current->next;
@@ -124,15 +138,22 @@ inline Node<T>* LinkedList<T>::Search(T value)
 	return nullptr;
 }
 
+
 template<typename T>
 inline void LinkedList<T>::Display()
 {
 	Node<T>* current = head;
-	wcout << L"Kích thước " << size << endl;
+	if (current == nullptr) {
+		wcout << L"Nothing!";
+	}
+	//wcout << L"Kích thước " << size << endl;
+	int y = 6;
 	while (current != nullptr)
 	{
-		wcout << current->data << endl;
+		gotoxy1(68, y);
+		wcout << current->data;
 		current = current->next;
+		y++;
 	}
 	wcout << endl;
 }
@@ -179,5 +200,4 @@ inline bool LinkedList<T>::isEmpty()
 	}
 	return false;
 }
-
 

@@ -79,6 +79,6 @@ wistream& operator>>(wistream& in, Subjects& x)
 
 wostream& operator<<(wostream& out, const Subjects& x)
 {
-	wcout << setw(10) << left << x.subjectName << setw(5) << L" - " << setw(5) << right << x.subjectCode;
+	wcout << setw(10) << left << x.subjectName << setw(5) << L" - " << setw(5) << right << x.subjectCode << setw(10);
 	return out;
 }

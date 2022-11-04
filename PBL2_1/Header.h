@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
+#include "LinkedList.h"
+
 #pragma warning(disable : 4996)
 
 using namespace std;
@@ -14,6 +16,21 @@ static int checkUS = 1;
 static int checkEx = 1;
 static int checkSb = 1;
 static int checkCl = 1;
+
+inline int ascending(const wchar_t* c1, const wchar_t* c2)
+{
+	if (wcscmp(c1, c2) >= 0)
+		return 1;
+	return 0;
+}
+
+inline int descending(const wchar_t* c1, const wchar_t* c2)
+{
+	if (wcscmp(c1, c2) <= 0)
+		return 1;
+	return 0;
+}
+
 
 inline wstring subStr(wstring s) {
 	int index1 = 0;
@@ -38,7 +55,7 @@ inline int hashCode(wstring s) {
 		sum += ((i + 1) * (s[i] * s[i]));
 		i++;
 	}
-	return (int)fabs(sum % 2000);
+	return (int)fabs(sum % 6997);
 }
 inline wstring Upper(wstring s) {
 	if (s[0] != L' ') {
@@ -62,6 +79,7 @@ inline void textcolor(int x)
 	mau = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(mau, x);
 }
+
 inline void gotoxy(short x, short y)
 {
 	static HANDLE h = NULL;
@@ -115,7 +133,7 @@ inline int catchEvents()
 	}
 }
 
-inline void bangmenu(int x, int y, int m, int n, int mau)
+inline void menuBar(int x, int y, int m, int n, int mau)
 {
 	int i, j;
 	textcolor(mau);
@@ -138,7 +156,7 @@ inline void bangmenu(int x, int y, int m, int n, int mau)
 				wirteChar(i, j, L"─");
 		}
 }
-inline void tbmenu(int x, int y)
+inline void menuTable(int x, int y)
 {
 	int i, j;
 	for (i = x; i <= x + 90; i++)
