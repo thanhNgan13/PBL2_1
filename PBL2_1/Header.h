@@ -6,16 +6,57 @@
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
-#include "LinkedList.h"
+
+#define KEY_NONE	-1
 
 #pragma warning(disable : 4996)
 
 using namespace std;
+//Khai báo các biến toàn cục
 static int checkAd = 1;
 static int checkUS = 1;
 static int checkEx = 1;
 static int checkSb = 1;
 static int checkCl = 1;
+
+//Ghi lỗi và thoát ra
+inline VOID WriteError(LPSTR lpszMessage) {
+	printf("%s\n", lpszMessage);
+	ExitProcess(0);
+}
+inline int whereX()
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+		return csbi.dwCursorPosition.X;
+	return -1;
+}
+//========= lấy tọa độ y của con trỏ hiện tại =======
+inline int whereY()
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+		return csbi.dwCursorPosition.Y;
+	return -1;
+}
+//============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
+inline void gotoxy(short x, short y)
+{
+	HANDLE hConsoleOutput;
+	COORD Cursor_an_Pos = { x, y };
+	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
+}
+
+
+//============== làm ẩn trỏ chuột ===========
+inline void ShowCur(bool CursorVisibility)
+{
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
+	SetConsoleCursorInfo(handle, &cursor);
+}
+
 
 inline int ascending(const wchar_t* c1, const wchar_t* c2)
 {
@@ -31,6 +72,41 @@ inline int descending(const wchar_t* c1, const wchar_t* c2)
 	return 0;
 }
 
+inline void removeSpaces(wstring& str)
+{
+
+	size_t n = str.length();
+	int i = 0, j = -1;
+	bool spaceFound = false;
+	while (++j < n && str[j] == ' ');
+	while (j < n)
+	{
+		if (str[j] != ' ')
+		{
+			if ((str[j] == '.' || str[j] == ',' ||
+				str[j] == '?') && i - 1 >= 0 &&
+				str[i - 1] == ' ')
+				str[i - 1] = str[j++];
+
+			else
+
+				str[i++] = str[j++];
+			spaceFound = false;
+		}
+		else if (str[j++] == ' ')
+		{
+			if (!spaceFound)
+			{
+				str[i++] = ' ';
+				spaceFound = true;
+			}
+		}
+	}
+	if (i <= 1)
+		str.erase(str.begin() + i, str.end());
+	else
+		str.erase(str.begin() + i - 1, str.end());
+}
 
 inline wstring subStr(wstring s) {
 	int index1 = 0;
@@ -80,15 +156,7 @@ inline void textcolor(int x)
 	SetConsoleTextAttribute(mau, x);
 }
 
-inline void gotoxy(short x, short y)
-{
-	static HANDLE h = NULL;
-	if (!h)
-		h = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD c = { x,y };
-	SetConsoleCursorPosition(h, c);
-}
-inline void wirteChar(int x, int y, const wchar_t* z)  {
+inline void wirteChar(int x, int y, const wchar_t* z) {
 	gotoxy(x, y);
 	wcout << z;
 }
@@ -272,5 +340,4 @@ inline void menuDisplay(int x, int y, int sl)
 	writeString(x + 1, y + 1, L"STT", 11);
 	writeString(x + 6, y + 1, L"Tên", 11);
 	writeString(x + 21, y + 1, L"Mã", 11);
-
 }

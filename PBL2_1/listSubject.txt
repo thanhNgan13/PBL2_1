@@ -1,13 +1,13 @@
 6
-Hóa
-A02
+Hoa
+A01
 Mĩ Thuật
 A05
 Toán
 A00
 Lịch Sử
 L456
-Van
-L111
-Đia Lý
-L506
+Văn
+L00
+456
+111

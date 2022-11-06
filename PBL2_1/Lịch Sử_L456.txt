@@ -1,23 +1,37 @@
-3
+5
 L456
 1783
-Ai là người đã dành chiến thắng đầu tiên trên sông Bạch Đằng
+Ai Là Người đã Dành Chiến Thắng đầu Tiên Trên Sông Bạch Đằng
 Ngô Quyền
 Nguyễn Trãi
 Nguyễn Khuyến
 Nguyễn Hà
 A
 5229
-Nguyễn Huệ với Quang trung là quan hệ gì?
-Anh em
-Bạn bè
-Cha con
-Là một người
+Nguyễn Huệ Với Quang Trung Là Quan Hệ Gì?
+Anh Em
+Bạn Bè
+Cha Con
+Là Một Người
 D
 6642
-Có bao nhiêu đời vua Hùng
+Có Bao Nhiêu đời Vua Hùng
 15
 16
 17
 18
+D
+3084
+Anh
+Yeu
+Em 
+Nhieu
+Lam
+A
+4356
+B
+D
+E
+F
+D
 D
