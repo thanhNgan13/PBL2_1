@@ -70,6 +70,20 @@ bool Students::operator!=(Students& x)
 		return false;
 }
 
+bool Students::operator>(Students& x)
+{
+	if (wcscmp(firstName.c_str(), x.firstName.c_str()) >= 0)
+		return true;
+	return false;
+}
+
+bool Students::operator<(Students& x)
+{
+	if (wcscmp(firstName.c_str(), x.firstName.c_str()) <= 0)
+		return true;
+	return false;
+}
+
 wistream& operator>>(wistream& in, Students& x) {
 	wcout << L"Nhập họ : ";
 	getline(wcin, x.lastName);
@@ -81,6 +95,7 @@ wistream& operator>>(wistream& in, Students& x) {
 	getline(wcin, x.studentCode);
 	wcout << L"Nhập password: ";
 	getline(wcin, x.passwork);
+	
 	return in;
 }
 
@@ -90,5 +105,20 @@ wostream& operator<<(wostream& out, const Students& x) {
 	wcout << L"Tên:  " << x.firstName << endl;
 	wcout << L"Giới tính: " << x.sex << endl;
 	wcout << L"Mật khẩu: " << x.passwork << endl;
+	wcout << L"Danh sách các môn đã thi: " << endl;
+	wcout << endl;
+	Node<Score>* current = x.scoreList.head;
+	if (current == nullptr) {
+		wcout << L"Chưa thi môn nào!" << endl;
+	}
+	else {
+		while (current != nullptr)
+		{
+			wcout << L"Mã Môn: " << current->data.getSubjectCode() << endl;
+			wcout << L"Điểm: " << current->data.getScore() << endl;
+			wcout << endl;
+			current = current->next;
+		}
+	}
 	return out;
 }

@@ -89,13 +89,13 @@ void display(LinkedList<Students> list, Node<informationClass>* node);
 void display(Students st, int x, int y, int i, wstring s);
 void display(LinkedList<Questions> list);
 
-int partition(LinkedList<Students> list, int low, int high, int(*compFunc)(const wchar_t* c1, const wchar_t* c2));
-void QuickSort(int(*compFunc)(const wchar_t* c1, const wchar_t* c2), LinkedList<Students> list, int l, int r);
-
 bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
+
+void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 int wmain(int argc, wchar_t* argv[]) {
 	_setmode(_fileno(stdout), _O_WTEXT);
 	_setmode(_fileno(stdin), _O_WTEXT);
+	loadClass();
 	login();
 	return 0;
 }
@@ -182,7 +182,6 @@ void login()
 						y = Inrec.Event.MouseEvent.dwMousePosition.Y;
 						switch (Inrec.EventType)
 						{
-
 						case MOUSE_EVENT:
 						{
 							Captured = true;
@@ -795,7 +794,6 @@ void loadListStudentOfClass(wstring name)
 		dataS.setSex(s1);
 		s1.clear();
 		getline(file, s1);
-		s1 = Upper(s1);
 		dataS.setStudentCode(s1);
 		s1.clear();
 		getline(file, s1);
@@ -813,6 +811,7 @@ void loadListStudentOfClass(wstring name)
 				float d;
 				getline(file, s);
 				x.setSubjectCode(s);
+				//wcout << x.getSubjectCode();
 				file >> d;
 				file.ignore();
 				x.setScore(d);
@@ -1302,9 +1301,9 @@ void enterExam()
 				temp = head->data.getQuestionList();
 				temp.Insert(x);
 				head->data.setQuestionList(temp);
-				writeString(0, 6, L"Thêm mới thành công!", 12);
-				writeString(0, 7, L"Nhấn nút [ESC] để kết thúc nhập", 5);
-				writeString(0, 8, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+				writeString(0, 8, L"Thêm mới thành công!", 12);
+				writeString(0, 9, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+				writeString(0, 10, L"Nhấn nút bất kì để tiếp tục nhập", 5);
 				if (catchEvents() == 4) {
 					system("cls");
 					break;
@@ -1361,8 +1360,9 @@ void correctionExam()
 			name = conCat(head->data.getSubjectName(), head->data.getSubjectCode());
 			loadQuestions(name);
 			if (checkFileIsEmpty(name)) {
-				wcout << L"File rỗng không có gì để chỉnh sửa!" << endl;
-				wcout << L"Vui lòng nhập lại" << endl;
+				system("cls");
+				writeString(65, 1, L"File rỗng không có gì để sửa!", 4);
+				gotoxy(60, 2);
 				break;
 			}
 			// phải fix đoạn này
@@ -1463,8 +1463,9 @@ void deleteExam()
 			name = conCat(head->data.getSubjectName(), head->data.getSubjectCode());
 			loadQuestions(name);
 			if (checkFileIsEmpty(name)) {
-				wcout << L"File rỗng không có gì để xóa!" << endl;
-				wcout << L"Vui lòng nhập lại" << endl;
+				system("cls");
+				writeString(65, 1, L"File rỗng không có gì để xóa!", 4);
+				gotoxy(60, 2);
 				system("pause");
 				break;
 			}
@@ -1703,8 +1704,9 @@ void Admin::editExam()
 						name = conCat(head->data.getSubjectName(), head->data.getSubjectCode());
 						loadQuestions(name);
 						if (checkFileIsEmpty(name)) {
-							wcout << L"File rỗng không có gì để hiện thị!" << endl;
-							wcout << L"Vui lòng nhập lại" << endl;
+							system("cls");
+							writeString(62, 1, L"File rỗng không có gì để hiển thị!", 4);
+							gotoxy(60, 2);
 							break;
 						}
 						else {
@@ -2171,115 +2173,97 @@ void enterUser()
 	LinkedList<Students> temp;
 	LinkedList<Score> temp1;
 	Node<informationClass>* head;
-	wstring x;
+	wstring s;
 	wstring name;
 	do {
-		textcolor(6);
-		wcout << L"THÊM SINH VIÊN VÀO LỚP HỌC" << endl;
-		wcout << L"Danh sách lớp học" << endl;
+		system("cls");
+	a:
+		menuBar(61, 0, 37, 2, 11);
+		writeString(66, 1, L"THÊM SINH VIÊN VÀO LỚP HỌC", 3);
+		wcout << endl;
+		gotoxy(68, 4);
+		textcolor(12);
+		wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
+		textcolor(2);
 		listInfC.Display();
+		gotoxy(65, listInfC.getCount() + 7);
+		textcolor(6);
 		wcout << L"Nhập mã lớp học cần thêm sinh viên: ";
-		getline(wcin, x);
-		x = Upper(x);
-		head = Search(listInfC, x);
-		if (head == nullptr) {
+		getline(wcin, s);
+		head = Search(listInfC, s);
+		if (head == NULL) {
 			system("cls");
-			textcolor(4);
-			wcout << L"Lớp học không tồn tại hoặc bạn nhập sai!" << endl;
-			wcout << L"1. Tiếp tục nhập" << endl;
-			wcout << L"2. Thoát" << endl;
-			int select;
-			while (true)
-			{
-				wcout << L"Mời bạn chọn: ";
-				if (wcin >> select)
-				{
-					system("cls");
-					break;
-				}
-				else
-				{
-					wcin.clear();
-					wcin.ignore(1000, '\n');
-				}
+			writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
+			writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+			if (catchEvents() == 4) {
+				system("cls");
+				break;
 			}
-			wcin.ignore();
-			if (select != 1) {
-				return;
+			else {
+				system("cls");
+				goto a;
 			}
 		}
 		else {
+			system("cls");
 			name = conCat(head->data.getClassName(), head->data.getClassCode());
 			loadListStudentOfClass(name);
-			int count;
-			while (true)
-			{
-				wcout << L"Nhập số sinh viên muốn thêm: ";
-				if (wcin >> count)
-					break;
-				else {
-					wcin.clear();
-					wcin.ignore(1000, '\n');
-				}
-			}
-			wcin.ignore();
 			vector<wstring> arr;
-			for (int i = 0; i < count; i++) {
-			a:
-				system("cls");
+			do
+			{
+			b:
 				Students st;
-				wstring s;
-				wcout << L"Nhập người thứ " << i + 1 << endl;
+				wstring s1;
+				textcolor(6);
 				wcout << L"Nhập tên đăng nhập: " << endl;
-				getline(wcin, s);
-				s = Upper(s);
-				st.setStudentCode(s);
+				getline(wcin, s1);
 				for (auto& x : arr) {
-					if (x == s) {
+					if (x == s1) {
+						textcolor(4);
 						wcout << L"Bạn đã nhập mã sinh viên bị trùng. Vui lòng nhập lại!" << endl;
-						goto a;
 						system("pause");
+						system("cls");
+						goto b;
 					}
 				}
-				if (Check(listInfC, s, L"")) {
+				if (Check(listInfC, s1, L"")) {
+					textcolor(4);
 					wcout << L"Bạn đã nhập mã sinh viên bị trùng. Vui lòng nhập lại!" << endl;
-					i--;
 					system("pause");
+					system("cls");
+					goto b;
+					
 				}
-				else 
+				if (s1.length() == 0) {
+					textcolor(4);
+					wcout << L"Không được bỏ trống!!!" << endl;
+					goto b;
+				}
+				else
 				{
-					arr.push_back(s);
-					wcout << L"Nhập họ: " << endl;
-					s = Upper(s);
-					getline(wcin, s);
-					st.setLastName(s);
-					s.clear();
-					wcout << L"Nhập tên: " << endl;
-					getline(wcin, s);
-					s = Upper(s);
-					st.setFirstName(s);
-					s.clear();
-					wcout << L"Nhập giới tính: " << endl;
-					getline(wcin, s);
-					s = Upper(s);
-					st.setSex(s);
-					s.clear();
-					wcout << L"Nhập password: " << endl;
-					getline(wcin, s);
-					st.setPasswork(s);
-					s.clear();
-					st.setScoreList(temp1);
+					arr.push_back(s1);
+					enterInf(st, s1, temp1);
 					temp = head->data.getStudentList();
 					temp.Insert(st);
 					head->data.setStudentList(temp);
 					writeDataStudentInfInClass(name);
+					writeString(60, 0, L"Thêm mới thành công!", 12);
+					writeString(60, 1, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+					writeString(60, 2, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+					if (catchEvents() == 4) {
+						system("cls");
+						break;
+					}
+					else {
+						system("cls");
+						goto b;
+					}
 				}
-			}
+			} while (true);			
 			return;
-
 		}
 	} while (true);
-
 }
 void deleteUser()
 {
@@ -2287,41 +2271,36 @@ void deleteUser()
 	LinkedList<Score> temp1;
 	Node<informationClass>* head;
 	Node<Students>* head1;
-	wstring x;
+	wstring s;
 	wstring name;
 	do {
-		textcolor(6);
-		wcout << L"XÓA SINH VIÊN KHỎI LỚP HỌC" << endl;
-		wcout << L"Danh sách lớp học" << endl;
+		system("cls");
+	a:
+		menuBar(61, 0, 37, 2, 11);
+		writeString(66, 1, L"XÓA SINH VIÊN KHỎI LỚP HỌC", 3);
+		wcout << endl;
+		gotoxy(68, 4);
+		textcolor(12);
+		wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
+		textcolor(2);
 		listInfC.Display();
-		wcout << L"Nhập mã lớp học cần thay đổi thông tin sinh viên: ";
-		getline(wcin, x);
-		x = Upper(x);
-		head = Search(listInfC, x);
+		gotoxy(65, listInfC.getCount() + 7);
+		textcolor(6);
+		wcout << L"Nhập mã lớp học cần xóa sinh viên: ";
+		getline(wcin, s);
+		head = Search(listInfC, s);
 		if (head == nullptr) {
 			system("cls");
-			textcolor(4);
-			wcout << L"Lớp học không tồn tại hoặc bạn nhập sai!" << endl;
-			wcout << L"1. Tiếp tục nhập" << endl;
-			wcout << L"2. Thoát" << endl;
-			int select;
-			while (true)
-			{
-				wcout << L"Mời bạn chọn: ";
-				if (wcin >> select)
-				{
-					system("cls");
-					break;
-				}
-				else
-				{
-					wcin.clear();
-					wcin.ignore(1000, '\n');
-				}
+			writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
+			writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+			if (catchEvents() == 4) {
+				system("cls");
+				break;
 			}
-			wcin.ignore();
-			if (select != 1) {
-				return;
+			else {
+				system("cls");
+				goto a;
 			}
 		}
 		else {
@@ -2334,41 +2313,52 @@ void deleteUser()
 				break;
 			}
 			else {
-				head->data.getStudentList().Display();
 				wstring s;
 				do {
+				b:
+					textcolor(6);
 					wcout << L"Nhập mã sinh viên để xóa dữ liệu: ";
 					getline(wcin, s);
-					s = Upper(s);
 					head1 = Search(head, s);
 					if (head1 == nullptr) {
-						wcout << L"Sinh viên không tồn tại hoặc bạn nhập sai!" << endl;
-						wcout << L"1. Tiếp tục nhập" << endl;
-						wcout << L"2. Thoát" << endl;
-						int select;
-						while (true)
-						{
-							wcout << L"Mời bạn chọn: ";
-							if (wcin >> select)
-								break;
-							else
-							{
-								wcin.clear();
-								wcin.ignore(1000, '\n');
-							}
+						system("cls");
+						writeString(60, 0, L"Sinh viên không tồn tại hoặc bạn đã nhập sai!", 4);
+						writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+						writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+						if (catchEvents() == 4) {
+							system("cls");
+							break;
 						}
-						wcin.ignore();
-						if (select != 1) {
-							return;
+						else {
+							system("cls");
+							goto b;
 						}
 					}
 					else {
-						temp = head->data.getStudentList();
-						temp.Delete(head1->data);
-						head->data.setStudentList(temp);
-						writeDataStudentInfInClass(name);
-						wcout << L"Đã xóa thành công!" << endl;
-						return;
+						system("cls");
+						wcout << L"Thông tin sinh viên được chọn là" << endl;
+						wcout << L"____________________________________" << endl;
+						wcout << head1->data;
+						wcout << L"_________________________________________" << endl;
+						writeString(60, 0, L"Bạn có chắc chắn muốn xóa sinh viên này hay không?", 4);
+						writeString(60, 1, L"Nhấn nút [ESC] để kết thúc xóa", 5);
+						writeString(60, 2, L"Nhấn nút bất kì để tiếp tục xóa", 5);
+						if (catchEvents() == 4) {
+							system("cls");
+							return;
+						}
+						else {
+							system("cls");
+							temp = head->data.getStudentList();
+							temp.Delete(head1->data);
+							head->data.setStudentList(temp);
+							writeDataStudentInfInClass(name);
+							system("cls");
+							writeString(60, 0, L"Đã xóa thành công!", 4);
+							gotoxy(60, 1);
+							system("pause");
+							return;
+						}
 					}
 				} while (true);
 				return;
@@ -2379,39 +2369,41 @@ void deleteUser()
 void User::correctionUser()
 {
 	if (checkAd == 0) {
+
 		LinkedList<Students> temp;
 		LinkedList<Score> temp1;
 		Node<informationClass>* head;
 		Node<Students>* head1;
-		wcout << L"ĐIỀU CHỈNH THÔNG TIN SINH VIÊN LỚP HỌC" << endl;
-		wcout << L"Danh sách lớp học" << endl;
-		wstring x;
+		wstring s;
 		wstring name;
-		listInfC.Display();
 		do {
-			wcout << L"Nhập mã lớp học cần thay đổi thông tin sinh viên: ";
-			getline(wcin, x);
-			x = Upper(x);
-			head = Search(listInfC, x);
+			system("cls");
+		a:
+			menuBar(59, 0, 41, 2, 11);
+			writeString(64, 1, L"ĐIỀU CHỈNH THÔNG TIN SINH VIÊN", 3);
+			wcout << endl;
+			gotoxy(68, 4);
+			textcolor(12);
+			wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
+			textcolor(2);
+			listInfC.Display();
+			gotoxy(65, listInfC.getCount() + 7);
+			textcolor(6);
+			wcout << L"Nhập mã lớp học cần xóa sinh viên: ";
+			getline(wcin, s);
+			head = Search(listInfC, s);
 			if (head == nullptr) {
-				wcout << L"Lớp học không tồn tại hoặc bạn nhập sai!" << endl;
-				wcout << L"1. Tiếp tục nhập" << endl;
-				wcout << L"2. Thoát" << endl;
-				int select;
-				while (true)
-				{
-					wcout << L"Mời bạn chọn: ";
-					if (wcin >> select)
-						break;
-					else
-					{
-						wcin.clear();
-						wcin.ignore(1000, '\n');
-					}
+				system("cls");
+				writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
+				writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+				writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+				if (catchEvents() == 4) {
+					system("cls");
+					break;
 				}
-				wcin.ignore();
-				if (select != 1) {
-					return;
+				else {
+					system("cls");
+					goto a;
 				}
 			}
 			else {
@@ -2419,76 +2411,48 @@ void User::correctionUser()
 				name = conCat(head->data.getClassName(), head->data.getClassCode());
 				loadListStudentOfClass(name);
 				if (checkFileIsEmpty(name)) {
-					wcout << L"File rỗng không có gì để xóa!" << endl;
+					wcout << L"Lớp học này không có sinh viên!" << endl;
 					wcout << L"Vui lòng nhập lại" << endl;
-
+					break;
 				}
 				else {
-					head->data.getStudentList().Display();
-
-					wstring s;
+					wstring s1;
 					do {
+					b:
+						textcolor(6);
 						wcout << L"Nhập mã sinh viên để thay đổi thông tin: ";
-						getline(wcin, x);
-						x = Upper(x);
-						head1 = Search(head, x);
+						getline(wcin, s1);
+						head1 = Search(head, s1);
 						if (head1 == nullptr) {
-							wcout << L"Sinh viên không tồn tại hoặc bạn nhập sai!" << endl;
-							wcout << L"1. Tiếp tục nhập" << endl;
-							wcout << L"2. Thoát" << endl;
-							int select;
-							while (true)
-							{
-								wcout << L"Mời bạn chọn: ";
-								if (wcin >> select)
-									break;
-								else
-								{
-									wcin.clear();
-									wcin.ignore(1000, '\n');
-								}
+							system("cls");
+							writeString(60, 0, L"Sinh viên không tồn tại hoặc bạn đã nhập sai!", 4);
+							writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+							writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+							if (catchEvents() == 4) {
+								system("cls");
+								break;
 							}
-							wcin.ignore();
-							if (select != 1) {
-								return;
+							else {
+								system("cls");
+								goto b;
 							}
 						}
 						else {
 							system("cls");
 							Students st;
+							wstring s2;
 							wcout << L"Thông tin sinh viên được chọn là" << endl;
 							wcout << L"____________________________________" << endl;
 							wcout << head1->data;
 							wcout << L"_________________________________________" << endl;
-							wcout << L"Thay đổi họ thành: " << endl;
-							getline(wcin, s);
-							s = Upper(s);
-							st.setLastName(s);
-							s.clear();
-							wcout << L"Thay đổi tên thành: " << endl;
-							getline(wcin, s);
-							s = Upper(s);
-							st.setFirstName(s);
-							s.clear();
-							wcout << L"Thay đổi giới tính thành: " << endl;
-							getline(wcin, s);
-							s = Upper(s);
-							st.setSex(s);
-							s.clear();
-							st.setStudentCode(head1->data.getStudentCode());
-							wcout << L"Nhập password: " << endl;
-							getline(wcin, s);
-							st.setPasswork(s);
-							s.clear();
-							st.setScoreList(head1->data.getScoreList());
+							enterInf(st, head1->data.getStudentCode(), head1->data.getScoreList());
 							head1->data = st;
-							writeDataStudentInfInClass(name);
+							writeDataStudentInfInClass(name);			
 							return;
 						}
-
 					} while (true);
+					return;
 				}
-				return;
 			}
 		} while (true);
 	}
@@ -2505,27 +2469,7 @@ void User::correctionUser()
 		wcout << L"____________________________________" << endl;
 		wcout << head1->data;
 		wcout << L"_________________________________________" << endl;
-		wcout << L"Thay đổi họ thành: " << endl;
-		getline(wcin, s);
-		st.setLastName(s);
-		s = Upper(s);
-		s.clear();
-		wcout << L"Thay đổi tên thành: " << endl;
-		getline(wcin, s);
-		s = Upper(s);
-		st.setFirstName(s);
-		s.clear();
-		wcout << L"Thay đổi giới tính thành: " << endl;
-		getline(wcin, s);
-		s = Upper(s);
-		st.setSex(s);
-		s.clear();
-		st.setStudentCode(head1->data.getStudentCode());
-		wcout << L"Nhập password: " << endl;
-		getline(wcin, s);
-		st.setPasswork(s);
-		s.clear();
-		st.setScoreList(head1->data.getScoreList());
+		enterInf(st, head1->data.getStudentCode(), head1->data.getScoreList());
 		head1->data = st;
 		tempS = head1;
 		writeDataStudentInfInClass(name);
@@ -2679,7 +2623,6 @@ void Admin::editUser()
 			{
 				system("cls");
 				deleteUser();
-				system("pause");
 				system("cls");
 				editUser();
 			}
@@ -2688,45 +2631,42 @@ void Admin::editUser()
 				Node<informationClass>* head;
 				do {
 					system("cls");
-					textcolor(6);
-					wcout << L"Danh sách lớp học" << endl;
+				a:
+					menuBar(65, 0, 26, 2, 11);
+					writeString(70, 1, L"DANH SÁCH LỚP HỌC", 3);
+					wcout << endl;
+					gotoxy(68, 4);
+					textcolor(12);
+					wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
+					textcolor(2);
 					listInfC.Display();
+					gotoxy(65, listInfC.getCount() + 7);
+					textcolor(6);
 					wcout << L"Nhập mã lớp học cần xem thông tin sinh viên: ";
 					getline(wcin, s);
-					s = Upper(s);
 					head = Search(listInfC, s);
-					if (head == nullptr) {
+					if (head == NULL) {
 						system("cls");
-						textcolor(4);
-						wcout << L"Lớp học không tồn tại hoặc bạn đã nhập sai!" << endl;
-						wcout << L"1. Tiếp tục nhập." << endl;
-						wcout << L"2. Thoát." << endl;
-						int select;
-						while (true)
-						{
-							wcout << L"Mời bạn chọn: ";
-							if (wcin >> select)
-							{
-								system("cls");
-								break;
-							}
-							else
-							{
-								wcin.clear();
-								wcin.ignore(1000, '\n');
-							}
-						}
-						wcin.ignore();
-						if (select != 1) {
+						writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
+						writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+						writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+						if (catchEvents() == 4) {
+							system("cls");
 							break;
+						}
+						else {
+							system("cls");
+							goto a;
 						}
 					}
 					else {
 						wstring name;
 						name = conCat(head->data.getClassName(), head->data.getClassCode());
 						if (checkFileIsEmpty(name)) {
-							wcout << L"Lớp học này không có sinh viên để hiện thị!" << endl;
-							wcout << L"Vui lòng nhập lại" << endl;
+							system("cls");
+							writeString(60, 1, L"Lớp học này không có sinh viên để hiện thị!.", 4);
+							gotoxy(60, 2);
+							system("pause");
 							break;
 						}
 						else {
@@ -2735,9 +2675,9 @@ void Admin::editUser()
 							head->data.getStudentList().Delete();
 						}
 						break;
+						
 					}
 				} while (true);
-				system("pause");
 				system("cls");
 				editUser();
 			}
@@ -2759,41 +2699,42 @@ void User::multipleChoiceTest()
 	wstring s;
 	wstring name;
 #if 1
-	system("cls");
-	wcout << L"THI TRẮC NGHIỆM" << endl;
-	wcout << endl;
-	wcout << L"Danh sách môn học" << endl;
-	listS.Display();
 	do {
+	a:
+		system("cls");
+		menuBar(67, 0, 26, 2, 11);
+		writeString(72, 1, L"THI TRẮC NGHIỆM", 3);
+		wcout << endl;
+		gotoxy(68, 4);
+		textcolor(12);
+		wcout << setw(10) << left << L"TÊN MÔN" << setw(5) << L" - " << setw(5) << L"MÃ MÔN" << right << setw(10) << endl;
+		textcolor(2);
+		listS.Display();
+		gotoxy(65, listS.getCount() + 7);
+		textcolor(6);
 		wcout << L"Nhập mã môn học cần thi: ";
 		getline(wcin, s);
 		head = Search(listS, s);
 		if (head == nullptr) {
-			wcout << L"Môn học không tồn tại hoặc bạn nhập sai!" << endl;
-			wcout << L"1. Tiếp tục nhập" << endl;
-			wcout << L"2. Thoát" << endl;
-			int select;
-			while (true)
-			{
-				wcout << L"Mời bạn chọn: ";
-				if (wcin >> select)
-					break;
-				else
-				{
-					wcin.clear();
-					wcin.ignore(1000, '\n');
-				}
+			system("cls");
+			writeString(60, 0, L"Môn học không tồn tại hoặc bạn đã nhập sai!", 4);
+			writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+			if (catchEvents() == 4) {
+				system("cls");
+				break;
 			}
-			wcin.ignore();
-			if (select != 1) {
-				return;
+			else {
+				system("cls");
+				goto a;
 			}
 		}
 		else {
 			name = conCat(head->data.getSubjectName(), head->data.getSubjectCode());
 			if (checkFileIsEmpty(name)) {
-				wcout << L"File rỗng không có câu hỏi để làm bài!" << endl;
-				wcout << L"Vui lòng nhập lại" << endl;
+				system("cls");
+				writeString(60, 1, L"File rỗng không có câu hỏi để làm bài!", 4);
+				gotoxy(60, 2);
 				system("pause");
 				system("cls");
 				teacher();
@@ -2814,6 +2755,7 @@ void User::multipleChoiceTest()
 		file << L"Lần thi thứ " << checkCountEX << endl;
 	}
 #endif
+	system("cls");
 	int numberOfQuestions;
 	while (true)
 	{
@@ -2833,29 +2775,29 @@ void User::multipleChoiceTest()
 			wcin.ignore(1000, '\n');
 		}
 	}
-	//int timeEx;
-	//while (true)
-	//{
-	//	wcout << L"Thời gian làm bài (phút): ";
-	//	if (wcin >> timeEx) {
-	//		if (numberOfQuestions < 1) {
-	//			wcin.clear();
-	//			wcin.ignore(1000, '\n');
-	//		}
-	//		else {
-	//			break;
-	//		}
-	//	}
-	//	else
-	//	{
-	//		wcin.clear();
-	//		wcin.ignore(1000, '\n');
-	//	}
-	//}
-	//timeEx *= 60;
 	int count = numberOfQuestions;
 	int score = 0;
 	wcin.ignore();
+	//do {
+	//	system("cls");
+	//	wstring answer;
+	//	wcout << head->data.getQuestionList().randomValue();
+	//	do {
+	//		gotoxy(0, 7);
+	//		wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
+	//		getline(wcin, answer);
+	//		if (enterResult(answer) != -1) {
+	//			break;
+	//		}
+	//	} while (true);
+	//	if (enterResult(answer) == enterResult(head->data.getQuestionList().randomValue().getAnswer()))
+	//		score++;
+	//	temp = head->data.getQuestionList();
+	//	temp.Delete(head->data.getQuestionList().randomValue());
+	//	head->data.setQuestionList(temp);
+	//	numberOfQuestions--;
+	//} while (numberOfQuestions != 0);
+#if 1
 	do {
 		srand(time(NULL));
 		wstring answer;
@@ -2863,10 +2805,6 @@ void User::multipleChoiceTest()
 		system("cls");
 		head1 = head->data.getQuestionList().getNode(r);
 		wcout << head1->data;
-		//gotoxy(50, 0);
-		//wcout << L"Time: " << timeEx;
-		//Sleep(1000);
-		//timeEx--;
 		do {
 			gotoxy(0, 7);
 			wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
@@ -2883,6 +2821,7 @@ void User::multipleChoiceTest()
 		numberOfQuestions--;
 		
 	} while (numberOfQuestions != 0);
+#endif
 	system("cls");
 	float realSocre = (float)10.0f * score / count;
 	wcout << L"Sau khi thi điểm của bạn là: " << realSocre << endl;
@@ -2890,13 +2829,13 @@ void User::multipleChoiceTest()
 	file.close();
 #endif
 #if 1
-	// fix đoạn này
 	if (checkUS == 0) {
 		name = conCat(tempInf->data.getClassName(), tempInf->data.getClassCode());
 		loadListStudentOfClass(name);
 		Score listSc;
 		listSc.setScore(realSocre);
 		listSc.setSubjectCode(s);
+		listSc.setSubjectName(head->data.getSubjectName());
 		Node<Students>* head2 = Search(tempInf, tempS->data.getStudentCode());
 		LinkedList<Score> listSc1 = head2->data.getScoreList();
 		if (listSc1.isEmpty() == true) {
@@ -2905,12 +2844,15 @@ void User::multipleChoiceTest()
 		}
 		else {
 			int check = 0;
-			for (int i = 0; i < listSc1.getCount(); i++) {
-				if (listSc1.getNode(i)->data.getSubjectCode() == s) {
-					listSc1.getNode(i)->data.setScore(realSocre);
+			Node<Score>* current = listSc1.head;
+			while (current != nullptr)
+			{
+				if (current->data.getSubjectCode() == s) {
+					current->data.setScore(realSocre);
 					check = 1;
 					break;
 				}
+				current = current->next;
 			}
 			if (!check) {
 				listSc1.Insert(listSc);
@@ -3002,7 +2944,7 @@ Node<Students>* Search(Node<informationClass>* node, wstring code)
 void display(LinkedList<Students> head, Node<informationClass> *head2)
 {
 	system("cls");
-	QuickSort(ascending, head, 0, head.getCount() - 1);
+	head.Sort(LinkedList<Students> ::SORT_ASC);
 	int x = 3, y = 3;
 	LinkedList<Students> temp = head;
 	int count = 10;
@@ -3195,27 +3137,6 @@ void display(LinkedList<Questions> head)
 	}
 }
 
-int partition(LinkedList<Students> list, int low, int high, int(*compFunc)(const wchar_t* c1, const wchar_t* c2)) {
-	Students pivot = list.getNode(high)->data;
-	int i = (low - 1);
-	for (int j = low; j <= high - 1; j++) {
-		if (compFunc(pivot.getFirstName().c_str(), list.getNode(j)->data.getFirstName().c_str())) {
-			i++;
-			swap(list.getNode(i)->data, list.getNode(j)->data);
-		}
-	}
-	swap(list.getNode(i + 1)->data, list.getNode(high)->data);
-	return (i + 1);
-}
-void QuickSort(int(*compFunc)(const wchar_t* c1, const wchar_t* c2), LinkedList<Students> list, int l, int r)
-{
-	if (l < r) {
-		int pivot = partition(list, l, r, compFunc);
-		QuickSort(compFunc, list, l, pivot - 1);
-		QuickSort(compFunc, list, pivot + 1, r);
-	}
-}
-
 bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {	
 	Node<informationClass>* currentInf = list.head;
 	Node<Students>* currentS;
@@ -3238,3 +3159,82 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {
 	}
 	return false;
 }
+
+void enterInf(Students& st, wstring code, LinkedList<Score> listSc) {
+	wstring s;
+	st.setStudentCode(code);
+FN:
+	textcolor(6);
+	wcout << L"Nhập họ: " << endl;
+	s = Upper(s);
+	getline(wcin, s);
+	if (s.length() == 0) {
+		textcolor(4);
+		wcout << L"Không được bỏ trống!!!" << endl;
+		goto FN;
+	}
+	st.setLastName(s);
+	s.clear();
+LN:
+	textcolor(6);
+	wcout << L"Nhập tên: " << endl;
+	getline(wcin, s);
+	s = Upper(s);
+	if (s.length() == 0) {
+		textcolor(4);
+		wcout << L"Không được bỏ trống!!!" << endl;
+		goto LN;
+	}
+	st.setFirstName(s);
+	s.clear();
+Sx:
+	textcolor(6);
+	int sex;
+	while (true)
+	{
+		wcout << L"Nhập giới tính(0: Nam; 1: Nữ; 3: Khác) : " << endl;
+		if (wcin >> sex)
+		{
+			if (sex < 0 || sex > 3) {
+				wcin.clear();
+				wcin.ignore(1000, '\n');
+			}
+			else {
+				break;
+			}
+		}
+		else
+		{
+			wcin.clear();
+			wcin.ignore(1000, '\n');
+		}
+	}
+	if (sex == 0)
+		s = L"Nam";
+	else if (sex == 1)
+		s = L"Nữ";
+	else
+		s = L"Khác";
+	s = Upper(s);
+	if (s.length() == 0) {
+		textcolor(4);
+		wcout << L"Không được bỏ trống!!!" << endl;
+		goto Sx;
+	}
+	st.setSex(s);
+	s.clear();
+	wcin.ignore();
+Ps:
+	textcolor(6);
+	wcout << L"Nhập password: " << endl;
+	getline(wcin, s);
+	if (s.length() == 0) {
+		textcolor(4);
+		wcout << L"Không được bỏ trống!!!" << endl;
+		goto Ps;
+	}
+	st.setPasswork(s);
+	s.clear();
+	st.setScoreList(listSc);
+}
+

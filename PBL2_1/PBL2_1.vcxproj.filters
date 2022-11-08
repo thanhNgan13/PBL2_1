@@ -63,7 +63,4 @@
     </Text>
     <Text Include="listClass.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
 </Project>

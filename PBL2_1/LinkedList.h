@@ -47,12 +47,17 @@ public:
 	Node<T>* Search(T);
 	void Display();
 
-	int getCount();
-	T getData();
-	Node<T>* getNode();
-	Node<T>* getNode(int index);
+	T randomValue();
 
-	bool isEmpty();
+	int getCount() const;
+	T getData() const;
+	Node<T>* getNode() const;
+	Node<T>* getNode(int index) const;
+	Node<T>* getTail() const;
+	
+	void Sort(int order);
+
+	bool isEmpty() const;
 
 };
 
@@ -69,16 +74,12 @@ inline void LinkedList<T>::Insert(T value)
 	auto* newNode = new Node<T>(value);
 	if (head == nullptr) {
 		head = newNode;
-		size++;
-		return;
 	}
-	Node<T>* current = head;
-	Node<T>* temp;
-	do {
-		temp = current;
-		current = current->next;
-	} while (current != nullptr);
-	temp->next = newNode;
+	else {
+		newNode->next = head;
+		head = newNode;
+	}
+
 	size++;
 }
 
@@ -159,25 +160,46 @@ inline void LinkedList<T>::Display()
 }
 
 template<typename T>
-inline int LinkedList<T>::getCount()
+inline T LinkedList<T>::randomValue()
+{
+	if (head == nullptr) {
+		return T();
+	}
+	srand(time(NULL));
+	T result = head->data;
+	Node<T>* current = head;
+	int n;
+	for (n = 2; current != nullptr; n++) {
+		if (rand() % n == 0)
+			result = current->data;
+		current = current->next;
+	}
+	return result;
+}
+
+
+
+
+template<typename T>
+inline int LinkedList<T>::getCount() const
 {
 	return this->size;
 }
 
 template<typename T>
-inline T LinkedList<T>::getData()
+inline T LinkedList<T>::getData() const
 {
 	return this->head->data;
 }
 
 template<typename T>
-inline Node<T>* LinkedList<T>::getNode()
+inline Node<T>* LinkedList<T>::getNode() const
 {
 	return this->head;
 }
 
 template<typename T>
-inline Node<T>* LinkedList<T>::getNode(int index)
+inline Node<T>* LinkedList<T>::getNode(int index) const
 {
 	Node<T>* current = head;
 	int i = 0;
@@ -191,9 +213,60 @@ inline Node<T>* LinkedList<T>::getNode(int index)
 
 }
 
+template<typename T>
+inline Node<T>* LinkedList<T>::getTail() const
+{
+	Node<T>* current = head;
+	while (current != nullptr && current->next != nullptr)
+		current = current->next;
+
+	return current;
+}
 
 template<typename T>
-inline bool LinkedList<T>::isEmpty()
+inline void LinkedList<T>::Sort(int order)
+{
+	Node<T>* tmpPtr = head;
+	Node<T>* tmpNxt = nullptr;
+
+	if (tmpPtr == nullptr) {
+		wcerr << L"Không thể xóa bởi vì danh sách rỗng!" << endl;
+		return;
+	}
+
+	tmpNxt = head->next;
+
+	T tmp;
+
+	while (tmpNxt != nullptr) {
+		while (tmpNxt != tmpPtr) {
+			if (order == SORT_ASC) {
+				if (tmpNxt->data < tmpPtr->data) {
+					tmp = tmpPtr->data;
+					tmpPtr->data = tmpNxt->data;
+					tmpNxt->data = tmp;
+				}
+			}
+			else if (order == SORT_DESC) {
+				if (tmpNxt->data > tmpPtr->data) {
+					tmp = tmpPtr->data;
+					tmpPtr->data = tmpNxt->data;
+					tmpNxt->data = tmp;
+				}
+			}
+			else {
+				wcerr << L"Giá trị yêu cầu sort không hợp lệ" << endl;
+				return;
+			}
+			tmpPtr = tmpPtr->next;
+		}
+		tmpPtr = head;
+		tmpNxt = tmpNxt->next;
+	}
+}
+
+template<typename T>
+inline bool LinkedList<T>::isEmpty() const
 {
 	if (this->size == 0) {
 		return true;

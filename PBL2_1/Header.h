@@ -76,7 +76,7 @@ inline void removeSpaces(wstring& str)
 {
 
 	size_t n = str.length();
-	int i = 0, j = -1;
+	size_t i = 0, j = -1;
 	bool spaceFound = false;
 	while (++j < n && str[j] == ' ');
 	while (j < n)
@@ -109,9 +109,9 @@ inline void removeSpaces(wstring& str)
 }
 
 inline wstring subStr(wstring s) {
-	int index1 = 0;
-	int index2 = 0;
-	for (int i = 0; i < s.length(); i++) {
+	size_t index1 = 0;
+	size_t index2 = 0;
+	for (size_t i = 0; i < s.length(); i++) {
 		if (s[i] == L'_') {
 			index1 = i + 1;
 		}
@@ -136,8 +136,8 @@ inline int hashCode(wstring s) {
 inline wstring Upper(wstring s) {
 	if (s[0] != L' ') {
 		s[0] = towupper(s[0]);
-		for (int i = 1; i < s.length(); i++) {
-			if (s[i] == L' ' && s[i + 1] != L' ') //viet ki tu sau dau cach thanh chu hoa
+		for (size_t i = 1; i < s.length(); i++) {
+			if (s[i] == L' ' && s[i + 1] != L' ') 
 				s[i + 1] = towupper(s[i + 1]);
 		}
 	}
