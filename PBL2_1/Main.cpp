@@ -12,6 +12,9 @@
 #include <vector>
 #include <stdlib.h>
 #include <assert.h>
+#include <strsafe.h>
+#include <chrono>
+#include <iomanip>
 
 #include "Header.h"
 #include "LinkedList.h"
@@ -21,6 +24,8 @@
 #include "Students.h"
 
 using namespace std;
+namespace cron = std::chrono;
+using namespace std::literals::chrono_literals;
 std::locale loc(std::locale(), new std::codecvt_utf8<wchar_t>);
 
 HANDLE hStdin;
@@ -74,7 +79,7 @@ void deleteSubject();
 void enterExam();
 void correctionExam();
 void deleteExam();
-int enterResult(wstring answer);
+int enterResult(wchar_t answer);
 
 void removeFile(wstring s);
 bool checkFileIsEmpty(wstring nameFile);
@@ -95,7 +100,41 @@ void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 int wmain(int argc, wchar_t* argv[]) {
 	_setmode(_fileno(stdout), _O_WTEXT);
 	_setmode(_fileno(stdin), _O_WTEXT);
-	loadClass();
+#if 0
+	int msv;
+	while (true) {
+		textcolor(6);
+		wcout << L"Nhập mã sinh viên: (9 số không chứa kí tự): ";
+		if ((wcin >> msv))
+		{
+			wstring s = to_wstring(msv);
+			int len = s.length();
+			if (msv < 0) {
+				textcolor(4);
+				wcout << L"Mã sinh viên chứa ký tự không hợp lệ!!!" << endl;
+				wcin.clear();
+				wcin.ignore(1000, '\n');
+			}
+
+			else if (s.length() != 9) {
+				textcolor(4);
+				wcout << L"Mã sinh viên chứa ký tự không hợp lệ!!!" << endl;
+				wcin.clear();
+				wcin.ignore(1000, '\n');
+			}
+			else
+				break;
+		}
+		else {
+			textcolor(4);
+			wcout << L"Mã sinh viên chứa ký tự không hợp lệ!!!" << endl;
+			wcin.clear();
+			wcin.ignore(1000, '\n');
+		}
+	}
+	wcout << msv;
+#endif
+
 	login();
 	return 0;
 }
@@ -109,19 +148,40 @@ void login()
 	checkUS = 1;
 	wstring user;
 	wstring pass;
+	wstring pass1;
 	int isTrue = 1;
-#if 1
+	int keyUs = 1;
+	int keyPs = 1;
 	int counter = 0;
 	// Vòng lặp để quét qua các event 
 	while (!counter)
 	{
-
-		menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
-		menuBar(65, 5, 30, 2, 15); writeString(66, 6, L"User", 8);
-		menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
-		menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);;
+		if (keyUs == 0) {
+			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
+			menuBar(65, 5, 30, 2, 15); writeString(66, 6, user.c_str(), 6);
+			menuBar(65, 8, 30, 2, 15);
+			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+		}
+		else if (keyPs == 0) {
+			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
+			menuBar(65, 5, 30, 2, 15); writeString(66, 6, L"User", 8);
+			menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
+			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+		}
+		else if (keyUs == 0 && keyPs == 0) {
+			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
+			menuBar(65, 5, 30, 2, 15); writeString(66, 6, user.c_str(), 6);
+			menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
+			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+		}
+		else {
+			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
+			menuBar(65, 5, 30, 2, 15); writeString(66, 6, L"User", 8);
+			menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
+			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);;
+		}
 		// đọc event vào
-#if 1
+
 		ShowCur(false);
 		textcolor(6);
 		DWORD cNumRead, fdwMode, i;
@@ -148,7 +208,7 @@ void login()
 		if (!ReadConsoleInput(hStdin, irInBuf, 128, &cNumRead)) {
 			WriteError(const_cast <LPSTR>("ReadConsoleInput"));
 		}
-#endif
+
 		// xử lý từng event một
 		for (i = 0; i < cNumRead; i++)
 		{
@@ -182,81 +242,40 @@ void login()
 						y = Inrec.Event.MouseEvent.dwMousePosition.Y;
 						switch (Inrec.EventType)
 						{
+
 						case MOUSE_EVENT:
 						{
 							Captured = true;
 							if ((x >= 66 && x <= 96) && y == 6)
 							{
-								system("cls");
-								ShowCur(true);
-								menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
-								menuBar(65, 5, 30, 2, 15);
-								menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
-								menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
-								textcolor(6);
-								gotoxy(66, 6); getline(wcin, user);
-								if (GetKeyState(VK_RETURN)) {
+								if (keyPs == 0) {
 									system("cls");
 									ShowCur(true);
 									menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
-									menuBar(65, 5, 30, 2, 15); writeString(66, 6, user.c_str(), 6);
-									menuBar(65, 8, 30, 2, 15);
+									menuBar(65, 5, 30, 2, 14);
+									menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
 									menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
 									textcolor(6);
-									gotoxy(66, 9); getline(wcin, pass);
-									if ((GetKeyState(VK_RETURN))) {
-
-										while (isTrue) {
-											if (user == L"ad" && pass == L"ad") {
-												isTrue = 0;
-												checkAd = 0;
-												system("cls");
-												writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-												gotoxy(65,2);
-												system("pause");
-												system("cls");
-												teacher();
-											}
-											if (Check(listInfC, user, pass)) {
-												isTrue = 0;
-												checkUS = 0;
-												system("cls");
-												writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-												gotoxy(65, 2);
-												system("pause");
-												system("cls");
-												student();
-											}
-											if (isTrue == 1) {
-												system("cls");
-												writeString(65, 0, L" ĐĂNG NHẬP KHÔNG THÀNH CÔNG\n", 4);
-												gotoxy(65, 2);
-												system("pause");
-												system("cls");
-												listInfC.Delete();
-												listS.Delete();
-												login();
-											}
-										}
-									}
-									while (true)
-									{
-										if (GetAsyncKeyState(0x02))
-										{
-											system("cls");
-											break;
-										}
-									}
-								}
-								while (true)
-								{
-									if (GetAsyncKeyState(0x02))
-									{
-										system("cls");
+									gotoxy(66, 6); getline(wcin, user);
+									if (GetKeyState(VK_RETURN)) {
+										keyUs = 0;
 										break;
 									}
 								}
-
+								else {
+									system("cls");
+									ShowCur(true);
+									menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
+									menuBar(65, 5, 30, 2, 14);
+									menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
+									menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+									textcolor(6);
+									gotoxy(66, 6); getline(wcin, user);
+									if (GetKeyState(VK_RETURN)) {
+										keyUs = 0;
+										break;
+									}
+								}
 							}
 							else if ((x >= 66 && x <= 96) && y == 9)
 							{
@@ -270,54 +289,18 @@ void login()
 								else {
 									writeString(66, 6, user.c_str(), 6);
 								}
-								menuBar(65, 8, 30, 2, 15);
+								menuBar(65, 8, 30, 2, 14);
 								menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
 								textcolor(6);
-								gotoxy(66, 9); getline(wcin, pass);
+								gotoxy(66, 9); pass = inputPassword(20);
+								pass1.clear();
+								for (auto& x : pass) {
+									pass1.push_back(L'*');
+								}
 
 								if ((GetKeyState(VK_RETURN))) {
-
-									while (isTrue) {
-										if (user == L"ad" && pass == L"ad") {
-											isTrue = 0;
-											checkAd = 0;
-											system("cls");
-											writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-											gotoxy(65, 2);
-											system("pause");
-											system("cls");
-											teacher();
-										}
-										if (Check(listInfC, user, pass)) {
-											isTrue = 0;
-											checkUS = 0;
-											system("cls");
-											writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-											gotoxy(65, 2);
-											system("pause");
-											system("cls");
-											student();
-										}
-										if (isTrue == 1) {
-											system("cls");
-											writeString(65, 0, L" ĐĂNG NHẬP KHÔNG THÀNH CÔNG\n", 4);
-											gotoxy(65, 2);
-											system("pause");
-											system("cls");
-											listInfC.Delete();
-											listS.Delete();
-											login();
-										}
-									}
-
-								}
-								while (true)
-								{
-									if (GetAsyncKeyState(0x02))
-									{
-										system("cls");
-										break;
-									}
+									keyPs = 0;
+									break;
 								}
 							}
 							else if ((x >= 66 && x <= 96) && y == 12)
@@ -354,14 +337,6 @@ void login()
 										login();
 									}
 								}
-								while (true)
-								{
-									if (GetAsyncKeyState(0x02))
-									{
-										system("cls");
-										break;
-									}
-								}
 							}
 							break;
 						}
@@ -372,7 +347,6 @@ void login()
 			}
 		}
 	}
-#endif
 }
 void teacher()
 {
@@ -684,6 +658,7 @@ void loadQuestions(wstring name)
 		file.imbue(loc);
 		wstring s1;
 		int id;
+		int ans;
 		file >> id;
 		data.setId(id);
 		file.ignore();
@@ -707,10 +682,9 @@ void loadQuestions(wstring name)
 		s1 = Upper(s1);
 		data.setD(s1);
 		s1.clear();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setAnswer(s1);
-		s1.clear();
+		file >> ans;
+		data.setAnswer(ans);
+		file.ignore();
 		temp.Insert(data);
 	}
 	Node<Subjects>* head = Search(listS, subStr(name));
@@ -781,6 +755,7 @@ void loadListStudentOfClass(wstring name)
 	for (int i = 0; i < max; i++) {
 		temp1 = temp2;
 		wstring s1;
+		//int msv;
 		getline(file, s1);
 		s1 = Upper(s1);
 		dataS.setLastName(s1);
@@ -811,7 +786,6 @@ void loadListStudentOfClass(wstring name)
 				float d;
 				getline(file, s);
 				x.setSubjectCode(s);
-				//wcout << x.getSubjectCode();
 				file >> d;
 				file.ignore();
 				x.setScore(d);
@@ -1730,14 +1704,14 @@ void Admin::editExam()
 		}
 	}
 }
-int enterResult(wstring answer) {
-	if (answer == L"a" || answer == L"A")
+int enterResult(wchar_t answer) {
+	if (answer == L'a' || answer == L'A')
 		return 1;
-	else if (answer == L"b" || answer == L"B")
+	else if (answer == L'b' || answer == L'B')
 		return 2;
-	else if (answer == L"c" || answer == L"C")
+	else if (answer == L'c' || answer == L'C')
 		return 3;
-	else if (answer == L"d" || answer == L"D")
+	else if (answer == L'd' || answer == L'D')
 		return 4;
 	else
 		return -1;
@@ -2695,7 +2669,6 @@ void User::multipleChoiceTest()
 	wofstream file;
 	Node<Subjects>* head;
 	LinkedList<Questions> temp;
-	Node<Questions>* head1;
 	wstring s;
 	wstring name;
 #if 1
@@ -2778,50 +2751,51 @@ void User::multipleChoiceTest()
 	int count = numberOfQuestions;
 	int score = 0;
 	wcin.ignore();
-	//do {
-	//	system("cls");
-	//	wstring answer;
-	//	wcout << head->data.getQuestionList().randomValue();
-	//	do {
-	//		gotoxy(0, 7);
-	//		wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
-	//		getline(wcin, answer);
-	//		if (enterResult(answer) != -1) {
-	//			break;
-	//		}
-	//	} while (true);
-	//	if (enterResult(answer) == enterResult(head->data.getQuestionList().randomValue().getAnswer()))
-	//		score++;
-	//	temp = head->data.getQuestionList();
-	//	temp.Delete(head->data.getQuestionList().randomValue());
-	//	head->data.setQuestionList(temp);
-	//	numberOfQuestions--;
-	//} while (numberOfQuestions != 0);
-#if 1
-	do {
-		srand(time(NULL));
-		wstring answer;
-		int r = rand() % head->data.getQuestionList().getCount();
-		system("cls");
-		head1 = head->data.getQuestionList().getNode(r);
-		wcout << head1->data;
-		do {
-			gotoxy(0, 7);
-			wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
-			getline(wcin, answer);
-			if (enterResult(answer) != -1) {
+	int timeEx;
+	while (true)
+	{
+		wcout << L"Nhập thời gian cho mỗi câu hỏi(s): ";
+		if (wcin >> timeEx) {
+			if (timeEx < 1) {
+				wcin.clear();
+				wcin.ignore(1000, '\n');
+			}
+			else {
 				break;
 			}
-		} while (true);
-		if (enterResult(answer) == enterResult(head->data.getQuestionList().getNode(r)->data.getAnswer()))
-			score++;
+		}
+		else
+		{
+			wcin.clear();
+			wcin.ignore(1000, '\n');
+		}
+	}
+	wcin.ignore();
+	cron::milliseconds time = (timeEx * 1000ms);
+	do {
+		textcolor(6);
+		system("cls");
+		Questions value = head->data.getQuestionList().getRandom();
+		wcout << value;		
+		gotoxy(0, 7);
+		ShowCur(false);
+		wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
+		wchar_t answer = charInputTimeout(time, 100ms, 1);
+		if (!answer) {
+			textcolor(4);
+			wcout << L"Bạn đã không kịp giờ cho câu hỏi này" << endl;
+			system("pause");
+		}
+		else
+		{
+			if (enterResult(answer) == value.getAnswer())
+				score++;
+		}
 		temp = head->data.getQuestionList();
-		temp.Delete(head1->data);
+		temp.Delete(value);
 		head->data.setQuestionList(temp);
 		numberOfQuestions--;
-		
 	} while (numberOfQuestions != 0);
-#endif
 	system("cls");
 	float realSocre = (float)10.0f * score / count;
 	wcout << L"Sau khi thi điểm của bạn là: " << realSocre << endl;
@@ -2983,9 +2957,92 @@ abc:
 			switch (h)
 			{
 			case 2:
+
 				checkEx = 0;
-				system("cls");
-				listS.Display();
+				do {
+				a:
+					system("cls");
+					menuBar(66, 0, 28, 2, 11);
+					writeString(71, 1, L"DAHH SÁCH MÔN HỌC", 3);
+					wcout << endl;
+					gotoxy(68, 4);
+					textcolor(12);
+					wcout << setw(10) << left << L"TÊN MÔN" << setw(5) << L" - " << setw(5) << L"MÃ MÔN" << right << setw(10) << endl;
+					textcolor(2);
+					listS.Display();
+					gotoxy(65, listS.getCount() + 7);
+					textcolor(6);
+					wcout << L"Nhập mã môn học cần xem câu hỏi: ";
+					getline(wcin, s);
+					head1 = Search(listS, s);
+					if (head1 == nullptr) {
+						system("cls");
+						writeString(60, 0, L"Môn học không tồn tại hoặc bạn đã nhập sai!", 4);
+						writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+						writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+						if (catchEvents() == 4) {
+							system("cls");
+							goto abc;
+						}
+						else {
+							system("cls");
+							goto a;
+						}
+					}
+					else {
+						while (true)
+						{
+							y = 3;
+							system("cls");
+							wstring s1 = L"[ THÔNG TIN SINH VIÊN LỚP " + head2->data.getClassName() + L"]";
+							wstring s2 = L"[ Điểm môn " + head1->data.getSubjectName() + L"]";
+							const wchar_t* s = s1.c_str();
+							const wchar_t* s3 = s2.c_str();
+							menuDisplaySt(x, y, 23);
+							writeString(x + 1, y - 2, s, 14);
+							writeString(x + 50, y - 2, s3, 14);
+							writeString(x + 1, y - 1, L"------------------------", 14);
+							writeString(x + 110, y - 1, L"Nhấn ESC để quay trở lại menu sinh viên", 12);
+							writeString(x + 3, y + 24, L"Nhấn nút [->] để tới trang tiếp theo, [<-] để quay về trang trước!!", 12);
+							writeString(x + 135, y - 2, L"Trang:", 7);	gotoxy(x + 142, y - 2); wcout << page << "\\" << totalPage;
+							for (int i = (page - 1) * count; i < page * count && i < max; i++) {
+								display(temp.getNode(i)->data, x, y, i, head1->data.getSubjectCode());
+								y += 2;
+							}
+							int flag = 0;
+							while (true)
+							{
+								int h = catchEvents();
+								gotoxy(x + 66, 28);
+								switch (h)
+								{
+								case 4:
+									goto abc;
+									return;
+								case 7:
+									if (page > 1) {
+										page--;
+										y = 3;
+										flag = 1;
+									}
+									break;
+								case 8:
+									if (page < totalPage) {
+										page++;
+										y = 3;
+										flag = 1;
+									}
+									break;
+								}
+
+								if (flag) {
+									break;
+								}
+							}
+						}
+					}
+				} while (true);
+#if 0
 				do {
 					wcout << L"Nhập mã môn học cần xem điểm: ";
 					getline(wcin, s);
@@ -3065,6 +3122,7 @@ abc:
 						}
 					}
 				} while (true);
+#endif
 				break;
 			case 4:
 				return;

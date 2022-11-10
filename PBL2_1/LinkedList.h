@@ -47,7 +47,7 @@ public:
 	Node<T>* Search(T);
 	void Display();
 
-	T randomValue();
+	T getRandom() const;
 
 	int getCount() const;
 	T getData() const;
@@ -160,21 +160,22 @@ inline void LinkedList<T>::Display()
 }
 
 template<typename T>
-inline T LinkedList<T>::randomValue()
+inline T LinkedList<T>::getRandom() const
 {
-	if (head == nullptr) {
+	if (head == nullptr)
 		return T();
-	}
-	srand(time(NULL));
-	T result = head->data;
-	Node<T>* current = head;
-	int n;
-	for (n = 2; current != nullptr; n++) {
-		if (rand() % n == 0)
-			result = current->data;
+
+	T ans;
+	int i = 1;
+	Node<T>* current = this->head;
+	while (current)
+	{
+		if (rand() % i == 0) ans = current->data;
+		i++;
 		current = current->next;
 	}
-	return result;
+	return ans;
+
 }
 
 

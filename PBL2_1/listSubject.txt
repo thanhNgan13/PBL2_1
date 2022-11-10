@@ -1,13 +1,11 @@
-6
-Hoa
-A01
-Mĩ Thuật
-A05
-Toán
-A00
-Lịch Sử
-L456
+5
 Văn
 L00
-456
-111
+Lịch Sử
+L456
+Toán
+A00
+Mĩ Thuật
+A05
+Hoa
+A01

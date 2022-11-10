@@ -6,18 +6,142 @@
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
+#include <strsafe.h>
+#include <chrono>
+#include <iomanip>
 
 #define KEY_NONE	-1
 
 #pragma warning(disable : 4996)
 
 using namespace std;
+namespace cron = std::chrono;
+using namespace std::literals::chrono_literals;
+
 //Khai báo các biến toàn cục
 static int checkAd = 1;
 static int checkUS = 1;
 static int checkEx = 1;
 static int checkSb = 1;
 static int checkCl = 1;
+//============== làm ẩn trỏ chuột ===========
+inline void ShowCur(bool CursorVisibility)
+{
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
+	SetConsoleCursorInfo(handle, &cursor);
+}
+
+inline void textcolor(int x)
+{
+	HANDLE mau;
+	mau = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(mau, x);
+}
+
+inline void gotoxy(short x, short y)
+{
+	HANDLE hConsoleOutput;
+	COORD   Cursor_an_Pos = { x, y };
+	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
+}
+
+
+inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds displayInterval, int timerPrecision) {
+	wchar_t ret = 0;
+	auto now = cron::steady_clock::now();
+	auto timerEnd = now + duration;
+	cron::duration<double> timeLeft = timerEnd - now;
+	auto lastIntervalDisplayTime = now;
+	bool redraw = true;
+
+	while (timeLeft > 0s) {
+		// Check if we need to redraw time because of key hit
+		textcolor(6);
+		gotoxy(45, 7);
+		if (_kbhit()) {
+			wchar_t ch = _getch();
+			if (ch == L'\b') {
+				ret = 0;
+				wcout << L"\b \b"; // quick and dirty backspace
+				redraw = true;
+			}
+			else if (ch == L'\r' || ch == L'\n') {
+				if (ret) break;
+				// else do nothing
+			}
+			else if (ch != L'a' && ch != L'b' && ch != L'c' && ch != L'd' && ch != L'A' && ch != L'B' && ch != L'C' && ch != L'D') {
+				if (ret) wcin.clear();
+				ret = L'\0';
+			}
+			else {
+				ret = ch;
+				redraw = true;
+			}
+		}
+		// Check if we need to redraw time interval
+		now = cron::steady_clock::now();
+		timeLeft = timerEnd - now;
+		if (timeLeft < 0s) timeLeft = 0s;
+		if (now - lastIntervalDisplayTime >= displayInterval) {
+			redraw = true;
+			lastIntervalDisplayTime = now;
+		}
+		// Draw
+		if (redraw) {
+			gotoxy(0, 10);
+			textcolor(5);
+			wcout << L"\rBạn còn " << fixed << setprecision(timerPrecision) << timeLeft.count() << L"s" << endl;
+			textcolor(6);
+			gotoxy(45, 7);
+			if (ret) wcout << ret;
+			redraw = false;
+		}
+		Sleep(16); // don't rape your CPU!
+	}
+	wcout << L'\n';
+	return ret;
+}
+
+
+inline wstring inputPassword(size_t length_max)
+{
+	wstring strRet;
+	wchar_t ch = 0;
+	bool bShow = false;
+	do
+	{
+		ch = getch();
+		if ((strRet.size() < length_max) && (isalpha(ch) || isalnum(ch)))
+		{
+			wcout << (bShow ? ch : L'*');
+			strRet.push_back(ch);
+		}
+		else
+		{
+			if (0x1B == ch) // 0x1B mã ASCII của phím esc.
+			{
+				bShow = !bShow;
+				wcout << wstring(strRet.size(), L'\b');
+
+				if (bShow)
+					wcout << strRet;
+				else
+					wcout << wstring(strRet.size(), L'*');
+
+			}
+			if (L'\b' == ch && !strRet.empty())
+			{
+				wcout << L"\b \b";
+				strRet.pop_back();
+			}
+		}
+
+	} while (L'\r' != ch);
+	wcout << endl;
+	return strRet;
+}
 
 //Ghi lỗi và thoát ra
 inline VOID WriteError(LPSTR lpszMessage) {
@@ -40,22 +164,10 @@ inline int whereY()
 	return -1;
 }
 //============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
-inline void gotoxy(short x, short y)
-{
-	HANDLE hConsoleOutput;
-	COORD Cursor_an_Pos = { x, y };
-	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
-}
 
 
-//============== làm ẩn trỏ chuột ===========
-inline void ShowCur(bool CursorVisibility)
-{
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
-	SetConsoleCursorInfo(handle, &cursor);
-}
+
+
 
 
 inline int ascending(const wchar_t* c1, const wchar_t* c2)
@@ -149,12 +261,7 @@ inline wchar_t* convertCharArrayToLPCWSTR(const char* charArray)
 	MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
 	return wString;
 }
-inline void textcolor(int x)
-{
-	HANDLE mau;
-	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(mau, x);
-}
+
 
 inline void wirteChar(int x, int y, const wchar_t* z) {
 	gotoxy(x, y);

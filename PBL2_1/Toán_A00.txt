@@ -6,74 +6,74 @@ A00
 4
 5
 6
-C
+3
 5
 3 + 3 Bang Bao Nhieu ?
 3
 4
 5
 6
-D
+4
 6
 2 * 3 Bang Bao Nhieu ?
 3
 4
 5
 6
-D
+4
 7
 10 + 3 Bang Bao Nhieu ?
 3
 4
 13
 6
-C
+3
 8
 8 * 6 Bang Bao Nhieu ?
 3
 4
 48
 6
-C
+3
 9
 15 : 5 Bang Bao Nhieu ?
 3
 4
 5
 6
-A
+1
 10
 10 - 5 Bang Bao Nhieu ?
 3
 4
 5
 6
-C
+3
 11
 6 - 3 Bang Bao Nhieu ?
 3
 4
 5
 6
-A
+1
 12
 2 + 2 Bang Bao Nhieu ?
 3
 4
 5
 6
-B
+2
 13
 5 * 5 Bang May
 5
 10
 5
 25
-D
+4
 15
 2 Giai Thua Bang May
 1
 2
 3
 4
-B
+2

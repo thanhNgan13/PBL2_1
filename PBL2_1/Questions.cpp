@@ -52,11 +52,11 @@ wstring Questions::getD() {
 	return D;
 }
 
-void Questions::setAnswer(wstring answer) {
+void Questions::setAnswer(int answer) {
 	this->answer = answer;
 }
 
-wstring Questions::getAnswer() {
+int Questions::getAnswer() {
 	return answer;
 }
 
@@ -77,18 +77,99 @@ bool Questions::operator!=(Questions& x) {
 }
 
 wistream& operator>>(wistream& in, Questions& x) {
-	wcout << L"Nhập nội dung câu hỏi: ";
-	getline(wcin, x.contentQuestions);
-	wcout << L"NNhập đáp án A: ";
-	getline(wcin, x.A);
-	wcout << L"NNhập đáp án B: ";
-	getline(wcin, x.B);
-	wcout << L"NNhập đáp án C: ";
-	getline(wcin, x.C);
-	wcout << L"NNhập đáp án D: ";
-	getline(wcin, x.D);
-	wcout << L"Nhập đáp án chính xác của câu hỏi: ";
-	getline(wcin, x.answer);
+	while (true)
+	{
+		textcolor(6);
+		wcout << L"Nhập nội dung câu hỏi: ";
+		getline(wcin, x.contentQuestions);
+		if (x.contentQuestions.empty()) {
+			textcolor(4);
+			wcout << L"Không được bỏ trống!!!" << endl;
+		}
+		else
+			break;
+	}
+	while (true)
+	{
+		textcolor(6);
+		wcout << L"NNhập đáp án A: ";
+		getline(wcin, x.A);
+		if (x.A.empty()) {
+			textcolor(4);
+			wcout << L"Không được bỏ trống!!!" << endl;
+		}
+		else
+			break;
+	}
+	while (true)
+	{
+
+		textcolor(6);
+		wcout << L"NNhập đáp án B: ";
+		getline(wcin, x.B);
+		if (x.B.empty()) {
+			textcolor(4);
+			wcout << L"Không được bỏ trống!!!" << endl;
+		}
+		else
+			break;
+	}
+	while (true)
+	{
+		textcolor(6);
+		wcout << L"NNhập đáp án C: ";
+		getline(wcin, x.C);
+		if (x.C.empty()) {
+			textcolor(4);
+			wcout << L"Không được bỏ trống!!!" << endl;
+		}
+		else
+			break;
+	}
+	while (true)
+	{
+		textcolor(6);
+		wcout << L"NNhập đáp án D: ";
+		getline(wcin, x.D);
+		if (x.D.empty()) {
+			textcolor(4);
+			wcout << L"Không được bỏ trống!!!" << endl;
+		}
+		else
+			break;
+	}
+
+	while (true) {
+		textcolor(6);
+		wcout << L"Nhập đáp án chính xác của câu hỏi(1: A; 2: B; 3: C, 4: D): ";
+		if ((wcin >> x.answer))
+		{
+			if (x.answer < 0 || x.answer > 4) {
+				textcolor(4);
+				wcout << L"Đáp án chứa ký tự không hợp lệ!!!" << endl;
+				wcin.clear();
+				wcin.ignore(1000, '\n');
+			}
+			else
+				break;
+		}
+		else {
+			textcolor(4);
+			wcout << L"Đáp án chứa ký tự không hợp lệ!!!" << endl;
+			wcin.clear();
+			wcin.ignore(1000, '\n');
+		}
+	}
+	//if (x.answer.empty()) {
+	//	textcolor(4);
+	//	wcout << L"Không được bỏ trống!!!" << endl;
+	//	goto Ans;
+	//}
+	//if (x.answer != L"A" || x.answer != L"B" || x.answer != L"C" || x.answer != L"D" || x.answer != L"a" || x.answer != L"b" || x.answer != L"c" || x.answer != L"d") {
+	//	textcolor(4);
+	//	wcout << L"Nhập không đúng cú pháp!!!" << endl;
+	//	goto Ans;
+	//}
 	x.id = hashCode(x.contentQuestions);
 	return in;
 }

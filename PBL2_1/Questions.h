@@ -5,7 +5,7 @@ using namespace std;
 class Questions {
 private:
 	int id;
-	wstring answer;
+	int answer;
 	wstring contentQuestions;
 	wstring A;
 	wstring B;
@@ -24,8 +24,8 @@ public:
 	wstring getC();
 	void setD(wstring D);
 	wstring getD();
-	void setAnswer(wstring answer);
-	wstring getAnswer();
+	void setAnswer(int answer);
+	int getAnswer();
 
 	friend wistream& operator >> (wistream& in, Questions& x);
 	friend wostream& operator << (wostream& out, const Questions& x);
