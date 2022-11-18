@@ -144,8 +144,7 @@ void login()
 {
 	loadSubject();
 	loadClass();
-	checkAd = 1;
-	checkUS = 1;
+
 	wstring user;
 	wstring pass;
 	wstring pass1;
