@@ -88,26 +88,47 @@ inline void LinkedList<T>::Delete(T value)
 {
 	Node<T>* current = head;
 	Node<T>* prev = nullptr;
+	bool found = false;
+
 	if (current == nullptr) {
-		wcerr << L"Danh sách rỗng không thể xóa!" << endl;
-	}
-	if (current != nullptr && current->data == value) {
-		head = current->next;
-		delete current;
-		size--;
+		wcerr << L"Không thể xóa bởi vì danh sách rỗng" << endl;
 		return;
 	}
-	else {
-		while (current != NULL && current->data != value)
-		{
-			prev = current;
-			current = current->next;
+
+	do {
+		if (current->data == value) {
+			found = true;
+			break;
 		}
-		prev->next = current->next;
+
+		prev = current;
+		current = current->next;
+	} while (current != nullptr);
+
+	if (!found) {
+		wcerr << L"Không tìm thấy giá trị " << value << endl;
+		return;
+	}
+
+	if (current == head) {
+		prev = head;
+		head = current->next;
+		delete prev;
+		size--;
+		return;
+	}
+
+	if (current->next == nullptr) {
+		prev->next = nullptr;
 		delete current;
 		size--;
 		return;
 	}
+
+	prev->next = current->next;
+	delete current;
+
+	size--;
 }
 
 template<typename T>

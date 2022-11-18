@@ -1,0 +1,72 @@
+10
+A00
+15
+2 Giai Thua Bang May
+1
+2
+3
+4
+2
+13
+5 * 5 Bang May
+5
+10
+5
+25
+4
+12
+2 + 2 Bang Bao Nhieu ?
+3
+4
+5
+6
+2
+11
+6 - 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+1
+10
+10 - 5 Bang Bao Nhieu ?
+3
+4
+5
+6
+3
+9
+15 : 5 Bang Bao Nhieu ?
+3
+4
+5
+6
+1
+7
+10 + 3 Bang Bao Nhieu ?
+3
+4
+13
+6
+3
+6
+2 * 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+4
+5
+3 + 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+4
+4
+2 + 3 Bang Bao Nhieu ?
+3
+4
+5
+6
+3

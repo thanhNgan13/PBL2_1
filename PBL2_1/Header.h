@@ -22,8 +22,8 @@ using namespace std::literals::chrono_literals;
 static int checkAd = 1;
 static int checkUS = 1;
 static int checkEx = 1;
-static int checkSb = 1;
-static int checkCl = 1;
+static int checkEntUs = 1;
+
 //============== làm ẩn trỏ chuột ===========
 inline void ShowCur(bool CursorVisibility)
 {
@@ -59,7 +59,7 @@ inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds 
 	while (timeLeft > 0s) {
 		// Check if we need to redraw time because of key hit
 		textcolor(6);
-		gotoxy(45, 7);
+		gotoxy(45, 9);
 		if (_kbhit()) {
 			wchar_t ch = _getch();
 			if (ch == L'\b') {
@@ -94,7 +94,7 @@ inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds 
 			textcolor(5);
 			wcout << L"\rBạn còn " << fixed << setprecision(timerPrecision) << timeLeft.count() << L"s" << endl;
 			textcolor(6);
-			gotoxy(45, 7);
+			gotoxy(45, 9);
 			if (ret) wcout << ret;
 			redraw = false;
 		}
@@ -104,6 +104,43 @@ inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds 
 	return ret;
 }
 
+inline wstring inputString(size_t length_max)
+{
+	wstring strRet;
+	wchar_t ch;
+	do
+	{
+		ch = getch();
+		if (checkEntUs == 0) {
+			if ((strRet.size() < length_max) && (isdigit(ch)))
+			{
+				wcout << ch;
+				strRet.push_back(ch);
+			}
+			if (L'\b' == ch && !strRet.empty())
+			{
+				wcout << L"\b \b";
+				strRet.pop_back();
+			}
+		}
+		else {
+			if ((strRet.size() < length_max) && (isalnum(ch) || isalpha(ch)))
+			{
+				wcout << ch;
+				strRet.push_back(ch);
+			}
+			if (L'\b' == ch && !strRet.empty())
+			{
+				wcout << L"\b \b";
+				strRet.pop_back();
+			}
+		}
+
+
+	} while (L'\r' != ch);
+	wcout << endl;
+	return strRet;
+}
 
 inline wstring inputPassword(size_t length_max)
 {
@@ -113,7 +150,7 @@ inline wstring inputPassword(size_t length_max)
 	do
 	{
 		ch = getch();
-		if ((strRet.size() < length_max) && (isalpha(ch) || isalnum(ch)))
+		if ((strRet.size() < length_max) && (isalpha(ch) || isalnum(ch) || isgraph(ch)))
 		{
 			wcout << (bShow ? ch : L'*');
 			strRet.push_back(ch);
@@ -164,25 +201,6 @@ inline int whereY()
 	return -1;
 }
 //============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
-
-
-
-
-
-
-inline int ascending(const wchar_t* c1, const wchar_t* c2)
-{
-	if (wcscmp(c1, c2) >= 0)
-		return 1;
-	return 0;
-}
-
-inline int descending(const wchar_t* c1, const wchar_t* c2)
-{
-	if (wcscmp(c1, c2) <= 0)
-		return 1;
-	return 0;
-}
 
 inline void removeSpaces(wstring& str)
 {

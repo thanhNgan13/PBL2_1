@@ -70,10 +70,10 @@ LinkedList<Questions> Subjects::getQuestionList()
 
 wistream& operator>>(wistream& in, Subjects& x)
 {
-	wcout << L"Nhập tên môn học: ";
+	writeString(60, 10, L"Nhâp tên môn học: ", 6);
 	getline(in, x.subjectName);
-	wcout << L"Nhập mã môn học: ";
-	getline(in, x.subjectCode);
+	writeString(60, 11, L"Nhập mã môn học (tối đa 9 kí tự): ", 6);
+	x.subjectCode = inputString(9);
 	return in;
 }
 
