@@ -739,7 +739,6 @@ void loadClass()
 		data.setClassCode(s2);
 		listInfC.Insert(data);
 		fileIn.open(L"listClass\\" + conCat(s1, s2), ios::out | ios::app);
-		fileIn.close();
 	}
 	file.close();
 }
