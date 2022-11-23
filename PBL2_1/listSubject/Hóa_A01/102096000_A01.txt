@@ -1,0 +1,28 @@
+Số lượng câu hỏi đã chọn: 3
+Thời gian của mỗi câu hỏi: 1s
+Id: 2
+Nội dung câu hỏi: Fe La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: A
+Đáp án của bạn: a
+Id: 9
+Nội dung câu hỏi: CnH2n La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: B
+Đáp án của bạn: b
+Id: 3
+Nội dung câu hỏi: Cu La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: b
+Tổng số câu hỏi đúng: 3
+Điểm của bạn: 10

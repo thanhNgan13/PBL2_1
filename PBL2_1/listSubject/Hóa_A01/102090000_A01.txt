@@ -1,0 +1,44 @@
+Số lượng câu hỏi đã chọn: 5
+Thời gian của mỗi câu hỏi: 1s
+Id: 3
+Nội dung câu hỏi: Cu La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: a
+Id: 4
+Nội dung câu hỏi: Zn La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: C
+Đáp án của bạn: b
+Id: 10
+Nội dung câu hỏi: CnH2n-2 La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Id: 12
+Nội dung câu hỏi: Saccarozo Co Cong Thuc Hoa Hoc La?
+A. C12H22O11
+B. C6H12O6
+C. C2H4
+D. C3H6
+Đáp án: A
+Bạn đã không kịp thời cho câu hỏi này
+Id: 7
+Nội dung câu hỏi: H La Gi ?
+A. Sat
+B. Hidro
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: d
+Tổng số câu hỏi đúng: 0
+Điểm của bạn: 0

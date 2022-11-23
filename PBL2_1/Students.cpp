@@ -84,6 +84,19 @@ bool Students::operator<(Students& x)
 	return false;
 }
 
+Students& Students::operator=(Students const& st)
+{
+	if (&st != this) {
+		studentCode = st.studentCode;
+		passwork = st.passwork;
+		lastName = st.lastName;
+		firstName = st.firstName;
+		sex = st.sex;
+		scoreList = st.scoreList;
+	}
+	return *this;
+}
+
 wistream& operator>>(wistream& in, Students& x) {
 	wcout << L"Nhập họ : ";
 	getline(wcin, x.lastName);
@@ -95,7 +108,6 @@ wistream& operator>>(wistream& in, Students& x) {
 	getline(wcin, x.studentCode);
 	wcout << L"Nhập password: ";
 	getline(wcin, x.passwork);
-	
 	return in;
 }
 

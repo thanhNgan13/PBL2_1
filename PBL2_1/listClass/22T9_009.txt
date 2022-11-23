@@ -263,6 +263,10 @@ Lý Thắng
 Nam
 102090000
 123
+2
+A04
+0
+A01
 0
 Nguyễn 
 Quốc Thịnh	
@@ -293,13 +297,21 @@ Thành Tuân
 Nam
 102095000
 123
+2
+A00
+3.33333
+A01
 0
 Nguyễn 
 Quốc Tuấn	
 Nam
 102096000
 123
-0
+2
+A00
+3.33333
+A01
+10
 Phạm 
 Quốc Văn	
 Nam

@@ -1,0 +1,12 @@
+Số lượng câu hỏi đã chọn: 1
+Thời gian của mỗi câu hỏi: 1s
+Id: 15
+Nội dung câu hỏi: 2 Giai Thua Bang May
+A. 1
+B. 2
+C. 3
+D. 4
+Đáp án: B
+Đáp án của bạn: a
+Tổng số câu hỏi đúng: 0
+Điểm của bạn: 0

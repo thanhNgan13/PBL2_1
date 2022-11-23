@@ -35,6 +35,6 @@ public:
 	bool operator >(Students& x);
 	bool operator <(Students& x);
 
-
+	Students& operator=(Students const& st);
 	
 };

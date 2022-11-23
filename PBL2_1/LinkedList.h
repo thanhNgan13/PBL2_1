@@ -46,6 +46,7 @@ public:
 	void Delete(T);
 	void Delete();
 	Node<T>* Search(T);
+	void Update(T, T);
 	void Display();
 
 	T getRandom() const;
@@ -162,6 +163,25 @@ inline Node<T>* LinkedList<T>::Search(T value)
 		current = current->next;
 	}
 	return nullptr;
+}
+
+template<typename T>
+inline void LinkedList<T>::Update(T oldValue, T newValue)
+{
+	if (head == nullptr) {
+		wcerr << L"Không thể thay đổi vì danh sách rỗng" << endl;
+		return;
+	}
+	Node<T>* current = head;
+	while (current != nullptr)
+	{
+		if (current->data == oldValue) {
+			current->data = newValue;
+			return;
+		}
+		current = current->next;
+	}
+	wcerr << L"Không tìm thấy giá trị " << endl;
 }
 
 template<typename T>

@@ -23,6 +23,7 @@ static int checkAd = 1;
 static int checkUS = 1;
 static int checkEx = 1;
 static int checkEntUs = 1;
+static int checkDelete = 1;
 
 
 inline wstring inputStr(size_t length_max) {
