@@ -8,5 +8,7 @@ private:
 public:
 	void setScore(float score);
 	float getScore();
+	friend wostream& operator << (wostream& in, const Score& x);
+	bool operator==(Score& x);
 };
 

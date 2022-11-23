@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -10,11 +11,10 @@
 #include <chrono>
 #include <iomanip>
 
-#define KEY_NONE	-1
-
 #pragma warning(disable : 4996)
 
 using namespace std;
+// Khai báo cáo namespace để dùng cho hàm nhập kí tự theo thười gian
 namespace cron = std::chrono;
 using namespace std::literals::chrono_literals;
 
@@ -24,21 +24,56 @@ static int checkUS = 1;
 static int checkEx = 1;
 static int checkEntUs = 1;
 
-//============== làm ẩn trỏ chuột ===========
+
+inline wstring inputStr(size_t length_max) {
+	wstring strRet;
+	wchar_t ch;
+	do
+	{
+		ch = getch();
+		if (checkEntUs == 0) {
+			if ((strRet.size() < length_max) && (isdigit(ch)))
+			{
+				wcout << ch;
+				strRet.push_back(ch);
+			}
+			if (L'\b' == ch && !strRet.empty())
+			{
+				wcout << L"\b \b";
+				strRet.pop_back();
+			}
+		}
+		else {
+			if ((strRet.size() < length_max) && (isalnum(ch) || isalpha(ch)))
+			{
+				wcout << ch;
+				strRet.push_back(ch);
+			}
+			if (L'\b' == ch && !strRet.empty())
+			{
+				wcout << L"\b \b";
+				strRet.pop_back();
+			}
+		}
+	} while (L'\r' != ch);
+	wcout << endl;
+	return strRet;
+}
+//Làm ẩn con trỏ chuột
 inline void ShowCur(bool CursorVisibility)
 {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
 	SetConsoleCursorInfo(handle, &cursor);
 }
-
+//Chỉnh màu sắc chữ
 inline void textcolor(int x)
 {
-	HANDLE mau;
-	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(mau, x);
+	HANDLE color;
+	color = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(color, x);
 }
-
+//Di chuyển con trỏ chuột đến tọa độ (x, y)
 inline void gotoxy(short x, short y)
 {
 	HANDLE hConsoleOutput;
@@ -46,8 +81,7 @@ inline void gotoxy(short x, short y)
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
 }
-
-
+//Nhập kí tự trong thời gian nhất định
 inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds displayInterval, int timerPrecision) {
 	wchar_t ret = 0;
 	auto now = cron::steady_clock::now();
@@ -103,7 +137,7 @@ inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds 
 	wcout << L'\n';
 	return ret;
 }
-
+//Nhập chuỗi với số lượng cố định
 inline wstring inputString(size_t length_max)
 {
 	wstring strRet;
@@ -135,13 +169,11 @@ inline wstring inputString(size_t length_max)
 				strRet.pop_back();
 			}
 		}
-
-
 	} while (L'\r' != ch);
 	wcout << endl;
 	return strRet;
 }
-
+//Nhập chuỗi với số lượng cố định và ẩn hiện chuỗi
 inline wstring inputPassword(size_t length_max)
 {
 	wstring strRet;
@@ -179,29 +211,12 @@ inline wstring inputPassword(size_t length_max)
 	wcout << endl;
 	return strRet;
 }
-
-//Ghi lỗi và thoát ra
+//Ghi lỗi và thoát ra ( dùng trong bắt sự kiện chuột)
 inline VOID WriteError(LPSTR lpszMessage) {
 	printf("%s\n", lpszMessage);
 	ExitProcess(0);
 }
-inline int whereX()
-{
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
-		return csbi.dwCursorPosition.X;
-	return -1;
-}
-//========= lấy tọa độ y của con trỏ hiện tại =======
-inline int whereY()
-{
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
-		return csbi.dwCursorPosition.Y;
-	return -1;
-}
-//============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
-
+// Xóa các khoảng trắng dư thừa
 inline void removeSpaces(wstring& str)
 {
 
@@ -217,7 +232,6 @@ inline void removeSpaces(wstring& str)
 				str[j] == '?') && i - 1 >= 0 &&
 				str[i - 1] == ' ')
 				str[i - 1] = str[j++];
-
 			else
 
 				str[i++] = str[j++];
@@ -237,7 +251,7 @@ inline void removeSpaces(wstring& str)
 	else
 		str.erase(str.begin() + i - 1, str.end());
 }
-
+// Hàm tách tên với mã môn/lớp học
 inline wstring subStr(wstring s) {
 	size_t index1 = 0;
 	size_t index2 = 0;
@@ -252,7 +266,7 @@ inline wstring subStr(wstring s) {
 	wstring reslut = s.substr(index1, index2 - index1);
 	return reslut;
 }
-
+// Hàm hash để tạo mã cho câu hỏi
 inline int hashCode(wstring s) {
 	int sum = 0;
 	int i = 0;
@@ -263,6 +277,7 @@ inline int hashCode(wstring s) {
 	}
 	return (int)fabs(sum % 6997);
 }
+// Viết hoa chữ cái đầu và sau khoảng trắng
 inline wstring Upper(wstring s) {
 	if (s[0] != L' ') {
 		s[0] = towupper(s[0]);
@@ -273,34 +288,36 @@ inline wstring Upper(wstring s) {
 	}
 	return s;
 }
+// chuyền từ kiểu char sang LPCWSTR
 inline wchar_t* convertCharArrayToLPCWSTR(const char* charArray)
 {
 	wchar_t* wString = new wchar_t[4096];
 	MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
 	return wString;
 }
-
-
+// Viết kí tự tại vị trí có tọa độ (x, y)
 inline void wirteChar(int x, int y, const wchar_t* z) {
 	gotoxy(x, y);
 	wcout << z;
 }
-inline void writeString(int x, int y, const wchar_t s[], int mau)
+// Viết chuỗi có màu sắc tại vị trí có tọa độ (x, y)
+inline void writeString(int x, int y, const wchar_t* s, int color)
 {
 	gotoxy(x, y);
-	textcolor(mau);
+	textcolor(color);
 	wcout << s;
 }
+// Bắt sự kiện bàn phím
 inline int catchEvents()
 {
 	int c = getch();
-	if (c == 8) //phim Backspace
+	if (c == 8) //Backspace
 		return 1;
-	else if (c == 9) //phim Tab
+	else if (c == 9) //Tab
 		return 2;
-	else if (c == 13) //phim Enter
+	else if (c == 13) //Enter
 		return 3;
-	else if (c == 27) //phim Esc
+	else if (c == 27) //Esc
 		return 4;
 	else if (c == 224)
 	{
@@ -325,11 +342,11 @@ inline int catchEvents()
 			return 13;
 	}
 }
-
-inline void menuBar(int x, int y, int m, int n, int mau)
+// Vẽ khung có màu và kích thước m*n tại vị trí có tọa độ (x, y)
+inline void menuBar(int x, int y, int m, int n, int color)
 {
 	int i, j;
-	textcolor(mau);
+	textcolor(color);
 	for (i = x; i <= x + m; i++)
 		for (j = y; j <= y + n; j++)
 		{
@@ -349,6 +366,7 @@ inline void menuBar(int x, int y, int m, int n, int mau)
 				wirteChar(i, j, L"─");
 		}
 }
+// Vẽ bảng tại vị trí có tọa độ (x, y)
 inline void menuTable(int x, int y)
 {
 	int i, j;
@@ -375,17 +393,7 @@ inline void menuTable(int x, int y)
 				wirteChar(i, j, L"═");
 		}
 }
-
-inline void setFontSize(int FontSize)
-{
-	CONSOLE_FONT_INFOEX info = { 0 };
-	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = FontSize; // leave X as zero
-	info.FontWeight = FW_NORMAL;
-	wcscpy(info.FaceName, L"Lucida Console");
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
-}
-
+// Bảng hiện sinh viên tại tọa độ (x, y)
 inline void menuDisplaySt(int x, int y, int sl)
 {
 	int i, j;
@@ -430,39 +438,4 @@ inline void menuDisplaySt(int x, int y, int sl)
 		writeString(x + 77, y + 1, L"Điểm", 11);
 	}
 }
-inline void menuDisplay(int x, int y, int sl)
-{
-	int i, j;
-	textcolor(2);
-	for (i = x; i <= x + 89; i++)
-		for (j = y; j <= y + sl; j++)
-		{
-			if (i == x || i == x + 4 || i == x + 20)
-			{
-				if (j == y && i != x && i != x + 89)
-					wirteChar(i, j, L"┬");
-				else if (j == y && i != x + 89)
-					wirteChar(i, j, L"┌");
-				else if (j == y && i != x)
-					wirteChar(i, j, L"┐");
-				else if (j == y + 2 && i != x && i != x + 89)
-					wirteChar(i, j, L"┼");
-				else if (j == y + 2 && i != x + 89)
-					wirteChar(i, j, L"├");
-				else if (j == y + 2 && i != x)
-					wirteChar(i, j, L"┤");
-				else if (j == y + sl && i != x && i != x + 89)
-					wirteChar(i, j, L"┴");
-				else if (j == y + sl && i != x + 89)
-					wirteChar(i, j, L"└");
-				else if (j == y + sl && i != x)
-					wirteChar(i, j, L"┘");
-				else wirteChar(i, j, L"│");
-			}
-			else if (j == y || j == y + 2 || j == y + sl)
-				wirteChar(i, j, L"─");
-		}
-	writeString(x + 1, y + 1, L"STT", 11);
-	writeString(x + 6, y + 1, L"Tên", 11);
-	writeString(x + 21, y + 1, L"Mã", 11);
-}
+

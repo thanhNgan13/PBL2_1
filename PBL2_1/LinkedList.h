@@ -40,6 +40,7 @@ public:
 	int size;
 	const static int SORT_ASC = 0;
 	const static int SORT_DESC = 1;
+
 	LinkedList();
 	void Insert(T);
 	void Delete(T);
@@ -74,12 +75,16 @@ inline void LinkedList<T>::Insert(T value)
 	auto* newNode = new Node<T>(value);
 	if (head == nullptr) {
 		head = newNode;
+		size++;
+		return;
 	}
-	else {
-		newNode->next = head;
-		head = newNode;
-	}
-
+	Node<T>* current = head;
+	Node<T>* temp;
+	do {
+		temp = current;
+		current = current->next;
+	} while (current != nullptr);
+	temp->next = newNode;
 	size++;
 }
 
@@ -127,7 +132,6 @@ inline void LinkedList<T>::Delete(T value)
 
 	prev->next = current->next;
 	delete current;
-
 	size--;
 }
 
@@ -159,7 +163,6 @@ inline Node<T>* LinkedList<T>::Search(T value)
 	}
 	return nullptr;
 }
-
 
 template<typename T>
 inline void LinkedList<T>::Display()
@@ -198,9 +201,6 @@ inline T LinkedList<T>::getRandom() const
 	return ans;
 
 }
-
-
-
 
 template<typename T>
 inline int LinkedList<T>::getCount() const

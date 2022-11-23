@@ -2,6 +2,7 @@
 #include <string>
 #include "LinkedList.h" 
 #include "Students.h"
+#include "Header.h"
 
 using namespace std;
 class informationClass {

@@ -12,10 +12,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <chrono>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <direct.h>
-
+#include <cstdint>
+#include <filesystem>
 
 #include "Header.h"
 #include "LinkedList.h"
@@ -24,7 +23,9 @@
 #include "informationClass.h"
 #include "Students.h"
 
+
 using namespace std;
+namespace fs = std::filesystem;
 namespace cron = std::chrono;
 using namespace std::literals::chrono_literals;
 std::locale loc(std::locale(), new std::codecvt_utf8<wchar_t>);
@@ -87,10 +88,18 @@ void removeFile(wstring s);
 bool checkFileIsEmpty(wstring nameFile);
 wstring conCat(wstring s1, wstring s2);
 
-Node<Subjects>* Search(LinkedList<Subjects> list, wstring code);
-Node<Questions>* Search(Node<Subjects>* node, int code);
-Node<Students>* Search(Node<informationClass>* node, wstring code);
-Node<informationClass>* Search(LinkedList<informationClass> list, wstring code);
+Node<Subjects>* Search(LinkedList<Subjects> list, wstring code); // tìm kiếm môn học
+
+Node<Questions>* Search(Node<Subjects>* node, int code); // tìm kiếm câu hỏi
+
+Node<informationClass>* Search(LinkedList<informationClass> list, wstring code); // tìm kiếm môn học
+
+Node<Students>* Search(Node<informationClass>* node, wstring code); // tìm kiếm sinh viên
+
+Node<Score>* Search(LinkedList<Score> list, wstring code); // tìm kiếm môn đã thi của sinh viên
+
+void Delete(LinkedList<informationClass> list, wstring code); // xóa điểm thi của môn học đã bị xóa
+
 
 void display(LinkedList<Students> list, Node<informationClass>* node);
 void display(Students st, int x, int y, int i, wstring s);
@@ -101,43 +110,22 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 
 int wmain(int argc, wchar_t* argv[]) {
-	_setmode(_fileno(stdout), _O_WTEXT);
-	_setmode(_fileno(stdin), _O_WTEXT);
-
-	//checkEntUs = 0;
-	//wstring s = inputString(9);
-	//wcout << s;
-	login();
-	//LinkedList<int> listI;
-	//srand(time(NULL));
-	//for (int i = 0; i < 10; i++) {
-	//	listI.Insert(i);
-	//}
-	//listI.Display();
-	//listI.Delete(5);
-	//listI.Display();
-
-	//wstring s;
-	//wstring line;
-	//vector<wstring> lines;	
-	//wifstream file;
-	//file.imbue(loc);
-	//s = L"22T5_005.txt";
-	//s = L"listClass\\" + s;
-	//file.open(s);
-	//if (!file.is_open()) {
-	//	wcerr << L"Could not open the file - '"
-	//		<< s << L"'" << endl;
-	//	return EXIT_FAILURE;
-	//}
-	//while (getline(file, line))
-	//{
-	//	lines.push_back(line);
-	//}
-	//for (const auto& x : lines) {
-	//	wcout << x << endl;
-	//}
-	//file.close();
+#if 1
+	try {
+		if (_setmode(_fileno(stdout), _O_WTEXT) == -1 || _setmode(_fileno(stdin), _O_WTEXT) == -1) {
+			throw 0;
+		}
+		login();
+	}
+	catch (...) {
+		perror("Cannot set mode");
+	}
+#endif
+#if 0
+	loadSubject();
+	loadClass();
+	Delete(listInfC, L"A00");
+#endif
 }
 
 
@@ -536,7 +524,7 @@ void student()
 	User us;
 	int x, y;
 	wstring s = L"Sinh Viên " + tempS->data.getLastName() + L' ' + tempS->data.getFirstName();
-	removeSpaces(s);
+	//removeSpaces(s);
 	size_t l = s.length();
 	const wchar_t* s1 = s.c_str();
 	menuBar(int(80 - ((l + 10) / 2)), 1, int(l + 10), 2, 11);	writeString(int(85 - ((l + 10) / 2)), 2, s1, 14);
@@ -698,6 +686,7 @@ void loadQuestions(wstring name)
 }
 void loadSubject() {
 	wifstream file;
+
 	file.open(L"listSubject.txt", ios_base::in);
 	int max;
 	file >> max;
@@ -714,8 +703,16 @@ void loadSubject() {
 		s2 = Upper(s2);
 		data.setSubjectCode(s2);
 		listS.Insert(data);
-		fileIn.open(L"listSubject\\" + conCat(s1, s2), ios::out | ios::app);
-		fileIn.close();
+		try {
+			if (_wmkdir((L"listSubject\\" + s1 + L"_" + s2).c_str()) != -1) {
+				throw 3;
+			}
+			fileIn.open(L"listSubject\\" + conCat(s1, s2), ios::out | ios::app);
+			fileIn.close();
+		}
+		catch (...) {
+			cerr << "Error : " << strerror(errno) << endl;
+		}
 	}
 	file.close();
 }
@@ -739,6 +736,7 @@ void loadClass()
 		data.setClassCode(s2);
 		listInfC.Insert(data);
 		fileIn.open(L"listClass\\" + conCat(s1, s2), ios::out | ios::app);
+		fileIn.close();
 	}
 	file.close();
 }
@@ -926,10 +924,18 @@ void enterSubject()
 			goto a;
 		}
 		else {
-			writeString(60, 6, L"Thêm mới thành công!", 12);
-			listS.Insert(x);
-			fileIn.open(conCat(L"listSubject\\" + x.getSubjectName(), x.getSubjectCode()), ios::out | ios::app);
-			fileIn.close();
+			try {
+				if (_wmkdir((L"listSubject\\" + x.getSubjectName() + L"_" + x.getSubjectCode()).c_str()) == -1) {
+					throw 3;
+				}
+				writeString(60, 6, L"Thêm mới thành công!", 12);
+				listS.Insert(x);
+				fileIn.open(conCat(L"listSubject\\" + x.getSubjectName(), x.getSubjectCode()), ios::out | ios::app);
+				fileIn.close();
+			}
+			catch (...) {
+				cerr << "Error : " << strerror(errno) << endl;
+			}
 		}
 		ShowCur(false);
 		writeString(60, 8, L"Nhấn nút [ESC] để kết thúc nhập", 5);
@@ -1016,7 +1022,10 @@ void correctionSubject()
 						wstring s22 = conCat(L"listSubject\\" + x.getSubjectName(), x.getSubjectCode());
 						const wchar_t* s1 = s11.c_str();
 						const wchar_t* s2 = s22.c_str();
-						if (_wrename(s1, s2) != 0) {
+						if (_wrename(s1, s2) != 0 || 
+							_wrename((L"listSubject\\" + head->data.getSubjectName() + L"_" + head->data.getSubjectCode()).c_str(), 
+									(L"listSubject\\" + x.getSubjectName() + L"_" + x.getSubjectCode()).c_str()) != 0) 
+						{
 							_wperror(L"Error renaming file\n");
 						}
 						else
@@ -1038,6 +1047,7 @@ void correctionSubject()
 		} while (true);
 	}
 }
+// chua fix // da fix
 void deleteSubject()
 {
 	ShowCur(true);
@@ -1080,14 +1090,44 @@ void deleteSubject()
 				}
 			}
 			else {
-				removeFile(L"listSubject\\" + conCat(head->data.getSubjectName(), head->data.getSubjectCode()));
-				listS.Delete(head->data);
-				writeDataSubject();
+				// fix đoạn này
+				//try {
+				//	if (_wrmdir((L"listSubject\\" + head->data.getSubjectName() + L"_" + head->data.getSubjectCode()).c_str()) == -1) {
+				//		throw 5;
+				//	}
+				//	removeFile(L"listSubject\\" + conCat(head->data.getSubjectName(), head->data.getSubjectCode()));
+				//	listS.Delete(head->data);
+				//	Delete(listInfC, s);
+				//	writeDataSubject();
+				//	system("cls");
+				//	writeString(60, 0, L"Đã xóa môn học thành công", 4);
+				//	gotoxy(60, 2);
+				//	system("pause");
+				//	return;
+				//}
+//				catch (...) {
 				system("cls");
-				writeString(60, 0, L"Đã xóa môn học thành công", 4);
-				gotoxy(60, 2);
-				system("pause");
-				return;
+				writeString(60, 2, L"Bạn có chắc chắn xóa môn học này không?", 4);
+				writeString(60, 3, L"Nếu xóa thì toàn bộ dữ liệu điểm của sinh viên về môn học này sẽ bị hủy", 4);
+				writeString(60, 4, L"Nhấn nút [ESC] để kết thúc", 5);
+				writeString(60, 5, L"Nhấn nút bất kì để tiếp tục xóa", 5);
+				if (catchEvents() == 4) {
+					system("cls");
+					return;
+				}
+				else {
+					fs::remove_all((L"listSubject\\" + head->data.getSubjectName() + L"_" + head->data.getSubjectCode()).c_str());
+					removeFile(L"listSubject\\" + conCat(head->data.getSubjectName(), head->data.getSubjectCode()));
+					Delete(listInfC, s);
+					listS.Delete(head->data);
+					writeDataSubject();
+					system("cls");
+					writeString(60, 0, L"Đã xóa môn học thành công", 4);
+					gotoxy(60, 2);
+					system("pause");
+					return;
+				}
+				//}
 			}
 		} while (true);
 	}
@@ -2281,7 +2321,6 @@ void enterUser()
 			do
 			{
 			b:
-				checkEntUs = 0;
 				Students st;
 				wstring s1;
 				textcolor(6);
@@ -2491,11 +2530,18 @@ void User::viewExam()
 			}
 		}
 		else {
-			Node<Score>* current = tempS->data.getScoreList().head;
+			wstring name;
+			name = conCat(L"listCLass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
+			loadListStudentOfClass(name);
+			Node<Students>* head1 = Search(tempInf, tempS->data.getStudentCode());
+			Node<Score>* current = head1->data.getScoreList().head;
 			while (current != nullptr) {
 				if (current->data.getSubjectCode() == s) {
 					system("cls");
-					file.open(conCat(tempS->data.getStudentCode(), s));
+					wstring s5 = head->data.getSubjectName() + L"_" + head->data.getSubjectCode(); //tên folder môn học
+					wstring s3 = tempS->data.getStudentCode();
+					wstring name1 = L"listSubject\\" + s5 + L"\\" + conCat(s3, s);
+					file.open(name1, ios::out);
 					file.imbue(loc);
 					while (getline(file, line))
 					{
@@ -2625,7 +2671,7 @@ void User::correctionUser()
 #if 1
 	else {
 		wstring name;
-		name = conCat(tempInf->data.getClassName(), tempInf->data.getClassCode());
+		name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
 		loadListStudentOfClass(name);
 		Node<Students>* head1 = Search(tempInf, tempS->data.getStudentCode());
 		wstring s;
@@ -2927,7 +2973,11 @@ void User::multipleChoiceTest()
 					gotoxy(60, 2);
 					system("pause");
 					system("cls");
-					teacher();
+					if (checkAd == 0) {
+						teacher();
+					}
+					else
+						student();
 				}
 				else
 				{
@@ -2936,10 +2986,9 @@ void User::multipleChoiceTest()
 				break;
 			}
 		} while (true);
+		wstring s5 = head->data.getSubjectName() + L"_" + s; //tên folder môn học
 		if (checkUS == 0) {
-			wstring s1 = tempS->data.getStudentCode();
-			wstring s2 = s;
-			file.open(conCat(s1, s2), ios::out);
+			file.open(L"listSubject\\" + s5 + L"\\" + conCat(tempS->data.getStudentCode(), s), ios::out); // lưu trong file môn học
 			file.imbue(loc);
 		}
 		system("cls");
@@ -3052,7 +3101,6 @@ void User::multipleChoiceTest()
 			file << L"Tổng số câu hỏi đúng: " << score << endl;
 			file << L"Điểm của bạn: " << realSocre << endl;
 			name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
-			 
 			loadListStudentOfClass(name);
 			Score listSc;
 			listSc.setScore(realSocre);
@@ -3084,7 +3132,7 @@ void User::multipleChoiceTest()
 			writeDataStudentInfInClass(name);
 			system("pause");
 			system("cls");
-			student();
+			student();	
 			file.close();
 		}
 		system("pause");
@@ -3092,12 +3140,11 @@ void User::multipleChoiceTest()
 		teacher();
 	}
 }
-
 void removeFile(wstring s)
 {
 	const wchar_t* c = s.c_str();
 	if (_wremove(c) != 0) {
-		cerr << "File deletion failed" << endl;
+		wcerr << L"File deletion failed" << endl;
 	}
 	else {
 		wcout << L"File deleted successfully" << endl;;
@@ -3162,6 +3209,49 @@ Node<Students>* Search(Node<informationClass>* node, wstring code)
 		current = current->next;
 	}
 	return nullptr;
+}
+
+Node<Score>* Search(LinkedList<Score> list, wstring code) {
+	Node<Score>* current = list.head;
+	while (current != nullptr) {
+		if (current->data.getSubjectCode() == code) {
+			return current;
+		}
+		current = current->next;
+	}
+	return nullptr;
+}
+
+void Delete(LinkedList<informationClass> list, wstring code)
+{
+	Node<informationClass>* currentInf = list.head;
+	Node<Students>* currentS;
+	Node<Score> *node;
+	Node<Subjects>* nodeS;
+	LinkedList<Score> tempSc;
+	wstring nameFile;
+	wstring name;
+	while (currentInf != nullptr) {
+		name = L"listClass\\" + conCat(currentInf->data.getClassName(), currentInf->data.getClassCode());
+		loadListStudentOfClass(name);
+		currentS = currentInf->data.getStudentList().head;
+		while (currentS != nullptr)
+		{
+			tempSc = currentS->data.getScoreList();
+			node = Search(tempSc, code);
+			nodeS = Search(listS, code);
+			if (node != nullptr) {
+				tempSc.Delete(node->data);
+				currentS->data.setScoreList(tempSc);
+				nameFile = L"listSubject\\" + nodeS->data.getSubjectName() + L"_" + code + L"\\" + 
+							conCat(currentS->data.getStudentCode(), code);
+				removeFile(nameFile);
+				writeDataStudentInfInClass(name);
+			}
+			currentS = currentS->next;
+		}
+		currentInf = currentInf->next;
+	}
 }
 
 void display(LinkedList<Students> head, Node<informationClass> *head2)

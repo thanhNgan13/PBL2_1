@@ -48,8 +48,9 @@ bool informationClass::operator!=(informationClass& x) {
 wistream& operator>>(wistream& in, informationClass& x) {
 	writeString(60, 10, L"Nhập tên lớp học: ", 6);
 	getline(in, x.className);
-	writeString(60, 11, L"Nhập mã lớp học (tối đa 9 kí tự): ", 6);
-	x.classCode = inputString(9);
+	writeString(60, 11, L"Nhập mã lớp học: ", 6);
+	getline(in, x.classCode);
+	//x.classCode = inputString(9);
 	return in;
 }
 

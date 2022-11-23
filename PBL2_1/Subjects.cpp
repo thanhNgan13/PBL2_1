@@ -1,7 +1,9 @@
 ﻿#include "Subjects.h"
+#include "Header.h"
 #include <string>
 #include <iostream>
 #include <iomanip>
+
 Subjects::Subjects()
 {
 	subjectCode = L"NULL";
@@ -72,8 +74,9 @@ wistream& operator>>(wistream& in, Subjects& x)
 {
 	writeString(60, 10, L"Nhâp tên môn học: ", 6);
 	getline(in, x.subjectName);
-	writeString(60, 11, L"Nhập mã môn học (tối đa 9 kí tự): ", 6);
-	x.subjectCode = inputString(9);
+	writeString(60, 11, L"Nhập mã môn học: ", 6);
+	getline(in, x.subjectCode);
+	//x.subjectCode = inputString(9);
 	return in;
 }
 

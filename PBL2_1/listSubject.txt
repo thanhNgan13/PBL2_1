@@ -3,7 +3,8 @@ Sử
 A04
 Toán
 A00
+Đia Lý
+A06
 Hóa
 A01
-Văn
-L456
+
