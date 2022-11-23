@@ -37,7 +37,6 @@ LinkedList<informationClass> listInfC;
 Node<Students>* tempS;
 Node<informationClass>* tempInf;
 
-
 class User
 {
 public:
@@ -110,7 +109,6 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 
 int wmain(int argc, wchar_t* argv[]) {
-#if 1
 	try {
 		if (_setmode(_fileno(stdout), _O_WTEXT) == -1 || _setmode(_fileno(stdin), _O_WTEXT) == -1) {
 			throw 0;
@@ -120,12 +118,6 @@ int wmain(int argc, wchar_t* argv[]) {
 	catch (...) {
 		perror("Cannot set mode");
 	}
-#endif
-#if 0
-	loadSubject();
-	loadClass();
-	Delete(listInfC, L"A00");
-#endif
 }
 
 
