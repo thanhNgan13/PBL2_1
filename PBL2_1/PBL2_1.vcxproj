@@ -127,17 +127,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bcrypt.cpp" />
     <ClCompile Include="informationClass.cpp" />
     <ClCompile Include="Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Questions.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="blowfish.cpp" />
     <ClCompile Include="Students.cpp" />
     <ClCompile Include="Subjects.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bcrypt.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="node_blf.h" />
+    <ClInclude Include="openbsd.h" />
     <ClInclude Include="informationClass.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Questions.h" />

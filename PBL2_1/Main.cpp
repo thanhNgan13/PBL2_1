@@ -16,6 +16,7 @@
 #include <cstdint>
 #include <filesystem>
 
+
 #include "Header.h"
 #include "LinkedList.h"
 #include "Subjects.h"
@@ -108,6 +109,7 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 
 int wmain(int argc, wchar_t* argv[]) {
+#if 0
 	try {
 		if (_setmode(_fileno(stdout), _O_WTEXT) == -1 || _setmode(_fileno(stdin), _O_WTEXT) == -1) {
 			throw 0;
@@ -117,6 +119,22 @@ int wmain(int argc, wchar_t* argv[]) {
 	catch (...) {
 		perror("Cannot set mode");
 	}
+#endif
+#if 1
+	std::wstring password = L"456";
+	string passwordCovert = WStringToString(password);
+
+	std::wstring hash = StringToWString(bcrypt::generateHash(passwordCovert));
+	std::wstring hash1 = StringToWString(bcrypt::generateHash(passwordCovert));
+
+	std::wcout << L"Hash: " << hash << std::endl;
+	std::wcout << L"Hash1: " << hash1 << std::endl;
+
+	std::wcout << "\"" << password << "\" : " << bcrypt::validatePassword(passwordCovert, WStringToString(hash)) << std::endl;
+	std::wcout << "\"\" : " << bcrypt::validatePassword("46", WStringToString(hash)) << std::endl;
+
+	return 0;
+#endif
 }
 
 
@@ -1027,6 +1045,8 @@ void correctionSubject()
 							wcout << endl;
 						}
 						head->data = x;
+						loadQuestions(s22);
+						writeDataExam(s22);
 						writeDataSubject();
 						gotoxy(60, 7);
 						textcolor(6);

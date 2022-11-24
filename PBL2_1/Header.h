@@ -10,6 +10,7 @@
 #include <strsafe.h>
 #include <chrono>
 #include <iomanip>
+#include "bcrypt.h"
 
 #pragma warning(disable : 4996)
 
@@ -24,8 +25,22 @@ static int checkUS = 1;
 static int checkEx = 1;
 static int checkEntUs = 1;
 static int checkDelete = 1;
-
-
+inline wstring StringToWString(const string& str)
+{
+	wstring wstr;
+	size_t size;
+	wstr.resize(str.length());
+	mbstowcs_s(&size, &wstr[0], wstr.size() + 1, str.c_str(), str.size());
+	return wstr;
+}
+inline string WStringToString(const wstring& wstr)
+{
+	string str;
+	size_t size;
+	str.resize(wstr.length());
+	wcstombs_s(&size, &str[0], str.size() + 1, wstr.c_str(), wstr.size());
+	return str;
+}
 inline wstring inputStr(size_t length_max) {
 	wstring strRet;
 	wchar_t ch;
