@@ -1,0 +1,36 @@
+Số lượng câu hỏi đã chọn: 4
+Thời gian của mỗi câu hỏi: 13s
+Id: 5
+Nội dung câu hỏi: Hg La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Thuy Ngan
+Đáp án: D
+Đáp án của bạn: a
+Id: 9
+Nội dung câu hỏi: CnH2n La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: B
+Đáp án của bạn: a
+Id: 11
+Nội dung câu hỏi: CnH2n+2 La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: A
+Đáp án của bạn: b
+Id: 4
+Nội dung câu hỏi: Zn La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: C
+Đáp án của bạn: c
+Tổng số câu hỏi đúng: 1
+Điểm của bạn: 2.5

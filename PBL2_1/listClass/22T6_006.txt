@@ -1,0 +1,16 @@
+2
+006
+Lê
+Văn A
+Nữ
+123456789
+$2b$10$ZLV6juYl3815ErEhtkrR9eBWnPMYvLibqMgpRpzfB50jnqrhyDGLC
+1
+A02
+2.5
+Phan
+Van A
+Nam
+123456788
+$2b$10$qWjlgARDMKzxvY7.y5xEOek5f1EOVq84RTrAVnDMhGWyKFPUXvsFa
+0
