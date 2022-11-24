@@ -24,7 +24,9 @@ static int checkAd = 1;
 static int checkUS = 1;
 static int checkEx = 1;
 static int checkEntUs = 1;
-static int checkDelete = 1;
+static int checkDelete = 1; //mode check xóa môn học
+static int checkCorretion = 1;// mode check chỉnh sửa sinh viên
+
 inline wstring StringToWString(const string& str)
 {
 	wstring wstr;
@@ -414,26 +416,26 @@ inline void menuDisplaySt(int x, int y, int sl)
 {
 	int i, j;
 	textcolor(2);
-	for (i = x; i <= x + 89; i++)
+	for (i = x; i <= x + 140; i++)
 		for (j = y; j <= y + sl; j++)
 		{
-			if (i == x || i == x + 4 || i == x + 20 || i == x + 42 || i == x + 60 || i == x + 76 || i == x + 89)
+			if (i == x || i == x + 4 || i == x + 20 || i == x + 42 || i == x + 60 || i == x + 76 || i == x + 140)
 			{
-				if (j == y && i != x && i != x + 89)
+				if (j == y && i != x && i != x + 140)
 					wirteChar(i, j, L"┬");
-				else if (j == y && i != x + 89)
+				else if (j == y && i != x + 140)
 					wirteChar(i, j, L"┌");
 				else if (j == y && i != x)
 					wirteChar(i, j, L"┐");
-				else if (j == y + 2 && i != x && i != x + 89)
+				else if (j == y + 2 && i != x && i != x + 140)
 					wirteChar(i, j, L"┼");
-				else if (j == y + 2 && i != x + 89)
+				else if (j == y + 2 && i != x + 140)
 					wirteChar(i, j, L"├");
 				else if (j == y + 2 && i != x)
 					wirteChar(i, j, L"┤");
-				else if (j == y + sl && i != x && i != x + 89)
+				else if (j == y + sl && i != x && i != x + 140)
 					wirteChar(i, j, L"┴");
-				else if (j == y + sl && i != x + 89)
+				else if (j == y + sl && i != x + 140)
 					wirteChar(i, j, L"└");
 				else if (j == y + sl && i != x)
 					wirteChar(i, j, L"┘");

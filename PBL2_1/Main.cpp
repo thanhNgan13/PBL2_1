@@ -109,7 +109,7 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 
 int wmain(int argc, wchar_t* argv[]) {
-#if 0
+#if 1
 	try {
 		if (_setmode(_fileno(stdout), _O_WTEXT) == -1 || _setmode(_fileno(stdin), _O_WTEXT) == -1) {
 			throw 0;
@@ -120,18 +120,17 @@ int wmain(int argc, wchar_t* argv[]) {
 		perror("Cannot set mode");
 	}
 #endif
-#if 1
+#if 0
 	std::wstring password = L"456";
-	string passwordCovert = WStringToString(password);
 
-	std::wstring hash = StringToWString(bcrypt::generateHash(passwordCovert));
-	std::wstring hash1 = StringToWString(bcrypt::generateHash(passwordCovert));
+	std::wstring hash = StringToWString(bcrypt::generateHash(WStringToString(password)));
+	std::wstring hash1 = StringToWString(bcrypt::generateHash(WStringToString(password)));
 
 	std::wcout << L"Hash: " << hash << std::endl;
 	std::wcout << L"Hash1: " << hash1 << std::endl;
 
-	std::wcout << "\"" << password << "\" : " << bcrypt::validatePassword(passwordCovert, WStringToString(hash)) << std::endl;
-	std::wcout << "\"\" : " << bcrypt::validatePassword("46", WStringToString(hash)) << std::endl;
+	std::wcout << "\"" << password << "\" : " << bcrypt::validatePassword(WStringToString(password), WStringToString(hash)) << std::endl;
+	std::wcout << "\"\" : " << bcrypt::validatePassword("456", WStringToString(hash)) << std::endl;
 
 	return 0;
 #endif
@@ -2640,6 +2639,7 @@ void User::correctionUser()
 					break;
 				}
 				else {
+					checkCorretion = 0;
 					checkEntUs = 0;
 					wstring s1;
 					do {
@@ -2691,6 +2691,7 @@ void User::correctionUser()
 							head->data.getStudentList().Update(head1->data, st);
 							writeDataStudentInfInClass(name);		
 							checkEntUs = 1;
+							checkCorretion = 1;
 							textcolor(4);
 							wcout << L"Thay đổi thành công" << endl;
 							return;
@@ -3529,7 +3530,8 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {
 			if (checkAd == 0 && user == currentS->data.getStudentCode()) {
 				return true;
 			}
-			if (user == currentS->data.getStudentCode() && pass == currentS->data.getPasswork()) {
+			if (user == currentS->data.getStudentCode() && bcrypt::validatePassword(WStringToString(pass), WStringToString(currentS->data.getPasswork()))) {
+			//if (user == currentS->data.getStudentCode() && pass == currentS->data.getPasswork()) {
 				tempS = currentS;
 				tempInf = currentInf;
 				return true;
@@ -3543,7 +3545,8 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {
 
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc) {
 	wstring s;
-	if (checkAd == 0) {
+	wstring hashPass;
+	if (checkCorretion == 0) {
 	ID:
 		textcolor(6);
 		wcout << L"Nhập tên đăng nhập (9 chữ số): " << endl;
@@ -3636,7 +3639,8 @@ Ps:
 		wcout << L"Không được bỏ trống!!!" << endl;
 		goto Ps;
 	}
-	st.setPasswork(s);
+	hashPass = StringToWString(bcrypt::generateHash(WStringToString(s)));
+	st.setPasswork(hashPass);
 	s.clear();
 	st.setScoreList(listSc);
 }
