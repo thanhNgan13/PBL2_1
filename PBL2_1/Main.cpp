@@ -343,16 +343,6 @@ void login()
 											isTrue = 1;
 										}
 									}
-									//if (user == L"ad" && pass == L"ad") {
-									//	isTrue = 0;
-									//	checkAd = 0;
-									//	system("cls");
-									//	writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-									//	gotoxy(65, 2);
-									//	system("pause");
-									//	system("cls");
-									//	teacher();
-									//}
 									if (Check(listInfC, user, pass)) {
 										isTrue = 0;
 										checkUS = 0;
