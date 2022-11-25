@@ -1,0 +1,44 @@
+Số lượng câu hỏi đã chọn: 5
+Thời gian của mỗi câu hỏi: 1s
+Id: 5
+Nội dung câu hỏi: Hg La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Thuy Ngan
+Đáp án: D
+Đáp án của bạn: a
+Id: 12
+Nội dung câu hỏi: Saccarozo Co Cong Thuc Hoa Hoc La?
+A. C12H22O11
+B. C6H12O6
+C. C2H4
+D. C3H6
+Đáp án: A
+Đáp án của bạn: b
+Id: 1
+Nội dung câu hỏi: Ca La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: D
+Đáp án của bạn: b
+Id: 8
+Nội dung câu hỏi: Kim Loai Nao Sao Day Khong Tac Dung Duoc Voi Dd H2SO4 Dac Nguoi La Gi ?
+A. Na
+B. Zn
+C. Pb
+D. Cu
+Đáp án: D
+Đáp án của bạn: c
+Id: 7
+Nội dung câu hỏi: H La Gi ?
+A. Sat
+B. Hidro
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: a
+Tổng số câu hỏi đúng: 0
+Điểm của bạn: 0

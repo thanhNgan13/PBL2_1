@@ -10,7 +10,7 @@
 #include <strsafe.h>
 #include <chrono>
 #include <iomanip>
-#include "bcrypt.h"
+
 
 #pragma warning(disable : 4996)
 

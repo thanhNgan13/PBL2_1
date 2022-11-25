@@ -5,26 +5,25 @@
 #include <Windows.h>
 #include <io.h>
 #include <fcntl.h>
-#include <locale>
-#include <codecvt>
-#include <time.h>
-#include <vector>
-#include <stdlib.h>
+#include <locale> 
+#include <codecvt> 
+#include <time.h> // thư viện dùng để random câu hỏi
+#include <vector> // dùng để lưu từng dòng trong file nhanh chóng
+
 #include <assert.h>
 #include <chrono>
 #include <direct.h>
 #include <cstdint>
 #include <filesystem>
 
+#include "bcrypt.h" 
 #include "Header.h"
 #include "LinkedList.h"
 #include "Subjects.h"
 #include "Score.h"
 #include "informationClass.h"
 #include "Students.h"
-#define UNDERLINE "\033[4m"
 
-#define CLOSEUNDERLINE "\033[0m"
 
 using namespace std;
 namespace fs = std::filesystem;

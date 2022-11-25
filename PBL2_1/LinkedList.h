@@ -272,7 +272,7 @@ inline void LinkedList<T>::Sort(int order)
 	Node<T>* tmpNxt = nullptr;
 
 	if (tmpPtr == nullptr) {
-		wcerr << L"Không thể xóa bởi vì danh sách rỗng!" << endl;
+		wcerr << L"Không thể sắp xếp bởi vì danh sách rỗng!" << endl;
 		return;
 	}
 

@@ -1,7 +1,13 @@
-3
+6
 Sử
 A04
 Hoa
 A02
 Toán
 A00
+Địa Lý
+A05
+Vật Lý
+A06
+Cơ Sở Dữ Liệu
+A07

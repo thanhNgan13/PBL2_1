@@ -77,6 +77,10 @@ James
 Nam
 123450409
 $2b$10$z.9lMEXo1lMRgL0uaVJS5uy2cBPgzHyTcqGO/Mv3BIhyhsGUbrLwW
+2
+A04
+4
+A02
 0
 Huỳnh
 Văn A
