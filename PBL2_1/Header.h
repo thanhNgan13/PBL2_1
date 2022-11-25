@@ -26,6 +26,8 @@ static int checkEx = 1;
 static int checkEntUs = 1;
 static int checkDelete = 1; //mode check xóa môn học
 static int checkCorretion = 1;// mode check chỉnh sửa sinh viên
+static int checkPass = 1;
+
 
 inline wstring StringToWString(const string& str)
 {
@@ -42,41 +44,7 @@ inline string WStringToString(const wstring& wstr)
 	str.resize(wstr.length());
 	wcstombs_s(&size, &str[0], str.size() + 1, wstr.c_str(), wstr.size());
 	return str;
-}
-inline wstring inputStr(size_t length_max) {
-	wstring strRet;
-	wchar_t ch;
-	do
-	{
-		ch = getch();
-		if (checkEntUs == 0) {
-			if ((strRet.size() < length_max) && (isdigit(ch)))
-			{
-				wcout << ch;
-				strRet.push_back(ch);
-			}
-			if (L'\b' == ch && !strRet.empty())
-			{
-				wcout << L"\b \b";
-				strRet.pop_back();
-			}
-		}
-		else {
-			if ((strRet.size() < length_max) && (isalnum(ch) || isalpha(ch)))
-			{
-				wcout << ch;
-				strRet.push_back(ch);
-			}
-			if (L'\b' == ch && !strRet.empty())
-			{
-				wcout << L"\b \b";
-				strRet.pop_back();
-			}
-		}
-	} while (L'\r' != ch);
-	wcout << endl;
-	return strRet;
-}
+} 
 //Làm ẩn con trỏ chuột
 inline void ShowCur(bool CursorVisibility)
 {

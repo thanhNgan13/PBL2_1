@@ -22,7 +22,9 @@
 #include "Score.h"
 #include "informationClass.h"
 #include "Students.h"
+#define UNDERLINE "\033[4m"
 
+#define CLOSEUNDERLINE "\033[0m"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -107,6 +109,8 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass);
 
 void enterInf(Students& st, wstring code, LinkedList<Score> listSc);
 
+void forgotPassword();
+
 int wmain(int argc, wchar_t* argv[]) {
 #if 1
 	try {
@@ -120,16 +124,11 @@ int wmain(int argc, wchar_t* argv[]) {
 	}
 #endif
 #if 0
-	std::wstring password = L"456";
+	_setmode(_fileno(stdout), _O_WTEXT);
+	_setmode(_fileno(stdin), _O_WTEXT);
+	
+	writeString(73, 6, L"\033[4mQuên mật khẩu\033[0m", 8);
 
-	std::wstring hash = StringToWString(bcrypt::generateHash(WStringToString(password)));
-	std::wstring hash1 = StringToWString(bcrypt::generateHash(WStringToString(password)));
-
-	std::wcout << L"Hash: " << hash << std::endl;
-	std::wcout << L"Hash1: " << hash1 << std::endl;
-
-	std::wcout << "\"" << password << "\" : " << bcrypt::validatePassword(WStringToString(password), WStringToString(hash)) << std::endl;
-	std::wcout << "\"\" : " << bcrypt::validatePassword("456", WStringToString(hash)) << std::endl;
 
 	return 0;
 #endif
@@ -157,24 +156,28 @@ void login()
 			menuBar(65, 5, 30, 2, 15); writeString(66, 6, user.c_str(), 6);
 			menuBar(65, 8, 30, 2, 15);
 			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+			writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 		}
 		else if (keyPs == 0) {
 			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
 			menuBar(65, 5, 30, 2, 15); writeString(66, 6, L"User", 8);
 			menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
 			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+			writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 		}
 		else if (keyUs == 0 && keyPs == 0) {
 			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
 			menuBar(65, 5, 30, 2, 15); writeString(66, 6, user.c_str(), 6);
 			menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
 			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+			writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 		}
 		else {
 			menuBar(50, 1, 60, 2, 11);	writeString(55, 2, L"CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN VÀ THI TRẮC NGHIỆM", 14);
 			menuBar(65, 5, 30, 2, 15); writeString(66, 6, L"User", 8);
 			menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
-			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);;
+			menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+			writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 		}
 		// đọc event vào
 
@@ -251,6 +254,7 @@ void login()
 									menuBar(65, 5, 30, 2, 14);
 									menuBar(65, 8, 30, 2, 15); writeString(66, 9, pass1.c_str(), 6);
 									menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+									writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 									textcolor(6);
 									gotoxy(66, 6); user = inputString(9);
 									if (GetKeyState(VK_RETURN)) {
@@ -265,6 +269,7 @@ void login()
 									menuBar(65, 5, 30, 2, 14);
 									menuBar(65, 8, 30, 2, 15); writeString(66, 9, L"Password", 8);
 									menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+									writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 									textcolor(6);
 									gotoxy(66, 6); user = inputString(9);
 									if (GetKeyState(VK_RETURN)) {
@@ -287,6 +292,7 @@ void login()
 								}
 								menuBar(65, 8, 30, 2, 14);
 								menuBar(65, 11, 30, 2, 8); writeString(66, 12, L"          ĐĂNG NHẬP          ", 135);
+								writeString(74, 15, L"\033[4mQuên mật khẩu\033[0m", 8);
 								textcolor(6);
 								gotoxy(66, 9); pass = inputPassword(20);
 								pass1.clear();
@@ -310,7 +316,6 @@ void login()
 										gotoxy(65, 2);
 										system("pause");
 										system("cls");
-						
 										teacher();
 									}
 									if (Check(listInfC, user, pass)) {
@@ -335,6 +340,11 @@ void login()
 										login();
 									}
 								}
+							}
+							else if ((x >= 74 && x <= 89) && y == 15) {
+								system("cls");
+								ShowCur(true);
+								forgotPassword();
 							}
 							break;
 						}
@@ -517,6 +527,7 @@ void teacher()
 			}
 			else if (kt == 6)
 			{
+				checkAd = 1;
 				listInfC.Delete();
 				listS.Delete();
 				system("cls");
@@ -634,6 +645,7 @@ void student()
 			}
 			else if (kt == 4)
 			{
+				checkUS = 1;
 				listInfC.Delete();
 				listS.Delete();
 				system("cls");
@@ -3526,10 +3538,15 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {
 		currentS = currentInf->data.getStudentList().head;
 		while (currentS != nullptr)
 		{
+			if (checkPass == 0 && user == currentS->data.getStudentCode()) {
+				tempS = currentS;
+				tempInf = currentInf;
+				return true;
+			}
 			if (checkAd == 0 && user == currentS->data.getStudentCode()) {
 				return true;
 			}
-			if (user == currentS->data.getStudentCode() && bcrypt::validatePassword(WStringToString(pass), WStringToString(currentS->data.getPasswork()))) {
+			if (user == currentS->data.getStudentCode() && bcrypt::validatePassword(WStringToString(pass), WStringToString(currentS->data.getPasswork())) == 1) {
 			//if (user == currentS->data.getStudentCode() && pass == currentS->data.getPasswork()) {
 				tempS = currentS;
 				tempInf = currentInf;
@@ -3632,7 +3649,7 @@ Sx:
 Ps:
 	textcolor(6);
 	wcout << L"Nhập password: " << endl;
-	getline(wcin, s);
+	s = inputPassword(20);
 	if (s.length() == 0) {
 		textcolor(4);
 		wcout << L"Không được bỏ trống!!!" << endl;
@@ -3642,5 +3659,57 @@ Ps:
 	st.setPasswork(hashPass);
 	s.clear();
 	st.setScoreList(listSc);
+}
+
+void forgotPassword()
+{
+	wstring id;
+	do {
+		system("cls");
+	Pass:
+		checkEntUs = 0;
+		checkPass = 0;
+		textcolor(6);
+		wcout << L"Nhập tên đăng nhập (9 chữ số): " << endl;
+		id = inputString(9);
+		if (!Check(listInfC, id, L"")) {
+			system("cls");
+			writeString(60, 0, L"Sinh viên không tồn tại trong hệ thống hoặc bạn đã nhập sai!", 4);
+			writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+			if (catchEvents() == 4) {
+				system("cls");
+				break;
+			}
+			else {
+				system("cls");
+				goto Pass;
+			}
+		}
+		else {
+			wstring name;
+			wstring pass;
+			wstring hashPass;
+			name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
+			loadListStudentOfClass(name);
+			Node<Students>* head1 = Search(tempInf, tempS->data.getStudentCode());
+			system("cls");
+			wcout << L"Nhập mật khẩu mới: ";
+			pass = inputPassword(20);
+			hashPass = StringToWString(bcrypt::generateHash(WStringToString(pass)));
+			head1->data.setPasswork(hashPass);
+			writeDataStudentInfInClass(name);
+			textcolor(13);
+			wcout << L"Cập nhật mật khẩu thành công" << endl;
+			system("pause");
+			system("cls");
+			tempS = nullptr;
+			tempInf = nullptr;
+			checkEntUs = 1;
+			checkPass = 1;
+			login();
+		}
+	} while (true);
+	
 }
 
