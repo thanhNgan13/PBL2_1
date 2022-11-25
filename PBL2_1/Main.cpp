@@ -127,9 +127,26 @@ int wmain(int argc, wchar_t* argv[]) {
 	_setmode(_fileno(stdout), _O_WTEXT);
 	_setmode(_fileno(stdin), _O_WTEXT);
 	
-	writeString(73, 6, L"\033[4mQuên mật khẩu\033[0m", 8);
-
-
+	/*writeString(73, 6, L"\033[4mQuên mật khẩu\033[0m", 8);
+	wstring hashPass = StringToWString(bcrypt::generateHash(WStringToString(L"ad")));
+	wcout << hashPass;*/
+	wifstream input(L"Admin.txt");
+	wstring user;
+	wstring pass;
+	wstring us;
+	wstring ps;
+	wcout << L"enter us: ";
+	wcin >> user;
+	wcout << L"enter ps: ";
+	wcin >> pass;
+	while (input >> us >> ps) {
+		if (us == user && bcrypt::validatePassword(WStringToString(pass), WStringToString(ps)) == 1) {
+			wcout << L"Thành công";
+		}
+		else {
+			wcout << L"Thất bại";
+		}
+	}
 	return 0;
 #endif
 }
@@ -144,10 +161,13 @@ void login()
 	wstring user;
 	wstring pass;
 	wstring pass1;
+	wstring us;// lấy user trong file
+	wstring ps;// lấy pass trong file
 	int isTrue = 1;
 	int keyUs = 1;
 	int keyPs = 1;
 	int counter = 0;
+	wifstream input(L"Admin.txt"); // file chứa user & pass của admin
 	// Vòng lặp để quét qua các event 
 	while (!counter)
 	{
@@ -308,15 +328,20 @@ void login()
 							else if ((x >= 66 && x <= 96) && y == 12)
 							{
 								while (isTrue) {
-									if (user == L"ad" && pass == L"ad") {
-										isTrue = 0;
-										checkAd = 0;
-										system("cls");
-										writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
-										gotoxy(65, 2);
-										system("pause");
-										system("cls");
-										teacher();
+									while (input >> us >> ps) {
+										if (us == user && bcrypt::validatePassword(WStringToString(pass), WStringToString(ps)) == 1) {
+											isTrue = 0;
+											checkAd = 0;
+											system("cls");
+											writeString(65, 0, L" ĐĂNG NHẬP THÀNH CÔNG\n", 15);
+											gotoxy(65, 2);
+											system("pause");
+											system("cls");
+											teacher();
+										}
+										else {
+											isTrue = 1;
+										}
 									}
 									if (Check(listInfC, user, pass)) {
 										isTrue = 0;
@@ -326,7 +351,6 @@ void login()
 										gotoxy(65, 2);
 										system("pause");
 										system("cls");
-			
 										student();
 									}
 									if (isTrue == 1) {

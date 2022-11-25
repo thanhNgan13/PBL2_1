@@ -77,5 +77,6 @@
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="listClass.txt" />
+    <Text Include="Admin.txt" />
   </ItemGroup>
 </Project>
