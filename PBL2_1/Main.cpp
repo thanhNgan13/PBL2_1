@@ -7,7 +7,6 @@
 #include <fcntl.h>
 #include <locale> 
 #include <codecvt> 
-#include <time.h> // thư viện dùng để random câu hỏi
 #include <vector> // dùng để lưu từng dòng trong file nhanh chóng
 
 #include <assert.h>
@@ -48,9 +47,23 @@ public:
 
 class Admin : public User {
 public:
-	void editSubject();
+	void enterClass();
+	void correctionClass();
+	void deleteClass();
 	void editClass();
+
+	void enterSubject();
+	void correctionSubject();
+	void deleteSubject();
+	void editSubject();
+
+	void enterExam();
+	void correctionExam();
+	void deleteExam();
 	void editExam();
+
+	void enterUser();
+	void deleteUser();
 	void editUser();
 };
 
@@ -68,20 +81,9 @@ void writeDataInfClass();
 void writeDataExam(wstring name);
 void writeDataStudentInfInClass(wstring name);
 
-void enterClass();
-void correctionClass();
-void deleteClass();
 
-void enterUser();
-void deleteUser();
 
-void enterSubject();
-void correctionSubject();
-void deleteSubject();
 
-void enterExam();
-void correctionExam();
-void deleteExam();
 int enterResult(wchar_t answer);
 
 void removeFile(wstring s);
@@ -121,32 +123,6 @@ int wmain(int argc, wchar_t* argv[]) {
 	catch (...) {
 		perror("Cannot set mode");
 	}
-#endif
-#if 0
-	_setmode(_fileno(stdout), _O_WTEXT);
-	_setmode(_fileno(stdin), _O_WTEXT);
-	
-	/*writeString(73, 6, L"\033[4mQuên mật khẩu\033[0m", 8);
-	wstring hashPass = StringToWString(bcrypt::generateHash(WStringToString(L"ad")));
-	wcout << hashPass;*/
-	wifstream input(L"Admin.txt");
-	wstring user;
-	wstring pass;
-	wstring us;
-	wstring ps;
-	wcout << L"enter us: ";
-	wcin >> user;
-	wcout << L"enter ps: ";
-	wcin >> pass;
-	while (input >> us >> ps) {
-		if (us == user && bcrypt::validatePassword(WStringToString(pass), WStringToString(ps)) == 1) {
-			wcout << L"Thành công";
-		}
-		else {
-			wcout << L"Thất bại";
-		}
-	}
-	return 0;
 #endif
 }
 
@@ -945,7 +921,7 @@ void writeDataStudentInfInClass(wstring name)
 	file.close();
 }
 
-void enterSubject()
+void Admin::enterSubject()
 {
 	ShowCur(true);
 	do
@@ -993,7 +969,7 @@ void enterSubject()
 	} while (true);
 	writeDataSubject();
 }
-void correctionSubject()
+void Admin::correctionSubject()
 {
 	ShowCur(true);
 	Node<Subjects>* head;
@@ -1092,7 +1068,7 @@ void correctionSubject()
 		} while (true);
 	}
 }
-void deleteSubject()
+void Admin::deleteSubject()
 {
 	ShowCur(true);
 	wstring s;
@@ -1362,7 +1338,7 @@ void Admin::editSubject()
 	}
 }
 
-void enterExam()
+void Admin::enterExam()
 {
 	ShowCur(true);
 	Node<Subjects>* head;
@@ -1432,7 +1408,7 @@ void enterExam()
 		}
 	} while (true);
 }
-void correctionExam()
+void Admin::correctionExam()
 {
 	ShowCur(true);
 	Node<Subjects>* head;
@@ -1536,7 +1512,7 @@ void correctionExam()
 	} while (true);
 
 }
-void deleteExam()
+void Admin::deleteExam()
 {
 	ShowCur(true);
 	LinkedList<Questions> temp;
@@ -1875,7 +1851,7 @@ int enterResult(wchar_t answer) {
 		return -1;
 }
 
-void enterClass()
+void Admin::enterClass()
 {
 	ShowCur(true);
 	do
@@ -1914,7 +1890,7 @@ void enterClass()
 	} while (true);
 	writeDataInfClass();
 }
-void correctionClass()
+void Admin::correctionClass()
 {
 	ShowCur(true);
 	Node<informationClass>* head;
@@ -2008,7 +1984,7 @@ void correctionClass()
 	}
 
 }
-void deleteClass()
+void Admin::deleteClass()
 {
 	ShowCur(true);
 	wstring name;
@@ -2323,7 +2299,7 @@ void Admin::editClass()
 	}
 }
 
-void enterUser()
+void Admin::enterUser()
 {
 	ShowCur(true);
 	LinkedList<Students> temp;
@@ -2423,7 +2399,7 @@ void enterUser()
 		}
 	} while (true);
 }
-void deleteUser()
+void Admin::deleteUser()
 {
 	ShowCur(true);
 	LinkedList<Students> temp;

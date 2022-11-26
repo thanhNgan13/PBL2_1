@@ -1,0 +1,100 @@
+Số lượng câu hỏi đã chọn: 12
+Thời gian của mỗi câu hỏi: 1s
+Id: 4
+Nội dung câu hỏi: Zn La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: C
+Bạn đã không kịp thời cho câu hỏi này
+Id: 10
+Nội dung câu hỏi: CnH2n-2 La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Id: 11
+Nội dung câu hỏi: CnH2n+2 La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: A
+Bạn đã không kịp thời cho câu hỏi này
+Id: 1
+Nội dung câu hỏi: Ca La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Id: 6
+Nội dung câu hỏi: Li La Gi ?
+A. Sat
+B. Dong
+C. Liti
+D. Canxi
+Đáp án: C
+Bạn đã không kịp thời cho câu hỏi này
+Id: 3
+Nội dung câu hỏi: Cu La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: A
+Id: 9
+Nội dung câu hỏi: CnH2n La Cong Thuc Cua?
+A. Ankan
+B. Anken
+C. Ankadien
+D. Ankin
+Đáp án: B
+Đáp án của bạn: B
+Id: 8
+Nội dung câu hỏi: Kim Loai Nao Sao Day Khong Tac Dung Duoc Voi Dd H2SO4 Dac Nguoi La Gi ?
+A. Na
+B. Zn
+C. Pb
+D. Cu
+Đáp án: D
+Đáp án của bạn: C
+Id: 5
+Nội dung câu hỏi: Hg La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Thuy Ngan
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Id: 2
+Nội dung câu hỏi: Fe La Gi ?
+A. Sat
+B. Dong
+C. Kem
+D. Canxi
+Đáp án: A
+Đáp án của bạn: A
+Id: 12
+Nội dung câu hỏi: Saccarozo Co Cong Thuc Hoa Hoc La?
+A. C12H22O11
+B. C6H12O6
+C. C2H4
+D. C3H6
+Đáp án: A
+Đáp án của bạn: B
+Id: 7
+Nội dung câu hỏi: H La Gi ?
+A. Sat
+B. Hidro
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: D
+Tổng số câu hỏi đúng: 2
+Điểm của bạn: 1.66667

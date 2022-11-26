@@ -1,5 +1,21 @@
-Số lượng câu hỏi đã chọn: 1
+Số lượng câu hỏi đã chọn: 10
 Thời gian của mỗi câu hỏi: 1s
+Id: 6
+Nội dung câu hỏi: 2 * 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Id: 12
+Nội dung câu hỏi: 2 + 2 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: B
+Bạn đã không kịp thời cho câu hỏi này
 Id: 15
 Nội dung câu hỏi: 2 Giai Thua Bang May
 A. 1
@@ -7,6 +23,62 @@ B. 2
 C. 3
 D. 4
 Đáp án: B
-Đáp án của bạn: a
-Tổng số câu hỏi đúng: 0
-Điểm của bạn: 0
+Bạn đã không kịp thời cho câu hỏi này
+Id: 10
+Nội dung câu hỏi: 10 - 5 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: C
+Bạn đã không kịp thời cho câu hỏi này
+Id: 9
+Nội dung câu hỏi: 15 : 5 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: A
+Bạn đã không kịp thời cho câu hỏi này
+Id: 7
+Nội dung câu hỏi: 10 + 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 13
+D. 6
+Đáp án: C
+Bạn đã không kịp thời cho câu hỏi này
+Id: 11
+Nội dung câu hỏi: 6 - 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: A
+Đáp án của bạn: A
+Id: 5
+Nội dung câu hỏi: 3 + 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: D
+Đáp án của bạn: D
+Id: 4
+Nội dung câu hỏi: 2 + 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: C
+Đáp án của bạn: D
+Id: 13
+Nội dung câu hỏi: 5 * 5 Bang May
+A. 5
+B. 10
+C. 5
+D. 25
+Đáp án: D
+Bạn đã không kịp thời cho câu hỏi này
+Tổng số câu hỏi đúng: 2
+Điểm của bạn: 2

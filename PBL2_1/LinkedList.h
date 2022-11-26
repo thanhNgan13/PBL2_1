@@ -52,10 +52,8 @@ public:
 	T getRandom() const;
 
 	int getCount() const;
-	T getData() const;
-	Node<T>* getNode() const;
+
 	Node<T>* getNode(int index) const;
-	Node<T>* getTail() const;
 	
 	void Sort(int order);
 
@@ -229,18 +227,6 @@ inline int LinkedList<T>::getCount() const
 }
 
 template<typename T>
-inline T LinkedList<T>::getData() const
-{
-	return this->head->data;
-}
-
-template<typename T>
-inline Node<T>* LinkedList<T>::getNode() const
-{
-	return this->head;
-}
-
-template<typename T>
 inline Node<T>* LinkedList<T>::getNode(int index) const
 {
 	Node<T>* current = head;
@@ -253,16 +239,6 @@ inline Node<T>* LinkedList<T>::getNode(int index) const
 	} while (current != nullptr);
 	return current;
 
-}
-
-template<typename T>
-inline Node<T>* LinkedList<T>::getTail() const
-{
-	Node<T>* current = head;
-	while (current != nullptr && current->next != nullptr)
-		current = current->next;
-
-	return current;
 }
 
 template<typename T>
