@@ -55,6 +55,7 @@ wistream& operator>>(wistream& in, informationClass& x) {
 }
 
 wostream& operator<<(wostream& out, const informationClass& x) {
-	wcout << setw(10) << left << x.className << setw(5) << L" - " << setw(5) << right << x.classCode << setw(10);
+	wcout << format(L"{:>25}", x.className) << format(L"{:^10}", L'-') << format(L"{:<1}", x.classCode);
+	//wcout << setw(10) << left << x.className << setw(5) << L" - " << setw(5) << right << x.classCode << setw(10);
 	return out;
 }

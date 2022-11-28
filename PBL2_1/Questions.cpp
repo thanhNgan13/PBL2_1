@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace std;
+int Questions::len = 4;
 
 void Questions::setId(int id) {
 	this->id = id;
@@ -20,38 +21,6 @@ wstring Questions::getContentQuestions() {
 	return contentQuestions;
 }
 
-void Questions::setA(wstring A) {
-	this->A = A;
-}
-
-wstring Questions::getA() {
-	return A;
-}
-
-void Questions::setB(wstring B) {
-	this->B = B;
-}
-
-wstring Questions::getB() {
-	return B;
-}
-
-void Questions::setC(wstring C) {
-	this->C = C;
-}
-
-wstring Questions::getC() {
-	return C;
-}
-
-void Questions::setD(wstring D) {
-	this->D = D;
-}
-
-wstring Questions::getD() {
-	return D;
-}
-
 void Questions::setAnswer(int answer) {
 	this->answer = answer;
 }
@@ -60,8 +29,36 @@ int Questions::getAnswer() {
 	return answer;
 }
 
+void Questions::setAnswerList(wstring A, wstring B, wstring C, wstring D)
+{
+	answerlist[0] = A;
+	answerlist[1] = B;
+	answerlist[2] = C;
+	answerlist[3] = D;
+}
+
+wstring Questions::getA()
+{
+	return this->answerlist[0];
+}
+
+wstring Questions::getB()
+{
+	return this->answerlist[1];
+}
+
+wstring Questions::getC()
+{
+	return this->answerlist[2];
+}
+
+wstring Questions::getD()
+{
+	return this->answerlist[3];
+}
+
 bool Questions::operator==(Questions& x) {
-	if (id == x.id && contentQuestions == x.contentQuestions && A == x.A && B == x.B && C == x.C && D == x.D && answer == x.answer) {
+	if (id == x.id && contentQuestions == x.contentQuestions && answer == x.answer) {
 		return true;
 	}
 	else
@@ -69,7 +66,7 @@ bool Questions::operator==(Questions& x) {
 }
 
 bool Questions::operator!=(Questions& x) {
-	if (id != x.id || contentQuestions != x.contentQuestions || A != x.A || B != x.B || C != x.C || D != x.D || answer != x.answer) {
+	if (id != x.id || contentQuestions != x.contentQuestions || answer != x.answer) {
 		return true;
 	}
 	else
@@ -77,6 +74,7 @@ bool Questions::operator!=(Questions& x) {
 }
 
 wistream& operator>>(wistream& in, Questions& x) {
+	wstring s;
 	while (true)
 	{
 		textcolor(6);
@@ -93,50 +91,62 @@ wistream& operator>>(wistream& in, Questions& x) {
 	{
 		textcolor(6);
 		wcout << L"NNhập đáp án A: ";
-		getline(wcin, x.A);
-		if (x.A.empty()) {
+		getline(wcin, s);
+		if (s.empty()) {
 			textcolor(4);
 			wcout << L"Không được bỏ trống!!!" << endl;
 		}
-		else
+		else {
+			x.answerlist[0] = s;
+			s.clear();
 			break;
+		}
 	}
 	while (true)
 	{
 
 		textcolor(6);
 		wcout << L"NNhập đáp án B: ";
-		getline(wcin, x.B);
-		if (x.B.empty()) {
+		getline(wcin, s);
+		if (s.empty()) {
 			textcolor(4);
 			wcout << L"Không được bỏ trống!!!" << endl;
 		}
-		else
+		else {
+			x.answerlist[1] = s;
+			s.clear();
 			break;
+		}
 	}
 	while (true)
 	{
 		textcolor(6);
 		wcout << L"NNhập đáp án C: ";
-		getline(wcin, x.C);
-		if (x.C.empty()) {
+		getline(wcin, s);
+		if (s.empty()) {
 			textcolor(4);
 			wcout << L"Không được bỏ trống!!!" << endl;
 		}
-		else
+		else {
+			x.answerlist[2] = s;
+			s.clear();
 			break;
+		}
 	}
 	while (true)
 	{
 		textcolor(6);
 		wcout << L"NNhập đáp án D: ";
-		getline(wcin, x.D);
-		if (x.D.empty()) {
+		getline(wcin, s);
+		if (s.empty()) {
 			textcolor(4);
 			wcout << L"Không được bỏ trống!!!" << endl;
 		}
-		else
+		else {
+			x.answerlist[3] = s;
+			s.clear();
 			break;
+		}
 	}
 
 	while (true) {
@@ -160,35 +170,30 @@ wistream& operator>>(wistream& in, Questions& x) {
 			wcin.ignore(1000, '\n');
 		}
 	}
-	//if (x.answer.empty()) {
-	//	textcolor(4);
-	//	wcout << L"Không được bỏ trống!!!" << endl;
-	//	goto Ans;
-	//}
-	//if (x.answer != L"A" || x.answer != L"B" || x.answer != L"C" || x.answer != L"D" || x.answer != L"a" || x.answer != L"b" || x.answer != L"c" || x.answer != L"d") {
-	//	textcolor(4);
-	//	wcout << L"Nhập không đúng cú pháp!!!" << endl;
-	//	goto Ans;
-	//}
 	x.id = hashCode(x.contentQuestions);
 	return in;
 }
 
 wostream& operator<<(wostream& out, const Questions& x) {
-	//gotoxy(50, 1);
+	wstring value;
+	wstring* temp = new wstring[Questions::len];
+	for (int i = 0; i < Questions::len; i++) {
+		temp[i] = x.answerlist[i];
+	}
+	srand((unsigned int) time(NULL));
 	wcout << L"Id: " << x.id << endl;
 	wcout << L"Nội dung câu hỏi: ";
-	//gotoxy(50, 3);
 	wcout << x.contentQuestions << endl;
-	//gotoxy(50, 4);
 	wcout << L"Các đáp án: " << endl;
-	//gotoxy(50, 5);
-	wcout << L"A. " << x.A << endl;
-	//gotoxy(50, 6);
-	wcout << L"B. " << x.B << endl;
-	//gotoxy(50, 7);
-	wcout << L"C. " << x.C << endl;
-	//gotoxy(50, 8);
-	wcout << L"D. " << x.D << endl;;
+	wchar_t ch = L'A';
+	do {
+		int index = rand() % Questions::len;
+		wcout << ch << L". " << temp[index] << endl;
+		deleteAnElementInTheArray(temp, Questions::len, index);
+		ch++;
+
+	} while (Questions::len);
+	Questions::len = 4;
+	delete[] temp;
 	return out;
 }

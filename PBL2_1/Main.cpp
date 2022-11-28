@@ -14,6 +14,7 @@
 #include <direct.h>
 #include <cstdint>
 #include <filesystem>
+#include <format>
 
 #include "bcrypt.h" 
 #include "Header.h"
@@ -81,15 +82,6 @@ void writeDataInfClass();
 void writeDataExam(wstring name);
 void writeDataStudentInfInClass(wstring name);
 
-
-
-
-int enterResult(wchar_t answer);
-
-void removeFile(wstring s);
-bool checkFileIsEmpty(wstring nameFile);
-wstring conCat(wstring s1, wstring s2);
-
 Node<Subjects>* Search(LinkedList<Subjects> list, wstring code); // tìm kiếm môn học
 
 Node<Questions>* Search(Node<Subjects>* node, int code); // tìm kiếm câu hỏi
@@ -125,7 +117,6 @@ int wmain(int argc, wchar_t* argv[]) {
 	}
 #endif
 }
-
 
 void login()
 {
@@ -660,6 +651,7 @@ void loadQuestions(wstring name)
 	wifstream file;
 	Questions data;
 	wstring s;
+	wstring A, B, C, D;
 	file.open(name, ios_base::in);
 	int max;
 	file >> max;
@@ -677,22 +669,15 @@ void loadQuestions(wstring name)
 		s1 = Upper(s1);
 		data.setContentQuestions(s1);
 		s1.clear();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setA(s1);
-		s1.clear();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setB(s1);
-		s1.clear();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setC(s1);
-		s1.clear();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setD(s1);
-		s1.clear();
+		getline(file, A);
+		A = Upper(A);
+		getline(file, B);
+		B = Upper(B);
+		getline(file, C);
+		C = Upper(C);
+		getline(file, D);
+		D = Upper(D);
+		data.setAnswerList(A, B, C, D);
 		file >> ans;
 		data.setAnswer(ans);
 		file.ignore();
@@ -1838,18 +1823,7 @@ void Admin::editExam()
 		}
 	}
 }
-int enterResult(wchar_t answer) {
-	if (answer == L'a' || answer == L'A')
-		return 1;
-	else if (answer == L'b' || answer == L'B')
-		return 2;
-	else if (answer == L'c' || answer == L'C')
-		return 3;
-	else if (answer == L'd' || answer == L'D')
-		return 4;
-	else
-		return -1;
-}
+
 
 void Admin::enterClass()
 {
@@ -2517,11 +2491,21 @@ void User::viewExam()
 	wstring line;
 	vector<wstring> lines;
 	wifstream file;
-	if (listS.isEmpty()) {
+	LinkedList<Subjects> listOfSubjectsTested;
+	Node<Score>* node = tempS->data.getScoreList().head;
+	while (node != nullptr)
+	{
+		Node<Subjects>* head = Search(listS, node->data.getSubjectCode());
+		listOfSubjectsTested.Insert(head->data);
+		node = node->next;
+	}
+	if (listOfSubjectsTested.isEmpty()) {
 		system("cls");
-		writeString(43, 1, L"CHƯA CÓ MÔN HỌC NÀO TRONG HỆ THỐNG! TÍNH NĂNG NÀY KHÔNG THỂ DÙNG ĐƯỢC!!!", 4);
+		writeString(65, 1, L"BẠN CHƯA THI MÔN HỌC NÀO CẢ!!!", 4);
 		gotoxy(70, 2);
 		system("pause");
+		system("cls");
+		student();
 	}
 	do {
 		system("cls");
@@ -2531,10 +2515,10 @@ void User::viewExam()
 		wcout << endl;
 		gotoxy(68, 4);
 		textcolor(12);
-		wcout << setw(10) << left << L"TÊN MÔN" << setw(5) << L" - " << setw(5) << L"MÃ MÔN" << right << setw(10) << endl;
+		wcout << format(L"{:>1}", L"TÊN MÔN") << format(L"{:^10}", L'-') << format(L"{:<1}", L"MÃ MÔN");
 		textcolor(2);
-		listS.Display();
-		gotoxy(65, listS.getCount() + 7);
+		listOfSubjectsTested.Display();
+		gotoxy(65, listOfSubjectsTested.getCount() + 7);
 		textcolor(6);
 		wcout << L"Nhập mã môn học cần xem chi tiết các câu hỏi đã làm: ";
 		s = inputString(9);
@@ -3203,31 +3187,7 @@ void User::multipleChoiceTest()
 		teacher();
 	}
 }
-void removeFile(wstring s)
-{
-	const wchar_t* c = s.c_str();
-	if (_wremove(c) != 0) {
-		wcerr << L"File deletion failed" << endl;
-	}
-	else {
-		wcout << L"File deleted successfully" << endl;;
-	}
-}
-bool checkFileIsEmpty(wstring nameFile)
-{
-	wifstream file;
-	file.open(nameFile);
-	file.seekg(0, ios::end);
-	if (file.tellg() == 0) {
-		return true;
-	}
-	return false;
-	file.close();
-}
-wstring conCat(wstring s1, wstring s2)
-{
-	return s1 + L'_' + s2 + L".txt";
-}
+
 
 Node<Subjects>* Search(LinkedList<Subjects> list, wstring code)
 {

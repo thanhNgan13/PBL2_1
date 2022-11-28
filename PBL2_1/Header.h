@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <conio.h>
 #include <windows.h>
 #include <io.h>
@@ -10,7 +9,7 @@
 #include <strsafe.h>
 #include <chrono>
 #include <iomanip>
-
+#include <fstream>
 
 #pragma warning(disable : 4996)
 
@@ -27,8 +26,48 @@ static int checkEntUs = 1;
 static int checkDelete = 1; //mode check xóa môn học
 static int checkCorretion = 1;// mode check chỉnh sửa sinh viên
 static int checkPass = 1;
-
-
+// Kiểm tra nhập đáp án
+inline int enterResult(wchar_t answer) {
+	if (answer == L'a' || answer == L'A')
+		return 1;
+	else if (answer == L'b' || answer == L'B')
+		return 2;
+	else if (answer == L'c' || answer == L'C')
+		return 3;
+	else if (answer == L'd' || answer == L'D')
+		return 4;
+	else
+		return -1;
+}  
+// Xóa file
+inline void removeFile(wstring s)
+{
+	const wchar_t* c = s.c_str();
+	if (_wremove(c) != 0) {
+		wcerr << L"File deletion failed" << endl;
+	}
+	else {
+		wcout << L"File deleted successfully" << endl;;
+	}
+}
+// Kiểm tra xem file có rỗng hay không
+inline bool checkFileIsEmpty(wstring nameFile)
+{
+	wifstream file;
+	file.open(nameFile);
+	file.seekg(0, ios::end);
+	if (file.tellg() == 0) {
+		return true;
+	}
+	return false;
+	file.close();
+}
+// Nối chuỗi tạo thành tên file
+inline wstring conCat(wstring s1, wstring s2)
+{
+	return s1 + L'_' + s2 + L".txt";
+}
+// Đổi từ string sang wstring
 inline wstring StringToWString(const string& str)
 {
 	wstring wstr;
@@ -37,6 +76,7 @@ inline wstring StringToWString(const string& str)
 	mbstowcs_s(&size, &wstr[0], wstr.size() + 1, str.c_str(), str.size());
 	return wstr;
 }
+// Đổi từ wstring sang string
 inline string WStringToString(const wstring& wstr)
 {
 	string str;
@@ -423,5 +463,12 @@ inline void menuDisplaySt(int x, int y, int sl)
 	else {
 		writeString(x + 77, y + 1, L"Điểm", 11);
 	}
+}
+// Xóa phần tử trong mảng
+inline void deleteAnElementInTheArray(wstring a[], int& n, int idx)
+{
+	for (int i = idx; i < n - 1; i++)
+		a[i] = a[i + 1];
+	n--;
 }
 

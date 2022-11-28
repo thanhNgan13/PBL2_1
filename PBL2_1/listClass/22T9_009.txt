@@ -23,7 +23,9 @@ A
 Nam
 123450400
 $2b$10$knuS3ZMy3Ev5hOim.OY5/ev3jlRSOTz7td0Ywk2KleTEDwEdC1NLy
-0
+1
+A04
+2
 Lê 
 B
 Nam

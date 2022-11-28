@@ -1,0 +1,9 @@
+1
+A07
+4344
+Hàm Tính Trung Bình Trong SQL Sever Là Gì?
+COUNT
+AVG
+SUM
+SELECT
+2

@@ -73,10 +73,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="listSubject.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="listClass.txt" />
     <Text Include="Admin.txt" />
+    <Text Include="listSubject.txt" />
   </ItemGroup>
 </Project>

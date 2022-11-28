@@ -193,7 +193,7 @@ inline void LinkedList<T>::Display()
 	int y = 6;
 	while (current != nullptr)
 	{
-		gotoxy1(68, y);
+		gotoxy1(50, y);
 		wcout << current->data;
 		current = current->next;
 		y++;
