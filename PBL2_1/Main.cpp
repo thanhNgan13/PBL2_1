@@ -2943,6 +2943,8 @@ void Admin::editUser()
 
 void User::multipleChoiceTest()
 {
+	time_t now = time(0);
+	wchar_t* dt = _wctime(&now);
 	wfstream file;
 	Node<Subjects>* head;
 	LinkedList<Questions> temp;
@@ -3068,7 +3070,7 @@ void User::multipleChoiceTest()
 		}
 		wcin.ignore();
 		cron::milliseconds time = (timeEx * 1000ms);
-
+		file << L"Ngày giờ thi: " << dt << endl;
 		file << L"Số lượng câu hỏi đã chọn: " << numberOfQuestions << endl;
 		file << L"Thời gian của mỗi câu hỏi: " << timeEx << L"s" << endl;
 
