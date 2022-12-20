@@ -1,0 +1,46 @@
+Ngày giờ thi: Tue Dec 20 22:48:25 2022
+
+Số lượng câu hỏi đã chọn: 5
+Thời gian của mỗi câu hỏi: 1s
+Id: 11
+Nội dung câu hỏi: 6 - 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: A
+Đáp án của bạn: a
+Id: 5
+Nội dung câu hỏi: 3 + 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: D
+Đáp án của bạn: b
+Id: 4
+Nội dung câu hỏi: 2 + 3 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: C
+Đáp án của bạn: b
+Id: 10
+Nội dung câu hỏi: 10 - 5 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: C
+Đáp án của bạn: c
+Id: 12
+Nội dung câu hỏi: 2 + 2 Bang Bao Nhieu ?
+A. 3
+B. 4
+C. 5
+D. 6
+Đáp án: B
+Đáp án của bạn: d
+Tổng số câu hỏi đúng: 2
+Điểm của bạn: 4

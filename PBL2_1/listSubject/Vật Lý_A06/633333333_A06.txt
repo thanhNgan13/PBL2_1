@@ -1,0 +1,14 @@
+Ngày giờ thi: Tue Dec 20 23:02:07 2022
+
+Số lượng câu hỏi đã chọn: 1
+Thời gian của mỗi câu hỏi: 1s
+Id: 6668
+Nội dung câu hỏi: Đơn Vị đo Chuẩn Của Cân Năng Là Gì?
+A. Kg
+B. Tấn
+C. Tạ
+D. Yến
+Đáp án: A
+Đáp án của bạn: a
+Tổng số câu hỏi đúng: 1
+Điểm của bạn: 10

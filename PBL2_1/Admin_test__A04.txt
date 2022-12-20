@@ -1,4 +1,4 @@
-Ngày giờ thi: Wed Nov 30 14:33:33 2022
+Ngày giờ thi: Tue Dec 20 21:55:13 2022
 
 Số lượng câu hỏi đã chọn: 10
 Thời gian của mỗi câu hỏi: 1s
@@ -9,55 +9,7 @@ B. Mẫu Thuẫn Giữa Phe Hiệp ước Với Phe Liên Minh
 C. Mâu Thuẫn Giữa Nhân Dân Các Nước Thuộc địa Với Các Nước đế Quốc
 D. Mâu Thuẫn Giữa Các Nước đế Quốc Về Vấn đề Thuộc địa
 Đáp án: B
-Đáp án của bạn: a
-Id: 94615
-Nội dung câu hỏi: Trong Những Năm 1954 – 1975, Sự Kiện Nào đánh Dấu Cách Mạng Việt Nam đã Hoàn Thành Nhiệm Vụ “đánh Cho Ngụy Nhào”?
-A. Hiệp định Pari 1973 Về Việt Nam được Ky Kết 
-B. My Rut Quân Khỏi Việt Nam (29/03/1973)
-C. Đại Thắng Mùa Xuân 1975 
-D. Chiến Thắng “Điện Biên Phủ Trên Không”
-Đáp án: C
-Đáp án của bạn: b
-Id: 5229
-Nội dung câu hỏi: Nguyễn Huệ Với Quang Trung Là Quan Hệ Gì?
-A. Anh Em
-B. Bạn Bè
-C. Cha Con
-D. Là Một Người
-Đáp án: D
-Đáp án của bạn: b
-Id: 6642
-Nội dung câu hỏi: Có Bao Nhiêu đời Vua Hùng
-A. 15
-B. 16
-C. 17
-D. 18
-Đáp án: D
-Đáp án của bạn: c
-Id: 25454
-Nội dung câu hỏi: Ý Nào Dưới đây Không Phải Là âm Mưu Của Mĩ Trong Cuộc Chiến Tranh Phá Hoại Miền Bắc Lần Thứ Nhất?
-A. Cứu Nguy Cho Chiến Lược “Chiến Tranh Cục Bộ” ở Miền Nam. 
-B. Ngăn Chặn Nguồn Chi Viện Từ Bên Ngoài Vào Miền Bắc Và Từ Miền Bắc Vào Miền Nam. 
-C. Uy Hiếp Tinh Thần, Làm Lung Lay Quyết Tâm Chống Mĩ Của Nhân Dân T 
-D. Phá Tiềm Lực Kinh Tế, Phá Công Cuộc Xây Dựng Chủ Nghĩa Xã Hội ở Miền Bắ 
-Đáp án: D
-Đáp án của bạn: a
-Id: 71231
-Nội dung câu hỏi: Đại Hội Lần Thứ VII Của Quốc Tế Cộng Sản(1935) đã Xác định Kẻ Thù Nguy Hiểm Trước Mắt Của Nhân Dân Thế Giới Là 
-A. Chủ Nghĩa Quân Phiệt Và Chủ Nghĩa đế Quốc
-B. Chủ Nghĩa Phát Xít.
-C. Chủ Nghĩa Phân Biệt Chủng Tộc 
-D. Chủ Nghĩa đế Quốc, Thực Dân.
-Đáp án: A
-Đáp án của bạn: b
-Id: 8115
-Nội dung câu hỏi: Năm 1919, Thay Mặt Những Ngươi Việt Nam Yêu Nước Tại Pháp, Nguyên Ai Quốc Gưi đến Hội Nghị Vắc-xai Văn Kiện Nào?
-A. Bản Yêu Sách Của Nhân Dân An Nam 
-B. Bản án Chế độ Thực Dân Pháp
-C. Mấy Y Nghĩa Về Vấn đề Thuộc địa 
-D. Tơ Báo Ngươi Cùng Khổ
-Đáp án: C
-Đáp án của bạn: b
+Bạn đã không kịp thời cho câu hỏi này
 Id: 1783
 Nội dung câu hỏi: Ai Là Người đã Dành Chiến Thắng đầu Tiên Trên Sông Bạch Đằng
 A. Ngô Quyền
@@ -65,22 +17,12 @@ B. Nguyễn Trãi
 C. Nguyễn Khuyến
 D. Nguyễn Hà
 Đáp án: A
-Đáp án của bạn: b
-Id: 4612
-Nội dung câu hỏi: Đến Giữa Những Năm 70 Của Thế Ky XX, Quốc Gia Nào Sau đây Trở Thành Cương Quốc Công Nghiệp đứng Thứ Hai Trên Thế Giới?
-A. Anh 
-B. My 
-C. Nhât Bản 
-D. Liên Xô
-Đáp án: B
-Đáp án của bạn: c
-Id: 1141
-Nội dung câu hỏi: Hoạt động Của Chủ Nghĩa Khủng Bố Có ảnh Hưởng Như Thế Nào đến Quan Hệ Quốc Tế Hiện Nay?
-A. Làm Cho Quan Hệ Giữa Các Nước Căng Thẳng
-B. Tạo Ra Sự đối đầu Giữa Lực Lượng Khủng Bố Và Lực Lượng Chống Khủng Bố
-C. Làm Cho Tình Hình An Ninh Thế Giới Bất ổn 
-D. Tạo Ra Cuộc Chạy đua Vũ Trang Mới Trên Thế Giới
+Bạn đã không kịp thời cho câu hỏi này
+Id: 94615
+Nội dung câu hỏi: Trong Những Năm 1954 – 1975, Sự Kiện Nào đánh Dấu Cách Mạng Việt Nam đã Hoàn Thành Nhiệm Vụ “đánh Cho Ngụy Nhào”?
+A. Hiệp định Pari 1973 Về Việt Nam được Ky Kết 
+B. My Rut Quân Khỏi Việt Nam (29/03/1973)
+C. Đại Thắng Mùa Xuân 1975 
+D. Chiến Thắng “Điện Biên Phủ Trên Không”
 Đáp án: C
-Đáp án của bạn: a
-Tổng số câu hỏi đúng: 0
-Điểm của bạn: 0
+Bạn đã không kịp thời cho câu hỏi này

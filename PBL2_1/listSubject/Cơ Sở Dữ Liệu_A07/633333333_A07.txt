@@ -1,0 +1,14 @@
+Ngày giờ thi: Tue Dec 20 22:58:52 2022
+
+Số lượng câu hỏi đã chọn: 1
+Thời gian của mỗi câu hỏi: 5s
+Id: 4344
+Nội dung câu hỏi: Hàm Tính Trung Bình Trong SQL Sever Là Gì?
+A. COUNT
+B. AVG
+C. SUM
+D. SELECT
+Đáp án: B
+Đáp án của bạn: d
+Tổng số câu hỏi đúng: 0
+Điểm của bạn: 0

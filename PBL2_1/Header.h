@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <fstream>
 
+
 #pragma warning(disable : 4996)
 
 using namespace std;

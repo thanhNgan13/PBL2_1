@@ -1,0 +1,46 @@
+Ngày giờ thi: Tue Dec 20 22:39:00 2022
+
+Số lượng câu hỏi đã chọn: 5
+Thời gian của mỗi câu hỏi: 1s
+Id: 4
+Nội dung câu hỏi: Zn La Gi ?
+A. Sat
+B. Kem
+C. Kem
+D. Canxi
+Đáp án: C
+Đáp án của bạn: a
+Id: 8
+Nội dung câu hỏi: Kim Loai Nao Sao Day Khong Tac Dung Duoc Voi Dd H2SO4 Dac Nguoi La Gi ?
+A. Na
+B. Pb
+C. Pb
+D. Cu
+Đáp án: D
+Đáp án của bạn: c
+Id: 7
+Nội dung câu hỏi: H La Gi ?
+A. Sat
+B. Kem
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: d
+Id: 6
+Nội dung câu hỏi: Li La Gi ?
+A. Sat
+B. Liti
+C. Liti
+D. Canxi
+Đáp án: C
+Đáp án của bạn: c
+Id: 3
+Nội dung câu hỏi: Cu La Gi ?
+A. Sat
+B. Kem
+C. Kem
+D. Canxi
+Đáp án: B
+Đáp án của bạn: c
+Tổng số câu hỏi đúng: 1
+Điểm của bạn: 2

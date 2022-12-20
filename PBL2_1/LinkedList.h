@@ -19,6 +19,7 @@ public:
 	Node<T>* next;
 	Node();
 	explicit Node(T val);
+
 };
 template<typename T>
 inline Node<T>::Node() {
@@ -31,6 +32,8 @@ inline Node<T>::Node(T val)
 	data = val;
 	next = nullptr;
 }
+
+
 
 template<typename T>
 class LinkedList

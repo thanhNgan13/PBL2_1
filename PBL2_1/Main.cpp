@@ -38,6 +38,7 @@ LinkedList<informationClass> listInfC;
 Node<Students>* tempS;
 Node<informationClass>* tempInf;
 
+vector<wstring> passwordRequest;
 class User
 {
 public:
@@ -122,8 +123,10 @@ void login()
 {
 	loadSubject();
 	loadClass();
+	checkEntUs = 1;
 	checkAd = 1;
 	checkUS = 1;
+	checkPass = 1;
 	wstring user;
 	wstring pass;
 	wstring pass1;
@@ -495,28 +498,19 @@ void teacher()
 		}
 		else if (h == 3)
 		{
-			if (kt == 1)
+			switch (kt)
 			{
+			case 1:
 				ad.editClass();
-			}
-			else if (kt == 2)
-			{
+			case 2:
 				ad.editSubject();
-			}
-			else if (kt == 3)
-			{
+			case 3:
 				ad.editUser();
-			}
-			else if (kt == 4)
-			{
+			case 4:
 				ad.editExam();
-			}
-			else if (kt == 5)
-			{
+			case 5:
 				ad.multipleChoiceTest();
-			}
-			else if (kt == 6)
-			{
+			case 6:
 				checkAd = 1;
 				listInfC.Delete();
 				listS.Delete();
@@ -621,20 +615,15 @@ void student()
 		}
 		else if (h == 3)
 		{
-			if (kt == 1)
+			switch (kt)
 			{
+			case 1:
 				us.multipleChoiceTest();
-			}
-			else if (kt == 2)
-			{
+			case 2:
 				us.viewExam();
-			}
-			else if (kt == 3)
-			{
+			case 3:
 				us.correctionUser();
-			}
-			else if (kt == 4)
-			{
+			case 4:
 				checkUS = 1;
 				listInfC.Delete();
 				listS.Delete();
@@ -1266,29 +1255,24 @@ void Admin::editSubject()
 		}
 		else if (h == 3)
 		{
-			if (kt == 1)
+			switch (kt)
 			{
+			case 1:
 				system("cls");
 				enterSubject();
 				system("cls");
 				editSubject();
-			}
-			else if (kt == 2)
-			{
+			case 2:
 				system("cls");
 				correctionSubject();
 				system("cls");
 				editSubject();
-			}
-			else if (kt == 3)
-			{
+			case 3:
 				system("cls");
 				deleteSubject();
 				system("cls");
 				editSubject();
-			}
-			else if (kt == 4)
-			{
+			case 4:
 				system("cls");
 				if (listS.isEmpty()) {
 					system("cls");
@@ -1313,9 +1297,7 @@ void Admin::editSubject()
 					system("cls");
 					editSubject();
 				}
-			}
-			else if (kt == 5)
-			{
+			case 5:
 				system("cls");
 				teacher();
 			}
@@ -1735,31 +1717,26 @@ void Admin::editExam()
 			}
 			else if (h == 3)
 			{
-				if (kt == 1)
+				switch (kt)
 				{
+				case 1:
 					system("cls");
 					enterExam();
 					system("cls");
 					editExam();
-				}
-				else if (kt == 2)
-				{
+				case 2:
 					system("cls");
 					correctionExam();
 					system("pause");
 					system("cls");
 					editExam();
-				}
-				else if (kt == 3)
-				{
+				case 3:
 					system("cls");
 					deleteExam();
 					system("cls");
 					editExam();
-				}
-				else if (kt == 4)
-				{
-					Node<Subjects>* head;
+				case 4:
+					Node<Subjects>*head;
 					do {
 					a:
 						system("cls");
@@ -1809,13 +1786,10 @@ void Admin::editExam()
 							break;
 						}
 					} while (true);
-
 					system("pause");
 					system("cls");
 					editExam();
-				}
-				else if (kt == 5)
-				{
+				case 5:
 					system("cls");
 					teacher();
 				}
@@ -1823,7 +1797,6 @@ void Admin::editExam()
 		}
 	}
 }
-
 
 void Admin::enterClass()
 {
@@ -1967,6 +1940,9 @@ void Admin::deleteClass()
 	wstring s1;
 	LinkedList<Students> temp;
 	LinkedList<Students> temp1;
+	wifstream fileIn;
+	wofstream fileOut{ "Backup_data_student.txt" };
+	wstring line;
 	if (listInfC.isEmpty()) {
 		system("cls");
 		writeString(43, 1, L"CHƯA CÓ LỚP HỌC NÀO TRONG HỆ THỐNG! TÍNH NĂNG NÀY KHÔNG THỂ DÙNG ĐƯỢC!!!", 4);
@@ -2005,88 +1981,130 @@ void Admin::deleteClass()
 			}
 			else {
 				name = conCat(L"listClass\\" + head->data.getClassName(), head->data.getClassCode());
-				if (checkFileIsEmpty(name)) {
-					removeFile(name);
-					listInfC.Delete(head->data);
-					writeDataInfClass();
+				if (listInfC.getCount() == 1) {
 					system("cls");
-					writeString(60, 0, L"Đã xóa lớp học thành công", 4);
-					gotoxy(60, 2);
-					return;
-				}
-#if 1
-				else {
-					loadListStudentOfClass(name);
-					temp = head->data.getStudentList(); // danh sách lớp sinh viên bị xóa
-					system("cls");
-					writeString(30, 1, L"Lớp học này có chứa sinh viên. Hãy chọn lớp bạn muốn chuyển sinh viên qua!", 4);
-					gotoxy(30, 3);
-					system("pause");
-					system("cls");
-					do {
-					b:
-						menuBar(65, 0, 26, 2, 11);
-						writeString(70, 1, L"XÓA LỚP HỌC", 3);
-						wcout << endl;
-						gotoxy(68, 4);
-						textcolor(12);
-						wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
-						textcolor(2);
-						listInfC.Display();
-						gotoxy(65, listInfC.getCount() + 7);
-						textcolor(6);
-						wcout << L"Nhập mã lớp học bạn muốn chuyển sinh viên đến: ";
-						s1 = inputString(9);
-						Node<informationClass>* head1 = Search(listInfC, s1); // tìm kiếm thông tin lớp được chuyển qua
-						if (head1 == NULL) {
-							system("cls");
-							writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
-							writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
-							writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
-							if (catchEvents() == 4) {
-								system("cls");
-								break;
-							}
-							else {
-								system("cls");
-								goto b;
-							}
-						}
-						else if (s1 == s) {
-							system("cls");
-							writeString(60, 0, L"Bạn đã nhập tên lớp trùng với lớp muốn xóa! Điều này không được phép!!!", 4);
-							writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
-							writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
-							if (catchEvents() == 4) {
-								system("cls");
-								break;
-							}
-							else {
-								system("cls");
-								goto b;
-							}
+					writeString(60, 1, L"Trong hệ thống chỉ còn 1 lớp học là lớp học muốn xóa.", 4);
+					writeString(60, 2, L"Nếu xóa lớp học này thì toàn bộ dữ liệu của sinh viên trong hệ thống sẽ mất", 6);
+					writeString(60, 3, L"Bạn có chắc chắn muốn thực hiện điều này không?", 6);
+					writeString(60, 4, L"Nhấn nút [ESC] để kết thúc xóa", 6);
+					writeString(60, 5, L"Nhấn nút bất kì để tiếp tục xóa", 6);
+					if (catchEvents() == 4) {
+						system("cls");
+						return;
+					}
+					else {
+						writeString(60, 7, L"Bạn có sao lưu dữ liệu hay không?", 5);
+						writeString(60, 8, L"Nhấn nút [ESC] để không sao lưu", 6);
+						writeString(60, 9, L"Nhấn nút bất kì để sao lưu", 6);
+						if (catchEvents() == 4) {
 						}
 						else {
-							name1 = conCat(L"listClass\\" + head1->data.getClassName(), head1->data.getClassCode());
-							loadListStudentOfClass(name1);
-							temp1 = head1->data.getStudentList(); // danh sách lớp được chọn để chuyển sinh viên qua
-							for (int i = 0; i < temp.getCount(); i++) {
-								temp1.Insert(temp.getNode(i)->data);
+							fileIn.open(name);
+							if (fileIn && fileOut) {
+
+								while (getline(fileIn, line)) {
+									fileOut << line << L"\n";
+								}
+								writeString(60, 11, L"Sao lưu hoàn tất", 5);
 							}
-							head1->data.setStudentList(temp1);
-							removeFile(name);
-							listInfC.Delete(head->data);
-							writeDataStudentInfInClass(name1);
-							writeDataInfClass();
-							system("cls");
-							writeString(60, 0, L"Đã xóa lớp học thành công", 4);
-							gotoxy(60, 2);
-							return;
+							else {
+								writeString(60, 11, L"Không thể sao lưu", 5);
+							}
+							fileIn.close();
+							fileOut.close();
 						}
-					} while (true);
+						removeFile(name);
+						listInfC.Delete(head->data);
+						writeDataInfClass();
+						writeString(60, 13, L"Đã xóa lớp học thành công", 4);
+						gotoxy(60, 2);
+						return;
+					}
 				}
+				else {
+					if (checkFileIsEmpty(name)) {
+						removeFile(name);
+						listInfC.Delete(head->data);
+						writeDataInfClass();
+						system("cls");
+						writeString(60, 0, L"Đã xóa lớp học thành công", 4);
+						gotoxy(60, 2);
+						return;
+					}
+#if 1
+					else {
+						loadListStudentOfClass(name);
+						temp = head->data.getStudentList(); // danh sách lớp sinh viên bị xóa
+						system("cls");
+						writeString(30, 1, L"Lớp học này có chứa sinh viên. Hãy chọn lớp bạn muốn chuyển sinh viên qua!", 4);
+						gotoxy(30, 3);
+						system("pause");
+						system("cls");
+						do {
+						b:
+							menuBar(65, 0, 26, 2, 11);
+							writeString(70, 1, L"XÓA LỚP HỌC", 3);
+							wcout << endl;
+							gotoxy(68, 4);
+							textcolor(12);
+							wcout << setw(10) << left << L"TÊN LỚP" << setw(5) << L" - " << setw(5) << L"MÃ LỚP" << right << setw(10) << endl;
+							textcolor(2);
+							listInfC.Display();
+							gotoxy(65, listInfC.getCount() + 7);
+							textcolor(6);
+							wcout << L"Nhập mã lớp học bạn muốn chuyển sinh viên đến: ";
+							s1 = inputString(9);
+							Node<informationClass>* head1 = Search(listInfC, s1); // tìm kiếm thông tin lớp được chuyển qua
+							if (head1 == NULL) {
+								system("cls");
+								writeString(60, 0, L"Lớp học không tồn tại hoặc bạn đã nhập sai!", 4);
+								writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+								writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+								if (catchEvents() == 4) {
+									system("cls");
+									break;
+								}
+								else {
+									system("cls");
+									goto b;
+								}
+							}
+							else if (s1 == s) {
+								system("cls");
+								writeString(60, 0, L"Bạn đã nhập tên lớp trùng với lớp muốn xóa! Điều này không được phép!!!", 4);
+								writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+								writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+								if (catchEvents() == 4) {
+									system("cls");
+									break;
+								}
+								else {
+									system("cls");
+									goto b;
+								}
+							}
+							else {
+								name1 = conCat(L"listClass\\" + head1->data.getClassName(), head1->data.getClassCode());
+								loadListStudentOfClass(name1);
+								temp1 = head1->data.getStudentList(); // danh sách lớp được chọn để chuyển sinh viên qua
+								for (int i = 0; i < temp.getCount(); i++) {
+									temp1.Insert(temp.getNode(i)->data);
+								}
+								head1->data.setStudentList(temp1);
+								removeFile(name);
+								listInfC.Delete(head->data);
+								writeDataStudentInfInClass(name1);
+								writeDataInfClass();
+								system("cls");
+								writeString(60, 0, L"Đã xóa lớp học thành công", 4);
+								gotoxy(60, 2);
+								return;
+							}
+						} while (true);
+					}
 #endif
-				return;
+					return;
+				}
 			}
 		} while (true);
 	}
@@ -2099,8 +2117,8 @@ void Admin::editClass()
 	textcolor(2);	menuTable(x = 30, y = 6);	textcolor(3);
 	menuBar(x + 42, y + 2, 40, 2, 11);
 	writeString(x + 5, y + 3, L"1>  QUẢN LÝ THÔNG TIN LỚP HỌC", 15);
-	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 15);
-	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+	writeString(x + 45, y + 3, L"1. Thêm lớp học", 15);
+	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 	writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 	writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2115,8 +2133,8 @@ void Admin::editClass()
 			if (kt == 1)
 			{
 				kt = 2;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 15);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 15);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2124,8 +2142,8 @@ void Admin::editClass()
 			else if (kt == 2)
 			{
 				kt = 3;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 11);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 15);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2134,8 +2152,8 @@ void Admin::editClass()
 			else if (kt == 3)
 			{
 				kt = 4;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 11); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 15);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2144,8 +2162,8 @@ void Admin::editClass()
 			else if (kt == 4)
 			{
 				kt = 5;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Thoát", 15);
@@ -2153,8 +2171,8 @@ void Admin::editClass()
 			else if (kt == 5)
 			{
 				kt = 1;
-				menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 15);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 15);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2166,8 +2184,8 @@ void Admin::editClass()
 			if (kt == 1)
 			{
 				kt = 5;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Thoát", 15);
@@ -2175,18 +2193,18 @@ void Admin::editClass()
 			else if (kt == 5)
 			{
 				kt = 4;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
-				menuBar(x + 42, y + 11, 40, 2, 11); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 15);
+				menuBar(x + 42, y + 11, 40, 2, 11);writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 15);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
 
 			}
 			else if (kt == 4)
 			{
 				kt = 3;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 11);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 15);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2195,8 +2213,8 @@ void Admin::editClass()
 			else if (kt == 3)
 			{
 				kt = 2;
-				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học.", 6);
-				menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 15);
+				menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 6);
+				menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 15);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2206,7 +2224,7 @@ void Admin::editClass()
 			{
 				kt = 1;
 				menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm lớp học", 15);
-				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học.", 6);
+				menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh lớp học", 6);
 				menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa lớp học", 6);
 				menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị lớp học", 6);
 				menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
@@ -2215,30 +2233,25 @@ void Admin::editClass()
 		}
 		else if (h == 3)
 		{
-			if (kt == 1)
+			switch (kt)
 			{
+			case 1:
 				system("cls");
 				enterClass();
 				system("cls");
 				editClass();
-			}
-			else if (kt == 2)
-			{
+			case 2:
 				system("cls");
 				correctionClass();
 				system("cls");
 				editClass();
-			}
-			else if (kt == 3)
-			{
+			case 3:
 				system("cls");
 				deleteClass();
 				system("pause");
 				system("cls");
 				editClass();
-			}
-			else if (kt == 4)
-			{
+			case 4:
 				system("cls");
 				if (listInfC.isEmpty()) {
 					system("cls");
@@ -2263,9 +2276,7 @@ void Admin::editClass()
 					system("cls");
 					editClass();
 				}
-			}
-			else if (kt == 5)
-			{
+			case 5:
 				system("cls");
 				teacher();
 			}
@@ -2493,10 +2504,11 @@ void User::viewExam()
 	wifstream file;
 	LinkedList<Subjects> listOfSubjectsTested;
 	Node<Score>* node = tempS->data.getScoreList().head;
+	Node<Subjects>* headTemp;
 	while (node != nullptr)
 	{
-		Node<Subjects>* head = Search(listS, node->data.getSubjectCode());
-		listOfSubjectsTested.Insert(head->data);
+		headTemp = Search(listS, node->data.getSubjectCode());
+		listOfSubjectsTested.Insert(headTemp->data);
 		node = node->next;
 	}
 	if (listOfSubjectsTested.isEmpty()) {
@@ -2522,7 +2534,7 @@ void User::viewExam()
 		textcolor(6);
 		wcout << L"Nhập mã môn học cần xem chi tiết các câu hỏi đã làm: ";
 		s = inputString(9);
-		Node<Subjects>* head = Search(listS, s);
+		Node<Subjects>* head = Search(listOfSubjectsTested, s);
 		if (head == NULL) {
 			system("cls");
 			writeString(60, 0, L"Môn học không tồn tại hoặc bạn đã nhập sai!", 4);
@@ -2547,9 +2559,9 @@ void User::viewExam()
 			while (current != nullptr) {
 				if (current->data.getSubjectCode() == s) {
 					system("cls");
-					wstring s5 = head->data.getSubjectName() + L"_" + head->data.getSubjectCode(); //tên folder môn học
-					wstring s3 = tempS->data.getStudentCode();
-					wstring name1 = L"listSubject\\" + s5 + L"\\" + conCat(s3, s);
+					wstring folderName = head->data.getSubjectName() + L"_" + head->data.getSubjectCode(); //tên folder môn học
+					wstring stCode = tempS->data.getStudentCode();
+					wstring name1 = L"listSubject\\" + folderName + L"\\" + conCat(stCode, s);
 					file.open(name1);
 					file.imbue(loc);
 					while (getline(file, line))
@@ -2736,11 +2748,12 @@ void Admin::editUser()
 	else {
 		menuBar(x + 42, y + 2, 40, 2, 11);
 		writeString(x + 5, y + 9, L"3>  QUẢN LÝ THÔNG TIN SINH VIÊN", 15);
-		writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 15);
-		writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+		writeString(x + 45, y + 3, L"1. Thêm sinh viên", 15);
+		writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 		writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
 		writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-		writeString(x + 45, y + 15, L"5. Thoát", 6);
+		writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+		writeString(x + 45, y + 18, L"6. Thoát", 6);
 		int kt = 1;
 		gotoxy(x + 5, y + 26);
 		for (;;)
@@ -2752,21 +2765,22 @@ void Admin::editUser()
 				if (kt == 1)
 				{
 					kt = 2;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 15);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 15);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
 					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0); writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 2)
 				{
 					kt = 3;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 11);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 15);
 					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
-
+					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0); writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 3)
 				{
@@ -2775,69 +2789,92 @@ void Admin::editUser()
 					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
 					menuBar(x + 42, y + 11, 40, 2, 11); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 15);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0); writeString(x + 45, y + 18, L"6. Thoát", 6);
 
 				}
 				else if (kt == 4)
 				{
 					kt = 5;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Thoát", 15);
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 15);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 5)
 				{
-					kt = 1;
-					menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 15);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					kt = 6;
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
-
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 11); writeString(x + 45, y + 18, L"6. Thoát", 15);
+				}
+				else if (kt == 6)
+				{
+					kt = 1;
+					menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 15);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
+					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 			}
 			else if (h == 5)
 			{
 				if (kt == 1)
 				{
-					kt = 5;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					kt = 6;
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Thoát", 15);
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 11); writeString(x + 45, y + 18, L"6. Thoát", 15);
+				}
+				else if (kt == 6)
+				{
+					kt = 5;
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
+					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 11); writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 15);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 5)
 				{
 					kt = 4;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 11); writeString(x + 45, y + 12, L"4.Hiện thị sinh viên", 15);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
-
+					menuBar(x + 42, y + 11, 40, 2, 11); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 15);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 4)
 				{
 					kt = 3;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 6);
 					menuBar(x + 42, y + 8, 40, 2, 11);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 15);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
-
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 3)
 				{
 					kt = 2;
-					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên.", 6);
-					menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 15);
+					menuBar(x + 42, y + 2, 40, 2, 0);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 6);
+					menuBar(x + 42, y + 5, 40, 2, 11);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên", 15);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
-
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 				else if (kt == 2)
 				{
@@ -2845,39 +2882,35 @@ void Admin::editUser()
 					menuBar(x + 42, y + 2, 40, 2, 11);	writeString(x + 45, y + 3, L"1. Thêm sinh viên", 15);
 					menuBar(x + 42, y + 5, 40, 2, 0);	writeString(x + 45, y + 6, L"2. Điều chỉnh sinh viên.", 6);
 					menuBar(x + 42, y + 8, 40, 2, 0);	writeString(x + 45, y + 9, L"3. Xóa sinh viên", 6);
-					menuBar(x + 42, y + 11, 40, 2, 0); writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
-					menuBar(x + 42, y + 14, 40, 2, 0); writeString(x + 45, y + 15, L"5. Thoát", 6);
+					menuBar(x + 42, y + 11, 40, 2, 0);	writeString(x + 45, y + 12, L"4. Hiện thị sinh viên", 6);
+					menuBar(x + 42, y + 14, 40, 2, 0);	writeString(x + 45, y + 15, L"5. Cấp lại mật khẩu cho sinh viên", 6);
+					menuBar(x + 42, y + 17, 40, 2, 0);	writeString(x + 45, y + 18, L"6. Thoát", 6);
 				}
 
 			}
 			else if (h == 3)
 			{
-				if (kt == 1)
+				switch (kt)
 				{
+				case 1:
 					system("cls");
 					enterUser();
 					system("pause");
 					system("cls");
 					editUser();
-				}
-				else if (kt == 2)
-				{
+				case 2:
 					system("cls");
 					correctionUser();
 					system("pause");
 					system("cls");
 					editUser();
-				}
-				else if (kt == 3)
-				{
+				case 3:
 					system("cls");
 					deleteUser();
 					system("cls");
 					editUser();
-				}
-				else if (kt == 4)
-				{
-					Node<informationClass>* head;
+				case 4:
+					Node<informationClass>*head;
 					do {
 						system("cls");
 					a:
@@ -2890,7 +2923,7 @@ void Admin::editUser()
 						textcolor(2);
 						listInfC.Display();
 						gotoxy(65, listInfC.getCount() + 7);
-						textcolor(6); 
+						textcolor(6);
 						ShowCur(true);
 						wcout << L"Nhập mã lớp học cần xem thông tin sinh viên: ";
 						s = inputString(9);
@@ -2911,7 +2944,7 @@ void Admin::editUser()
 						}
 						else {
 							wstring name;
-							name = conCat(L"listClass\\" + head->data.getClassName(), head->data.getClassCode());	 
+							name = conCat(L"listClass\\" + head->data.getClassName(), head->data.getClassCode());
 							if (checkFileIsEmpty(name)) {
 								system("cls");
 								writeString(60, 1, L"Lớp học này không có sinh viên để hiện thị!.", 4);
@@ -2930,9 +2963,108 @@ void Admin::editUser()
 					} while (true);
 					system("cls");
 					editUser();
-				}
-				else if (kt == 5)
-				{
+				case 5:
+
+					if (!passwordRequest.empty()) {
+						menuBar(59, 0, 41, 2, 11);
+						writeString(64, 1, L"CẤP LẠI MẬT KHẨU", 3);
+						wcout << endl;
+						textcolor(6);
+						checkEntUs = 0;
+						checkPass = 0;
+						wstring name;
+						wstring pass;
+						wstring hashPass;
+						wstring id;
+						bool checkDuplicates = false;
+						do {
+							system("cls");
+						Pass1:
+							textcolor(6);
+							wcout << L"Các mã sinh viên cần cấp lại mật khẩu" << endl;
+							for (const auto& x : passwordRequest) {
+								wcout << x << " ";
+							}
+							wcout << endl;
+							wcout << L"Nhập mã sinh viên muốn cấp lại mật khẩu: ";
+							id = inputString(9);
+							for (const auto& x : passwordRequest) {
+								if (id == x) {
+									checkDuplicates = true;
+									break;
+								}
+							}
+							if (!checkDuplicates) {
+								system("cls");
+								writeString(60, 0, L"Bạn đã nhập sai mã sinh viên cần cấp lại mật khẩu!", 4);
+								writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+								writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+								if (catchEvents() == 4) {
+									system("cls");
+									editUser();
+									break;
+								}
+								else {
+									system("cls");
+									goto Pass1;
+								}
+							}
+							else {
+								textcolor(6);
+								Check(listInfC, id, L"");
+								name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
+								loadListStudentOfClass(name);
+								Node<Students>* head1 = Search(tempInf, tempS->data.getStudentCode());
+								system("cls");
+								wcout << L"Nhập mật khẩu mới: ";
+								pass = inputPassword(20);
+								hashPass = StringToWString(bcrypt::generateHash(WStringToString(pass)));
+								head1->data.setPasswork(hashPass);
+								writeDataStudentInfInClass(name);
+								textcolor(13);
+								wcout << L"Cập nhật mật khẩu thành công" << endl;
+								system("pause");
+								system("cls");
+								tempS = nullptr;
+								tempInf = nullptr;
+								if (id == passwordRequest.back()) {
+									passwordRequest.pop_back();
+								}
+								else {
+									vector<wstring> ::iterator new_end;
+									new_end = remove(passwordRequest.begin(), passwordRequest.end(), id);
+								}
+								system("cls");
+								if (passwordRequest.empty()) {
+									system("cls");
+									editUser();
+								}
+								else {
+									writeString(60, 0, L"Bạn đã muốn tiếp tục cấp lại mật khẩu hay không?", 4);
+									writeString(60, 2, L"Nhấn nút [ESC] để kết thúc nhập", 5);
+									writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
+									if (catchEvents() == 4) {
+										system("cls");
+										editUser();
+										break;
+									}
+									else {
+										system("cls");
+										goto Pass1;
+									}
+								}
+							}
+						} while (true);
+					}
+					else {
+						system("cls");
+						writeString(60, 0, L"Không có yêu cầu nào cần giải quyết", 4);
+						gotoxy(60, 1);
+						system("pause");
+						system("cls");
+						editUser();
+					}
+				case 6:
 					system("cls");
 					teacher();
 				}
@@ -3167,8 +3299,8 @@ void User::multipleChoiceTest()
 			system("pause");
 			system("cls");
 			file.close();
+			tempS = head2;
 			student();
-
 		}
 		file.close();
 		textcolor(4);
@@ -3189,7 +3321,6 @@ void User::multipleChoiceTest()
 		teacher();
 	}
 }
-
 
 Node<Subjects>* Search(LinkedList<Subjects> list, wstring code)
 {
@@ -3508,7 +3639,6 @@ bool Check(LinkedList<informationClass> list, wstring user, wstring pass) {
 				return true;
 			}
 			if (user == currentS->data.getStudentCode() && bcrypt::validatePassword(WStringToString(pass), WStringToString(currentS->data.getPasswork())) == 1) {
-			//if (user == currentS->data.getStudentCode() && pass == currentS->data.getPasswork()) {
 				tempS = currentS;
 				tempInf = currentInf;
 				return true;
@@ -3633,6 +3763,16 @@ void forgotPassword()
 		textcolor(6);
 		wcout << L"Nhập tên đăng nhập (9 chữ số): " << endl;
 		id = inputString(9);
+		for (const auto& x : passwordRequest) {
+			if (id == x) {
+				system("cls");
+				writeString(60, 0, L"Đã thực hiện yêu cầu cấp mật khẩu! Vui lòng chờ đợi", 4);
+				gotoxy(60, 1);
+				system("pause");
+				system("cls");
+				login();
+			}
+		}
 		if (!Check(listInfC, id, L"")) {
 			system("cls");
 			writeString(60, 0, L"Sinh viên không tồn tại trong hệ thống hoặc bạn đã nhập sai!", 4);
@@ -3640,7 +3780,7 @@ void forgotPassword()
 			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
 			if (catchEvents() == 4) {
 				system("cls");
-				break;
+				login();
 			}
 			else {
 				system("cls");
@@ -3648,26 +3788,11 @@ void forgotPassword()
 			}
 		}
 		else {
-			wstring name;
-			wstring pass;
-			wstring hashPass;
-			name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
-			loadListStudentOfClass(name);
-			Node<Students>* head1 = Search(tempInf, tempS->data.getStudentCode());
-			system("cls");
-			wcout << L"Nhập mật khẩu mới: ";
-			pass = inputPassword(20);
-			hashPass = StringToWString(bcrypt::generateHash(WStringToString(pass)));
-			head1->data.setPasswork(hashPass);
-			writeDataStudentInfInClass(name);
-			textcolor(13);
-			wcout << L"Cập nhật mật khẩu thành công" << endl;
+			passwordRequest.push_back(id);
+			wcout << L"Đã gửi yêu cầu cấp lại mật khẩu thành công" << endl;
+			wcout << L"Vui lòng chờ quản trị viên sử lý yêu cầu" << endl;
 			system("pause");
 			system("cls");
-			tempS = nullptr;
-			tempInf = nullptr;
-			checkEntUs = 1;
-			checkPass = 1;
 			login();
 		}
 	} while (true);
