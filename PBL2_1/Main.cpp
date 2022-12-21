@@ -3770,6 +3770,8 @@ void forgotPassword()
 				gotoxy(60, 1);
 				system("pause");
 				system("cls");
+				listInfC.Delete();
+				listS.Delete();
 				login();
 			}
 		}
@@ -3780,6 +3782,8 @@ void forgotPassword()
 			writeString(60, 3, L"Nhấn nút bất kì để tiếp tục nhập", 5);
 			if (catchEvents() == 4) {
 				system("cls");
+				listInfC.Delete();
+				listS.Delete();
 				login();
 			}
 			else {
@@ -3793,6 +3797,8 @@ void forgotPassword()
 			wcout << L"Vui lòng chờ quản trị viên sử lý yêu cầu" << endl;
 			system("pause");
 			system("cls");
+			listInfC.Delete();
+			listS.Delete();
 			login();
 		}
 	} while (true);
