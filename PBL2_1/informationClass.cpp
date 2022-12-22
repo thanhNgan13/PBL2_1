@@ -46,16 +46,25 @@ bool informationClass::operator!=(informationClass& x) {
 }
 
 wistream& operator>>(wistream& in, informationClass& x) {
+	
+class_name:
 	writeString(60, 10, L"Nhập tên lớp học: ", 6);
 	getline(in, x.className);
-	writeString(60, 11, L"Nhập mã lớp học: ", 6);
+	if (x.className.length() == 0) {
+		writeString(60, 11, L"Không được bỏ trống!!!", 4);
+		goto class_name;
+	}
+class_code:
+	writeString(60, 12, L"Nhập mã lớp học: ", 6);
 	getline(in, x.classCode);
-	//x.classCode = inputString(9);
+	if (x.classCode.length() == 0) {
+		writeString(60, 13, L"Không được bỏ trống!!!", 4);
+		goto class_code;
+	}
 	return in;
 }
 
 wostream& operator<<(wostream& out, const informationClass& x) {
 	wcout << format(L"{:>25}", x.className) << format(L"{:^10}", L'-') << format(L"{:<1}", x.classCode);
-	//wcout << setw(10) << left << x.className << setw(5) << L" - " << setw(5) << right << x.classCode << setw(10);
 	return out;
 }

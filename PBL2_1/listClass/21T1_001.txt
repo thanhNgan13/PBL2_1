@@ -1,4 +1,4 @@
-2
+93
 001
 Phan
 Nguyen
@@ -11,12 +11,568 @@ Lăng
 Nữ
 633333333
 $2b$10$DsVe4irdYYjBDZFT56JTJeYS73hWxjs0pxc/eOw5QM8OPGSsOVRMu
-4
-A04
-0
+3
 A02
 2
 A00
 4
 A07
+0
+Phan
+An
+Nam
+777777777
+$2b$10$0kFo3ESHUo/PHnzAXwxpb.Ry/PzzKUxVit4LjHiXtq2OpQ/GvbMW.
+1
+
+4
+Nguyễn 
+Khuyến
+Nam
+999999999
+$2b$10$Z8XcB4GiUheOWDP46tx4WOuIUr.QbeXSsq5NsSPxJ/J6GKolbSu7q
+3
+A02
+2
+A04
+2
+A07
+0
+Phan 
+Hả
+Nam
+514444444
+$2b$10$WAfFa2hqgh4lSinkMpaDt.DFKjpYLBE5t.D3la.08wNSGpCZMh6gW
+0
+Nguyễn Văn
+Trường Sơn
+Nam
+741444444
+$2b$10$RMuToBjbT0R.zeHfBES7N.OAi2By1UncLCJsuAh9k7gWcNJgdhONu
+0
+Lê
+Văn A
+Nữ
+123456789
+$2b$10$ZAK5JLwtOjRmOY1znkTkketetwsFTvPR/F1TPWcORGD5xe.SoyN2K
+1
+A02
+2.5
+Phan
+Van A
+Nam
+123456788
+$2b$10$qWjlgARDMKzxvY7.y5xEOek5f1EOVq84RTrAVnDMhGWyKFPUXvsFa
+0
+Tran
+Manh
+Nam
+111111111
+$2b$10$qg/ki96NSsONDMUBYocHvO/twnH5n.Nz49t8E6HnR0U7ItHVfIzv2
+0
+Nguyễn
+Hà
+Nữ
+222222222
+$2b$10$8TYVtZ1T8w1Vg/X4TvYFDOl0dL9EwV.XdCjTgqHjypsSuK13Y/C3.
+0
+Phan 
+Thành Ngân
+Nam
+123450306
+$2b$10$R/CwpfCWVodobqeje5mLV.aVSuTtz4SREqQcC6kGRAqs2j80BEe4G
+0
+Lê
+A
+Nam
+123450400
+$2b$10$knuS3ZMy3Ev5hOim.OY5/ev3jlRSOTz7td0Ywk2KleTEDwEdC1NLy
+0
+Lê 
+B
+Nam
+123450401
+$2b$10$5CIezNqqz25uH3fz.cBtKeKqErfnmqo/luUWjliR6i9aUQXQ9YvlO
+0
+Nguyễn 
+A
+Nam
+123450402
+$2b$10$P70DuQQnPEJjrknFaoCxhORnMlF8.4.PVsNdhtViEXZI9utHvWtNu
+0
+Phan 
+Anh
+Nam
+123450403
+$2b$10$q0bRoqFVcunVJzlyQW5nge1/dlRWlDOFFbYC.BkRXU8Eu4Ewo9fLi
+0
+Lê 
+C
+Nam
+123450404
+$2b$10$HckvitMw.7RHmQF4DZ988usx7MzueX38BkbJfIpt2xibQfCk1Tgmy
+0
+Lê
+D
+Nam
+123450405
+$2b$10$TpLpgDFFWi3BXFYNQCHP2e6.8F5viC1YjyhzbSf5f4R/DqVSNsRei
+0
+Nguyễn 
+D
+Nam
+123450406
+$2b$10$lkQdcZm50524Aq/W0BTy2.sgwKzabD6QMEh9hX9eAlef/4YXYTxYm
+0
+Lê
+E
+Nam
+123450407
+$2b$10$6.mpY.Ixx8EunS8j0.8mB.bnsHfs8f9Z31b5yk3RiO/eBwjM/wkXK
+0
+Phan 
+D
+Nam
+123450408
+$2b$10$eEwRQrQau6Ac6sK17tZtA.05yBr2tiA/ayZjvNFeeg3ICQF19Bxvi
+0
+Huỳnh 
+James
+Nam
+123450409
+$2b$10$z.9lMEXo1lMRgL0uaVJS5uy2cBPgzHyTcqGO/Mv3BIhyhsGUbrLwW
+1
+A02
+0
+Huỳnh
+Văn A
+Nam
+123450410
+$2b$10$GJxhI/mzeVOHInMjcuglnuoNCV6U97ZCBfXzm.K92rs.JuVszFfK6
+0
+Huỳnh 
+Văn B
+Nam
+123450411
+$2b$10$sPMhAKqg5eX0Y0w5ArV9yOJyI9uboAUGqXrM5Ss5/GfcC/00V2P56
+0
+Huỳnh 
+Văn C
+Nam
+123450112
+$2b$10$7LI08ui5vhLtGeVSph7g3uPp9ic80Hc3j91zeJRvqEP0.EhBbLEJW
+0
+Huỳnh 
+Văn C
+Nam
+123450413
+$2b$10$MGag5QbWDvJkxcLvunBTIu7TGHuo4iPy6Mfi3.mkREU7rNjYtgYvq
+0
+Lê
+Văn B
+Nam
+123450114
+$2b$10$iQW90eT8VDXZVymUsI3owuGVmAwTB81qt0FB1lKXdQ0waixWngJFa
+0
+Lê
+Văn C
+Nam
+123450115
+$2b$10$zbooxAMZpRVRAQgxxN9bBuOKjkNftBKBHCXTj.mk898LEsNMit2qy
+0
+Phan
+Văn A
+Nam
+123450416
+$2b$10$NkcurlTwtCxDf4qzICpgSeINinv2SGvuH33AvHaoeOP14G0J0n64a
+0
+Phan 
+Văn B
+Nam
+123450117
+$2b$10$ZxHopLQFEqa9QeBIU6yzMOaMQDTwSbIJhGcRdGtHYabPFoEMwMUiS
+0
+Phan
+Văn C
+Nam
+123450118
+$2b$10$zKImj7qG.C4xx/adNVUIueo/ZL92PrNAmkQftysYoa3YjxJK7fgeW
+0
+Phan 
+Văn E
+Nam
+123450119
+$2b$10$Cl4BgUP2.OupdvziU2Ebiev44A2sHE4/l0gQwiGMSVW.ByLgaZfaO
+0
+Phạm
+A
+Nam
+123450420
+$2b$10$XAONcI1u7A4fEYsvUztPteI984bEuwhmp0IVrqQbMn890bPuxhvfe
+0
+Phạm
+B
+Nam
+123450421
+$2b$10$lsKgZMqHxDsXyCVI96Syz.YHhWQynyMOFVj.jrcgBOwxAfNjLi8iu
+0
+Phạm
+C
+Nam
+123450422
+$2b$10$YOQbOdqJkEg.zFLzuPVc3Oh0FmRQyJeb7laJwaHYilaNi1znapaFu
+0
+Phạm 
+D
+Nam
+123450423
+$2b$10$j7INM.9HxjH4kzxbcdY.CuCZdrmD2A0Bs58L6fhdu8l6pFroiLkNy
+0
+Phạm 
+D
+Nữ
+123450424
+$2b$10$6k3yHRbDMwXtIQ8t4pdDZOD8Z0B8JlFPMw0fq8B4RwwB4i61bR9Oa
+0
+Phạm 
+E
+Nữ
+123450425
+$2b$10$KwWWDumKXFTk0ICee0UG7uHCjt40M0P6MUuQIBmFb7S/NnOfWeJPO
+0
+Lê
+A
+Nam
+123450426
+$2b$10$6TTv59Awhh7N5/2YUgvvG.oZYsuYykXi7QesavXg8yyku4qN0FW86
+0
+Huỳnh 
+A
+Nam
+123450427
+$2b$10$KeyT2aL3r2zEknAJ7Lqzoew3QiqHEAMV31cidTmmGio9SZtD7eiS.
+0
+Huỳnh
+B
+Nữ
+123450428
+$2b$10$Yr/ezpa5Xwk9TZ32FYJl/eVGrEA5Nq4YvrxHdCkvzLvievupyizYq
+0
+Huỳnh 
+C
+Nam
+123450429
+$2b$10$j33QxKt3lPQ4FIdfzWMIKupPvVr44ZR0.FD6wHn3Mbr9vV4SnAtEe
+0
+Huỳnh
+D
+Nam
+123450430
+$2b$10$w0RTuVPjHP8x00gge4gKz.TvR9WFDvP4BSj0z1wPXOCiobUDK6pUe
+0
+Huỳnh
+Văn A
+Nam
+123450431
+$2b$10$.ArWrf1PpAsrkgngKa0Nbe2eDGs0V/plV7c41ghZ7Jr5GMIerhs/a
+0
+Huỳnh 
+Văn B
+Nam
+123450432
+$2b$10$Q7fSnrAZRguhNM/VM0LhJeviujmRh6buhHjS6Tbuy1urTBbqkmzzW
+0
+Huỳnh
+Văn C
+Nam
+123450433
+$2b$10$mFsmjELoYr2Xy7pPrr7FD.G78V89Xuj54G2RUyND6NgoTNNplyH.O
+0
+Huỳnh 
+Văn D
+Nữ
+123450434
+$2b$10$zCCpgO1U6cmQinwPX.THreQQyL/DaBubF.0c5J3GxBYmW5ehNdWLy
+0
+Phan
+Văn A
+Nam
+123450435
+$2b$10$MbHmb/PVz1ADC5NlPY0dNuCTjLLOIZ991eHt1eQThfiqAihzIxI6C
+0
+Phan 
+Văn B
+Nam
+123450436
+$2b$10$fF7iXKegcVF6rklaRyHw7u3q8kXsaw5.fYBkpAzIOZo5l5Mleoxd2
+0
+Phan
+Văn C
+Nam
+123450437
+$2b$10$D74SPsLejsHn90kY4aropOB4BhIekxzXc8JLlpFhepQyB8cp4z/zW
+0
+Phan
+Văn C
+Nam
+123450438
+$2b$10$Z10uK6EE0gVcib.91sp8ROzM/dHfJO9Y7UZCJ8ofytqWSrD8oP6OC
+0
+Phan
+Văn C
+Nam
+123450439
+$2b$10$qRTSHXPL.1RUOCIucHh/zuLVpHwLipuxqmigVXo2eK8rZZmrllm1C
+0
+Phan 
+Tuấn Tài
+Nam
+123450440
+$2b$10$7ck9D5LoTDLM4g/LhMizEuX3PLYgxrLKblE6MTFfqRJ1uswzLZHCq
+0
+Phan 
+Văn Long
+Nam
+123450441
+$2b$10$Mn2pALEFnhJDjd5omBomVuKITwfIfX5AfBb4S4vx3lzIbURdq5Tga
+0
+Phan
+Minh Long
+Nam
+123450442
+$2b$10$sPIo5g08xx6z7lUeUdT8s.wDMr4jEqxyYWbfWgFELSqCHBRxp4g6q
+0
+Phan 
+Minh Tấn
+Nam
+123450443
+$2b$10$7LE72UtVoEuspO839D5fxehRXpsWn1y9C.D0bJx9EikRa0h9nfPPG
+0
+Phan
+Tấn Long
+Nam
+123450445
+$2b$10$UUJ4xFLWhtIfJwWM1eW0TuGpj/xVL6iOuOwGpYd3Ars89N5yPWn8q
+0
+Phan
+Tấn Tuấn
+Nam
+123450444
+$2b$10$hgf7uPxBDd4Y5sdNhAu38.5nIn7geVTdwC.S.NPukIp.jtgrpKJpS
+0
+Hồ
+Tấn Tài
+Nam
+123450446
+$2b$10$9Y2RoePGbBYKWyMm1ZscpuqzHR6rgusqnj/8APHAa.8dMWgcUWCQy
+0
+Hồ 
+Ngọc Hà
+Nữ
+123450447
+$2b$10$L0yklSHfREMDErx/eQS/vOO729Cj0odaoGCfZEZOIc0zEcioj7z4a
+0
+Nguyễn 
+Tấn Long
+Nam
+123450448
+$2b$10$cQVHi/WmbZH7wS2wE7NDRuJF24QNbP4YcB4ZK4N3EFnTjPAb/IYKS
+0
+Phan
+Xuân Thanh
+Nam
+123450449
+$2b$10$ntM6fgpkpHv1iBcZy5Pld.zAdA.ZTaI.45v9T7qkMUfhbGDyvQic.
+0
+Huỳnh
+Tấn Phát
+Nam
+123450450
+$2b$10$2ZJNckh9fKjuP7Eybv5Iie4LQto0LeS3wc41itFaGqyWGvV9WeRVC
+0
+Nguyễn
+Trần Long
+Nam
+123450451
+$2b$10$WQXLV6O0pbVeoCjoJ7ge4uMv3GMq99fsozwPLmJ.Rq6vQkzU6XMtS
+0
+Phan
+Minh Long
+Nam
+123450452
+$2b$10$k8TfSuLNfOJWV8IAyyGB.OyjZnlOwYqlAyh7A4GSGtC/jpXqxoR.e
+0
+Phạm
+Xuân Mạnh
+Nam
+123450453
+$2b$10$1X2CPbWTpjFOBjRxZNFEgulyB2eE7yHLjd28nRFKk.6Kpf.e3swme
+0
+Trần
+A
+Nam
+123450454
+$2b$10$fsMrGdwx3pc5MilkWsoNTunwNFpMMU9Qo4qqVq24ioUYROgKTRHsW
+0
+Trần B
+Toàn
+Nam
+123450455
+$2b$10$xnRfCkSlWAcw2XMt6b0wTOzkPrAZIIcJQU8YuFfIDuyhhDqWW7Lsy
+0
+Trần 
+B
+Nam
+123450456
+$2b$10$ATNy/oL.MDQojw1GjSaTYuGkPSBp5sQofZ73l3zQp5zqpXdryvcEW
+0
+Trần
+C
+Nam
+123450457
+$2b$10$LAOc9U0mPoyjWomCymSF1eHSD2NfrqyFiozDanlwQGLpL4GfYIIae
+0
+Trần 
+C
+Nam
+123450458
+$2b$10$WdGO62DkdHadIXPrgkYoB.i.JxJvFm.LkCaadmBGGtVGVgjUxsmgm
+0
+Trần 
+D
+Nam
+123450459
+$2b$10$lJCh3579TKOW2A0EJq6LGOHBt821ZIEssRihtf73biqOTfhain7AK
+0
+Trần E
+Hoàng
+Nam
+123450460
+$2b$10$yFgk1Ehp07.Ql87E1NSNuumz2G4izHfI7IADFz.k5SVfJ2dSjnxSy
+0
+Trần 
+Văn A
+Nam
+123450461
+$2b$10$BhQ/x9DZ1G4IStQJ8uCgieYALkFxTNVwlh7GizbJFtBk2pZAgFwF.
+0
+Trần 
+Văn B
+Nam
+123450462
+$2b$10$PtZKu8SbhAmBBQH2HKhT5ev9CcjIa79KxEbbFtNcF99SLIuczjb2C
+0
+Trâbf
+Văn C
+Nam
+123450463
+$2b$10$hoa.rC4P/np4q0v/q5x35.hVrNRDoZTOwYtNeGuylXtqFmv38eRS.
+0
+Trần 
+Văn D
+Nam
+123450464
+$2b$10$s1VxokHONGRycjUoY3wZEOUmp.8sdWb8tjZqFgmyVpyD0uEpzJ6sS
+0
+Trần 
+Văn E
+Nam
+123450465
+$2b$10$.AnclG/rhULpHRLFd8yMVO0OUE2vY1exdkd8WJbRtHunm3uJh63zm
+0
+Nguyễn
+Văn Anh
+Nam
+123450467
+$2b$10$OcGAhjKxrpHhzIU2EXtQ3upH4uRhmbSGboEUZaMk2VBc8vCzZ3fIW
+0
+Nguyễn
+Minh Anh
+Nam
+123450468
+$2b$10$aow6fJHGDQ1bj9rKR/2ixeu1.1Te75NRYoEJUkNv94/baGzQWfhPG
+0
+Trần
+Văn Anh
+Nam
+123450469
+$2b$10$rEPebmSNNltTPU073q1lU.UdpLm8Tf40s9ubwCkoT6leYxJssKwiW
+0
+Trần 
+Nhân Đức
+Nam
+123450470
+$2b$10$7PuBYTlUX6pL7L2sd1so2e9JbjcrGUpBlypl99oa0dEz/rh6lC1P6
+0
+Huỳnh
+Văn Anh
+Nam
+123450471
+$2b$10$Nay1UqDI2RpCkgl1Bk9M2.vgnon0jDsAL3sfD9VDq31Dnp2wyFuxe
+0
+Huỳnh
+Thiên Đức
+Nam
+123450472
+$2b$10$b2vIRO/hsUc6SaGOqrev7eMHie3mGJdc5H2.1Du6mGzTLeO5iTh4K
+0
+Hồ
+Văn An
+Nam
+123450473
+$2b$10$zgR1MVG0Rquu0uCMlhukAepFUFd2kvd7yXDoqopymwNZRKVEmwU8u
+0
+Hồ
+Minh An
+Nam
+123450474
+$2b$10$IKoBIJssOs4kbW7ZlPXYLe7bi3.tRDv/6jcfJ0OB8IxrilwwYoCgO
+0
+Hồ
+Lê An
+Nam
+123450475
+$2b$10$YWGlEm3zYxwcH.FKL6Sbu.bjQYGnspisfvDwtAsusa7180dFG/mle
+0
+Lê
+Huỳnh Đức
+Nam
+123450476
+$2b$10$mSTvB2G1EriV1w82WGxOF.f5Mqhbvq8WgCAy9DqtDtcYjGrANNIHy
+0
+Trương
+Công Quỳnh
+Nam
+123450477
+$2b$10$0.g6.1Z4wlUOkjwjgTQBbuPh2qaYzcUOi6Q7dl37uNJC45VfS23FS
+0
+Trương
+Nguyễn AN
+Nam
+123450478
+$2b$10$AbH18bONId.IVZG4tLdTVuJAvGcf5fKyMq94BBKyWoCPDVmBGxcue
+0
+Âu
+Văn Hoàn
+Nam
+123450479
+$2b$10$dzEb2DD/0Sp5wsTq.4oZgezH0a.vVRMN1TfilGGLXPvPI9egF61qu
+0
+Hồ
+Lê Việt Hoàng
+Nam
+123450480
+$2b$10$xdrfyC7gnLtvYOcLgMGd9.3G0WzTA0/XWnVXzEo63ITzeJSV225QS
+0
+Trương
+Minh Bình
+Nam
+123450481
+$2b$10$E4Ojty0CZ01l/wosBPohZezrrszceuwGXTuv.rB2eS/ct5Y6oyHiW
+0
+Nguyễn C
+Cung
+Nam
+888145666
+$2b$10$PYPQzL0E423cMFb/d0IQYeoBgYvRbthrch0cA61ia4sKXi71q858u
 0

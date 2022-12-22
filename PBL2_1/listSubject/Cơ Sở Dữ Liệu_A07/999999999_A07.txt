@@ -1,4 +1,4 @@
-Ngày giờ thi: Wed Dec 21 23:06:45 2022
+Ngày giờ thi: Thu Dec 22 00:05:15 2022
 
 Số lượng câu hỏi đã chọn: 2
 Thời gian của mỗi câu hỏi: 1s
@@ -10,12 +10,12 @@ C. SUM
 D. SELECT
 Đáp án: B
 Đáp án của bạn: a
-Id: 2343
-Nội dung câu hỏi: Câu Lệnh Nào Dùng để Lấy Dữ Liệu Từ Bảng Cần Truy Vấn
-A. FROM
-B. SELECT
-C. AVG
-D. SU,
+Id: 2078
+Nội dung câu hỏi: 77
+A. 99
+B. 66
+C. 11
+D. 22
 Đáp án: A
 Đáp án của bạn: b
 Tổng số câu hỏi đúng: 0

@@ -72,11 +72,20 @@ LinkedList<Questions> Subjects::getQuestionList()
 
 wistream& operator>>(wistream& in, Subjects& x)
 {
-	writeString(60, 10, L"Nhâp tên môn học: ", 6);
+class_name:
+	writeString(60, 10, L"Nhập tên môn học: ", 6);
 	getline(in, x.subjectName);
-	writeString(60, 11, L"Nhập mã môn học: ", 6);
+	if (x.subjectName.length() == 0) {
+		writeString(60, 11, L"Không được bỏ trống!!!", 4);
+		goto class_name;
+	}
+class_code:
+	writeString(60, 12, L"Nhập mã môn học: ", 6);
 	getline(in, x.subjectCode);
-	//x.subjectCode = inputString(9);
+	if (x.subjectCode.length() == 0) {
+		writeString(60, 13, L"Không được bỏ trống!!!", 4);
+		goto class_code;
+	}
 	return in;
 }
 
