@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <stdio.h>
 #include <string>
 #include <fstream>
 #include <Windows.h>
@@ -14,7 +13,6 @@
 #include <direct.h>
 #include <cstdint>
 #include <filesystem>
-#include <format>
 
 #include "bcrypt.h" 
 #include "Header.h"
@@ -119,7 +117,7 @@ int wmain(int argc, wchar_t* argv[]) {
 	catch (...) {
 		perror("Cannot set mode");
 	}
-#endif
+#endif	
 }
 
 void login()
@@ -786,8 +784,8 @@ void Admin::deleteSubject()
 			checkDelete = 0;
 			system("cls");
 		a:
-			menuBar(65, 0, 26, 2, 11);
-			writeString(70, 1, L"XÓA MÔN HỌC", 3);
+			menuBar(69, 0, 22, 2, 11);
+			writeString(74, 1, L"XÓA MÔN HỌC", 3);
 			wcout << endl;
 			gotoxy(68, 4);
 			textcolor(12);
@@ -2465,7 +2463,7 @@ void display(LinkedList<Questions> head)
 void display(int x1, int y1, int x, int y, int choice) {
 	Admin ad;
 	menuBar(70, 1, 20, 2, 11);	writeString(75, 2, L"GIÁO VIÊN", 14);
-	textcolor(2);	menuTable(x1 = 35, y1 = 6);	textcolor(3);
+	textcolor(3);	menuTable(x1 = 35, y1 = 6);
 	writeString(x1 + 5, y1 + 3, L"1>  QUẢN LÝ THÔNG TIN LỚP HỌC", 6);
 	writeString(x1 + 5, y1 + 6, L"2>  QUẢN LÝ THÔNG TIN MÔN HỌC", 6);
 	writeString(x1 + 5, y1 + 9, L"3>  QUẢN LÝ THÔNG TIN SINH VIÊN", 6);
@@ -3260,7 +3258,7 @@ void setClick(int choice)
 									us.multipleChoiceTest();
 								}
 								else {
-									writeString(x1 + 5, y1 + 3, L"1>  LÀM BÀI TRẮC NGHIỆM", 11);
+									writeString(x1 + 5, y1 + 3, L"1>  LÀM BÀI TRẮC NGHIỆM", 15);
 								}
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 28) && (y == y1 + 6)) {
@@ -3270,7 +3268,7 @@ void setClick(int choice)
 									us.viewExam();
 								}
 								else
-									writeString(x1 + 5, y1 + 6, L"2>  XEM CÁC MÔN ĐÃ THI", 11);
+									writeString(x1 + 5, y1 + 6, L"2>  XEM CÁC MÔN ĐÃ THI", 15);
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 36) && (y == y1 + 9)) {
 								if (GetAsyncKeyState(0x01))
@@ -3279,7 +3277,7 @@ void setClick(int choice)
 									us.correctionUser();
 								}
 								else
-									writeString(x1 + 5, y1 + 9, L"3>  THAY ĐỔI THÔNG TIN CÁ NHÂN", 11);
+									writeString(x1 + 5, y1 + 9, L"3>  THAY ĐỔI THÔNG TIN CÁ NHÂN", 15);
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 15) && (y == y1 + 12)) {
 								if (GetAsyncKeyState(0x01))
@@ -3291,7 +3289,7 @@ void setClick(int choice)
 									login();
 								}
 								else
-									writeString(x1 + 5, y1 + 12, L"4>  THOÁT", 11);
+									writeString(x1 + 5, y1 + 12, L"4>  THOÁT", 15);
 							}
 							break;
 						}

@@ -1,16 +1,11 @@
 ﻿#pragma once
-
 #include <iostream>
 #include <string>
 #include <conio.h>
 #include <windows.h>
-#include <io.h>
-#include <fcntl.h>
 #include <strsafe.h>
 #include <chrono>
-#include <iomanip>
 #include <fstream>
-
 
 #pragma warning(disable : 4996)
 
@@ -26,7 +21,7 @@ static int checkEx = 1;
 static int checkEntUs = 1;
 static int checkDelete = 1; //mode check xóa môn học
 static int checkCorretion = 1;// mode check chỉnh sửa sinh viên
-static int checkPass = 1;
+static int checkPass = 1; 
 // Kiểm tra nhập đáp án
 inline int enterResult(wchar_t answer) {
 	if (answer == L'a' || answer == L'A')
