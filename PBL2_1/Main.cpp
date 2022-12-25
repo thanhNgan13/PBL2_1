@@ -1390,7 +1390,6 @@ void Admin::deleteClass()
 						system("cls");
 						return;
 					}
-#if 1
 					else {
 						loadListStudentOfClass(name);
 						temp = head->data.getStudentList(); // danh sách lớp sinh viên bị xóa
@@ -1463,7 +1462,7 @@ void Admin::deleteClass()
 							}
 						} while (true);
 					}
-#endif
+
 					return;
 				}
 			}
@@ -1903,7 +1902,6 @@ void User::correctionUser()
 			}
 		} while (true);
 	}
-#if 1
 	else {
 		wstring name;
 		name = conCat(L"listClass\\" + tempInf->data.getClassName(), tempInf->data.getClassCode());
@@ -1923,7 +1921,6 @@ void User::correctionUser()
 		system("cls");
 		student();
 	}
-#endif
 }
 
 void Admin::editUser() {
@@ -2443,7 +2440,6 @@ void display(Students st, int x, int y, int i, wstring s)
 	gotoxy(x + 23, y + 4);	wcout << st.getLastName();
 	gotoxy(x + 43, y + 4);	wcout << st.getFirstName();
 	gotoxy(x + 61, y + 4);	wcout << st.getSex();
-#if 1
 	if (checkEx == 0) {
 		int len = 0;
 		LinkedList<Score> temp = st.getScoreList();
@@ -2466,7 +2462,6 @@ void display(Students st, int x, int y, int i, wstring s)
 	else {
 		gotoxy(x + 77, y + 4);	wcout << st.getPasswork();
 	}
-#endif
 }
 void display(LinkedList<Questions> head)
 {
