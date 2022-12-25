@@ -12,7 +12,7 @@
 #include <chrono>
 #include <direct.h>
 #include <cstdint>
-#include <filesystem>
+#include <filesystem> // dùng c++ 20 
 
 #include "bcrypt.h" 
 #include "Header.h"
@@ -356,48 +356,6 @@ void student()
 	setClick(5);
 }
 
-void loadQuestions(wstring name)
-{
-	LinkedList<Questions> temp;
-	wifstream file;
-	Questions data;
-	wstring s;
-	wstring A, B, C, D;
-	file.open(name, ios_base::in);
-	int max;
-	file >> max;
-	file.ignore();
-	getline(file, s);
-	for (int i = 0; i < max; i++) {
-		file.imbue(loc);
-		wstring s1;
-		int id;
-		int ans;
-		file >> id;
-		data.setId(id);
-		file.ignore();
-		getline(file, s1);
-		s1 = Upper(s1);
-		data.setContentQuestions(s1);
-		s1.clear();
-		getline(file, A);
-		A = Upper(A);
-		getline(file, B);
-		B = Upper(B);
-		getline(file, C);
-		C = Upper(C);
-		getline(file, D);
-		D = Upper(D);
-		data.setAnswerList(A, B, C, D);
-		file >> ans;
-		data.setAnswer(ans);
-		file.ignore();
-		temp.Insert(data);
-	}
-	Node<Subjects>* head = Search(listS, subStr(name));
-	head->data.setQuestionList(temp);
-	file.close();
-}
 void loadSubject() {
 	wifstream file;
 	file.open(L"listSubject.txt", ios_base::in);
@@ -532,6 +490,69 @@ void loadListStudentOfClass(wstring name)
 	}
 	Node<informationClass>* head = Search(listInfC, subStr(name));
 	head->data.setStudentList(temp);
+	file.close();
+}
+void loadQuestions(wstring name)
+{
+	LinkedList<Questions> temp;
+	wifstream file;
+	Questions data;
+	wstring s;
+	wstring A, B, C, D;
+	file.open(name, ios_base::in);
+	int max;
+	file >> max;
+	file.ignore();
+	getline(file, s);
+	for (int i = 0; i < max; i++) {
+		try {
+			file.imbue(loc);
+			wstring s1;
+			int id;
+			int ans;
+			file >> id;
+			data.setId(id);
+			file.ignore();
+			getline(file, s1);
+			s1 = Upper(s1);
+			data.setContentQuestions(s1);
+			s1.clear();
+			getline(file, A);
+			A = Upper(A);
+			getline(file, B);
+			B = Upper(B);
+			getline(file, C);
+			C = Upper(C);
+			getline(file, D);
+			D = Upper(D);
+			if (A.empty() || B.empty() || C.empty() || D.empty()) {
+				throw 98;
+			}
+			data.setAnswerList(A, B, C, D);
+			file >> ans;
+			data.setAnswer(ans);
+			file.ignore();
+			temp.Insert(data);
+		}
+		catch (...) {
+			system("cls");
+			writeString(60, 0, L"Dữ liệu đầu vào có giá trị không hợp lệ!!!", 4);
+			writeString(60, 1, L"Hãy kiểm tra lại dữ liệu và thử lại sau.", 4);
+			gotoxy(60, 2);
+			system("pause");
+			system("cls");
+			if (checkAd == 0) {
+				teacher();
+			}
+			else {
+				listInfC.Delete();
+				listS.Delete();
+				login();
+			}
+		}
+	}
+	Node<Subjects>* head = Search(listS, subStr(name));
+	head->data.setQuestionList(temp);
 	file.close();
 }
 
