@@ -107,7 +107,6 @@ void forgotPassword();
 void setClick(int choice);
 
 int wmain(int argc, wchar_t* argv[]) {
-#if 1
 	try {
 		if (_setmode(_fileno(stdout), _O_WTEXT) == -1 || _setmode(_fileno(stdin), _O_WTEXT) == -1) {
 			throw 0;
@@ -117,7 +116,6 @@ int wmain(int argc, wchar_t* argv[]) {
 	catch (...) {
 		perror("Cannot set mode");
 	}
-#endif	
 }
 
 void login()
@@ -2075,7 +2073,7 @@ void User::multipleChoiceTest()
 			gotoxy(0, 9);
 			ShowCur(false);
 			wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
-			wchar_t answer = charInputTimeout(time, 100ms, 2);
+			wchar_t answer = charInputTimeout(time, 100ms, 1);
 			if (!answer) {
 
 				file << L"Bạn đã không kịp thời cho câu hỏi này" << endl;
@@ -2747,19 +2745,26 @@ void setClick(int choice)
 	Admin ad;
 	int counter = 0;
 	wstring s;
+	// Vòng lặp để quét qua các event 
 	while (!counter)
 	{
+		// đọc event vào
 		ShowCur(false);
 		textcolor(6);
 		DWORD cNumRead, fdwMode, i;
 		INPUT_RECORD irInBuf[128];
+		// Get the standard input handle. 
 		hStdin = GetStdHandle(STD_INPUT_HANDLE);
 		if (hStdin == INVALID_HANDLE_VALUE)
 			WriteError(const_cast <LPSTR>("GetStdHandle"));
+
+		// Mở cửa sổ ở chế độ mở
 		fdwMode = ENABLE_EXTENDED_FLAGS;
 		if (!SetConsoleMode(hStdin, fdwMode)) {
 			WriteError(const_cast <LPSTR>("SetConsoleMode"));
 		}
+		// Mở cửa sổ ở chế độ chấp nhận input
+
 		fdwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
 		if (!SetConsoleMode(hStdin, fdwMode)) {
 			WriteError(const_cast <LPSTR>("SetConsoleMode"));
@@ -2767,8 +2772,11 @@ void setClick(int choice)
 		if (!ReadConsoleInput(hStdin, irInBuf, 128, &cNumRead)) {
 			WriteError(const_cast <LPSTR>("ReadConsoleInput"));
 		}
+
+		// xử lý từng event một
 		for (i = 0; i < cNumRead; i++)
 		{
+			// Khai báo các biến mà hàm cần
 			int x, y;
 			INPUT_RECORD Inrec;
 			DWORD eventRead;
@@ -2778,11 +2786,13 @@ void setClick(int choice)
 			hStdIn = GetStdHandle(STD_INPUT_HANDLE);
 			dwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
 
+			//Kiểm tra xem console đã ở chế độ chấp nhận input từ chuột chưa
 			if (SetConsoleMode(hStdIn, dwMode | ENABLE_MOUSE_INPUT) == TRUE)
 
 				GetConsoleMode(hStdIn, &dwMode);
 			SetConsoleMode(hStdIn, (dwMode & (ENABLE_MOUSE_INPUT)));
 
+			// vòng lặp này sẽ lấy các event của trong bộ nhớ ra để xử lý
 			do
 			{
 				PeekConsoleInput(hStdIn, &Inrec, 1, &eventRead);
