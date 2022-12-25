@@ -5,6 +5,7 @@ Ngoài các chức năng chính như trên, hệ thống này còn cần thêm m
 ## Cách sử dụng
 ### IDE
 Ứng dụng chỉ được chạy trên Visual Studio 
+
 Dev C không hỗ trợ nhập xuất tiếng việt nên không thẻ dùng được
 ### Môi trường
 Sử dụng C++ 20 
