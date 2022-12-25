@@ -27,16 +27,18 @@ $2b$10$0kFo3ESHUo/PHnzAXwxpb.Ry/PzzKUxVit4LjHiXtq2OpQ/GvbMW.
 
 4
 Nguyễn 
-Khuyến
+Sinh
 Nam
 999999999
-$2b$10$Z8XcB4GiUheOWDP46tx4WOuIUr.QbeXSsq5NsSPxJ/J6GKolbSu7q
-3
+$2b$10$z8VW1IrX5WL/NHs99syKFOYShnnzFVoltf7.l4IENRtBRYUAVGGl6
+4
 A02
 2
 A01
 2
 A07
+0
+A06
 0
 Phan 
 Hả

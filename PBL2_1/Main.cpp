@@ -402,7 +402,6 @@ void loadQuestions(wstring name)
 }
 void loadSubject() {
 	wifstream file;
-
 	file.open(L"listSubject.txt", ios_base::in);
 	int max;
 	file >> max;
@@ -1791,7 +1790,7 @@ void User::correctionUser()
 			listInfC.Display();
 			gotoxy(65, listInfC.getCount() + 7);
 			textcolor(6);
-			wcout << L"Nhập mã lớp học cần xóa sinh viên: ";
+			wcout << L"Nhập mã lớp học cần điều chỉnh thông tin sinh viên: ";
 			s = inputString(9);
 			head = Search(listInfC, s);
 			if (head == nullptr) {
@@ -1914,6 +1913,7 @@ void Admin::editUser() {
 
 void User::multipleChoiceTest()
 {
+	ShowCur(true);
 	time_t now = time(0);
 	wchar_t* dt = _wctime(&now);
 	wfstream file;
@@ -2075,7 +2075,7 @@ void User::multipleChoiceTest()
 			gotoxy(0, 9);
 			ShowCur(false);
 			wcout << L"Nhập câu trả lời của bạn(A, B, C, D): ";
-			wchar_t answer = charInputTimeout(time, 100ms, 1);
+			wchar_t answer = charInputTimeout(time, 100ms, 2);
 			if (!answer) {
 
 				file << L"Bạn đã không kịp thời cho câu hỏi này" << endl;
@@ -2463,7 +2463,7 @@ void display(LinkedList<Questions> head)
 void display(int x1, int y1, int x, int y, int choice) {
 	Admin ad;
 	menuBar(70, 1, 20, 2, 11);	writeString(75, 2, L"GIÁO VIÊN", 14);
-	textcolor(3);	menuTable(x1 = 35, y1 = 6);
+	textcolor(9);	menuTable(x1 = 35, y1 = 6);
 	writeString(x1 + 5, y1 + 3, L"1>  QUẢN LÝ THÔNG TIN LỚP HỌC", 6);
 	writeString(x1 + 5, y1 + 6, L"2>  QUẢN LÝ THÔNG TIN MÔN HỌC", 6);
 	writeString(x1 + 5, y1 + 9, L"3>  QUẢN LÝ THÔNG TIN SINH VIÊN", 6);
@@ -2505,7 +2505,7 @@ void display(int x1, int y1, int x, int y, int choice) {
 			ad.editClass();
 		}
 		else {
-			writeString(x1 + 5, y1 + 3, L"1>  QUẢN LÝ THÔNG TIN LỚP HỌC", 15);
+			writeString(x1 + 5, y1 + 3, L"1>  QUẢN LÝ THÔNG TIN LỚP HỌC", 228);
 		}
 	}
 	else if ((x >= x1 + 5 && x <= x1 + 35) && (y == y1 + 6)) {
@@ -2515,7 +2515,7 @@ void display(int x1, int y1, int x, int y, int choice) {
 			ad.editSubject();
 		}
 		else
-			writeString(x1 + 5, y1 + 6, L"2>  QUẢN LÝ THÔNG TIN MÔN HỌC", 15);
+			writeString(x1 + 5, y1 + 6, L"2>  QUẢN LÝ THÔNG TIN MÔN HỌC", 228);
 	}
 	else if ((x >= x1 + 5 && x <= x1 + 37) && (y == y1 + 9)) {
 		if (GetAsyncKeyState(0x01))
@@ -2524,7 +2524,7 @@ void display(int x1, int y1, int x, int y, int choice) {
 			ad.editUser();
 		}
 		else
-			writeString(x1 + 5, y1 + 9, L"3>  QUẢN LÝ THÔNG TIN SINH VIÊN", 15);
+			writeString(x1 + 5, y1 + 9, L"3>  QUẢN LÝ THÔNG TIN SINH VIÊN", 228);
 	}
 	else if ((x >= x1 + 5 && x <= x1 + 39) && (y == y1 + 12)) {
 		if (GetAsyncKeyState(0x01))
@@ -2533,7 +2533,7 @@ void display(int x1, int y1, int x, int y, int choice) {
 			ad.editExam();
 		}
 		else
-			writeString(x1 + 5, y1 + 12, L"4>  QUẢN LÝ THÔNG TIN CÂU HỎI THI", 15);
+			writeString(x1 + 5, y1 + 12, L"4>  QUẢN LÝ THÔNG TIN CÂU HỎI THI", 228);
 	}
 	else if ((x >= x1 + 5 && x <= x1 + 17) && (y == y1 + 15)) {
 		if (GetAsyncKeyState(0x01))
@@ -2542,16 +2542,19 @@ void display(int x1, int y1, int x, int y, int choice) {
 			ad.multipleChoiceTest();
 		}
 		else
-			writeString(x1 + 5, y1 + 15, L"5>  THI THỬ", 15);
+			writeString(x1 + 5, y1 + 15, L"5>  THI THỬ", 228);
 	}
 	else if ((x >= x1 + 5 && x <= x1 + 15) && (y == y1 + 18)) {
 		if (GetAsyncKeyState(0x01))
 		{
 			system("cls");
+			checkAd = 1;
+			listInfC.Delete();
+			listS.Delete();
 			login();
 		}
 		else
-			writeString(x1 + 5, y1 + 18, L"6>  THOÁT", 15);
+			writeString(x1 + 5, y1 + 18, L"6>  THOÁT", 228);
 	}
 }
 
@@ -3246,7 +3249,7 @@ void setClick(int choice)
 							size_t l = s.length();
 							const wchar_t* s1 = s.c_str();
 							menuBar(int(80 - ((l + 10) / 2)), 1, int(l + 10), 2, 11);	writeString(int(85 - ((l + 10) / 2)), 2, s1, 14);
-							textcolor(2);	menuTable(x1 = 35, y1 = 6);	textcolor(3);
+							textcolor(9);	menuTable(x1 = 35, y1 = 6);
 							writeString(x1 + 5, y1 + 3, L"1>  LÀM BÀI TRẮC NGHIỆM", 6);
 							writeString(x1 + 5, y1 + 6, L"2>  XEM CÁC MÔN ĐÃ THI", 6);
 							writeString(x1 + 5, y1 + 9, L"3>  THAY ĐỔI THÔNG TIN CÁ NHÂN", 6);
@@ -3258,7 +3261,7 @@ void setClick(int choice)
 									us.multipleChoiceTest();
 								}
 								else {
-									writeString(x1 + 5, y1 + 3, L"1>  LÀM BÀI TRẮC NGHIỆM", 15);
+									writeString(x1 + 5, y1 + 3, L"1>  LÀM BÀI TRẮC NGHIỆM", 228);
 								}
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 28) && (y == y1 + 6)) {
@@ -3268,7 +3271,7 @@ void setClick(int choice)
 									us.viewExam();
 								}
 								else
-									writeString(x1 + 5, y1 + 6, L"2>  XEM CÁC MÔN ĐÃ THI", 15);
+									writeString(x1 + 5, y1 + 6, L"2>  XEM CÁC MÔN ĐÃ THI", 228);
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 36) && (y == y1 + 9)) {
 								if (GetAsyncKeyState(0x01))
@@ -3277,7 +3280,7 @@ void setClick(int choice)
 									us.correctionUser();
 								}
 								else
-									writeString(x1 + 5, y1 + 9, L"3>  THAY ĐỔI THÔNG TIN CÁ NHÂN", 15);
+									writeString(x1 + 5, y1 + 9, L"3>  THAY ĐỔI THÔNG TIN CÁ NHÂN", 228);
 							}
 							else if ((x >= x1 + 5 && x <= x1 + 15) && (y == y1 + 12)) {
 								if (GetAsyncKeyState(0x01))
@@ -3289,7 +3292,7 @@ void setClick(int choice)
 									login();
 								}
 								else
-									writeString(x1 + 5, y1 + 12, L"4>  THOÁT", 15);
+									writeString(x1 + 5, y1 + 12, L"4>  THOÁT", 228);
 							}
 							break;
 						}

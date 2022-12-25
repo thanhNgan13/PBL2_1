@@ -11,5 +11,5 @@ Vật Lý
 A06
 Cơ Sở Dữ Liệu
 A07
-Chủ Nghĩa Xã Hội Khoa Học
-A11
+CNXHKH
+A12

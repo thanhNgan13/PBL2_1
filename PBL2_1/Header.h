@@ -128,7 +128,8 @@ inline wchar_t charInputTimeout(cron::milliseconds duration, cron::milliseconds 
 				// else do nothing
 			}
 			else if (ch != L'a' && ch != L'b' && ch != L'c' && ch != L'd' && ch != L'A' && ch != L'B' && ch != L'C' && ch != L'D') {
-				if (ret) wcin.clear();
+				if (ret) 
+					wcin.clear();
 				ret = L'\0';
 			}
 			else {
