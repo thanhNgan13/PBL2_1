@@ -9,6 +9,6 @@ Ngoài các chức năng chính như trên, hệ thống này còn cần thêm m
 ### Môi trường
 > Sử dụng C++ 20 
 ## Contributors
-[![](https://avatars.githubusercontent.com/u/95210770?v=4)](https://github.com/pmtriet)
+[Minh Triết](https://github.com/pmtriet)
  
 
