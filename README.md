@@ -5,9 +5,10 @@ Ngoài các chức năng chính như trên, hệ thống này còn cần thêm m
 ## Cách sử dụng
 ### IDE
 > Ứng dụng chỉ được chạy trên Visual Studio.  
-> Dev C không hỗ trợ nhập xuất tiếng việt nên không thể dùng được.
+> Dev C không hỗ trợ nhập xuất tiếng việt nên không thẻ dùng được.
 ### Môi trường
 > Sử dụng C++ 20 
 ## Contributors
+[![](https://avatars.githubusercontent.com/u/95210770?v=4)](https://github.com/pmtriet)
  
 
